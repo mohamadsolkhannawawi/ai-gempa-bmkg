@@ -9,7 +9,7 @@ from service.record_stream_service import get_record_stream_api_service
 from service.record_stream_service import get_record_stream_kafka_service
 
 #exception and validation
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 

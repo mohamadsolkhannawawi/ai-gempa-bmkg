@@ -13,7 +13,7 @@ from services.gempa_terkini_service import get_gempa_terkini_service
 import os
 
 # exception and validation
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 SECRET_KEY = "3e8a3f31aab886f8793176988f8298c9265f84b8388c9fef93635b08951f379b"
 ALGORITHM = "HS256"
