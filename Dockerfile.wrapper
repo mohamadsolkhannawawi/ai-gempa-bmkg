@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update 2>/dev/null || true && \
     apt-get install -y --no-install-recommends \
     docker.io \
+    docker-compose \
     git \
     curl \
     wget \
