@@ -43,6 +43,11 @@ services:
               count: all
               capabilities: [gpu]
     command: ["/app/entrypoint-wrapper.sh"]
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
 
 volumes:
   gempa-docker-data:
