@@ -14,12 +14,16 @@ if ! pgrep -x "dockerd" > /dev/null; then
     echo "Docker daemon started"
 fi
 
-# Wait for Docker to be ready
-for i in {1..10}; do
-    docker info > /dev/null 2>&1 && break
-    echo "Waiting for Docker... ($i/10)"
+# Wait for Docker to be ready (skip docker info - client/daemon version mismatch)
+for i in {1..15}; do
+    if [ -e /var/run/docker.sock ] && [ $(stat -c '%a' /var/run/docker.sock) != "??????" ]; then
+        break
+    fi
+    echo "Waiting for Docker socket... ($i/15)"
     sleep 2
 done
+
+sleep 3
 
 # Create Docker network if not exists
 docker network inspect sispro-tews_req > /dev/null 2>&1 || \
