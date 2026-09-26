@@ -1,0 +1,20 @@
+# Exclude data directories and caches from Docker build context
+**/data/
+**/logs/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.git/
+.gitignore
+*.md
+!DEPLOYMENT_WRAPPER.md
+.env
+.envs/
+node_modules/
+venv/
+.vscode/
+.idea/
+*.egg-info/
+dist/
+build/
