@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy and install requirements (separated from dir copy to prevent multiple install on code changes)
 COPY ./requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --progress-bar off --no-cache-dir -r requirements.txt
 
 # Copy the current directory contents into the container at /app
 COPY . /app
