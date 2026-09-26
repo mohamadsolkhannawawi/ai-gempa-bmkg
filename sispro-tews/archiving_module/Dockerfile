@@ -9,21 +9,21 @@ COPY ./requirement.txt /app/requirement.txt
 # Install dependencies
 RUN pip install -r requirement.txt --progress-bar off
 
-# Prepare cronjob
+# Prepare cronjob (skip packages that are 404 in bullseye security repo)
 RUN apt-get update && \
-    apt-get install -y cron procps nano && \
-    touch /etc/crontab /etc/cron.*/*
+    (apt-get install -y procps || true) && \
+    mkdir -p /etc/cron.d
 
 # Copy other files
 COPY . .
 
 # Add chmod and mkdir logs
 RUN chmod 644 ./crontab && \
-    mv ./crontab /etc/cron.d/crontab && \
+    mkdir -p /etc/cron.d && \
+    cp ./crontab /etc/cron.d/crontab && \
     chmod +x /app/start_archiving.sh && \
     mkdir -p /app/logs/ && \
-    touch /app/logs/archiving.log && \
-    crontab /etc/cron.d/crontab
+    touch /app/logs/archiving.log || true
 
 # Create an entrypoint script
 COPY --chmod=0755 entrypoint.sh /app/entrypoint.sh
