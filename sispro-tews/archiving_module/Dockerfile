@@ -31,7 +31,8 @@ RUN chmod 644 ./crontab && \
     touch /app/logs/archiving.log || true
 
 # Create an entrypoint script
-COPY --chmod=0755 entrypoint.sh /app/entrypoint.sh
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod 0755 /app/entrypoint.sh
 
 # Command to run on container start
 ENTRYPOINT ["/app/entrypoint.sh"]
