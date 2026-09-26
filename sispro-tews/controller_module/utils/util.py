@@ -5,20 +5,20 @@ from datetime import datetime
 import bcrypt
 
 def verify_password(pwd_context, plain_password, hashed_password):
-    # return pwd_context.verify(plain_password, hashed_password)
+    return pwd_context.verify(plain_password, hashed_password)
 
-    return bcrypt.checkpw(
-        bytes(plain_password, encoding="utf-8"),
-        bytes(hashed_password, encoding="utf-8"),
-    )
+    # return bcrypt.checkpw(
+    #     bytes(plain_password, encoding="utf-8"),
+    #     bytes(hashed_password, encoding="utf-8"),
+    # )
    
 def get_password_hash(pwd_context, password):
-    # return pwd_context.hash(password)
+    return pwd_context.hash(password)
 
-    return bcrypt.hashpw(
-        bytes(password, encoding="utf-8"),
-        bcrypt.gensalt(),
-    )
+    # return bcrypt.hashpw(
+    #     bytes(password, encoding="utf-8"),
+    #     bcrypt.gensalt(),
+    # )
 
 def my_random_string(string_length=10):
     """Returns a random string of length string_length."""
