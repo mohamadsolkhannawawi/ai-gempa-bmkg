@@ -5,8 +5,8 @@ FROM rocm/dev-ubuntu-22.04
 WORKDIR /app
 
 # Install python
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip
+RUN apt-get update 2>/dev/null || true && \
+    apt-get install -y python3 python3-pip 2>/dev/null || true
 
 # Copy and install requirements (separated from dir copy to prevent multiple install on code changes)
 COPY ./requirements.txt /app/requirements.txt
