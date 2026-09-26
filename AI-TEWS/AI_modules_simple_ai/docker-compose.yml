@@ -47,16 +47,31 @@ services:
       context: ./association_module
     env_file:
       - ./.env
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    ulimits:
+      nproc: 65535
     
   phase-arrival_module:
     build:
       context: ./phase-arrival_module
     env_file:
       - ./.env
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    ulimits:
+      nproc: 65535
     
   locmag_module:
     build:
       context: ./locmag_module
     env_file:
       - ./.env
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    ulimits:
+      nproc: 65535
     
