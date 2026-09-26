@@ -18,3 +18,11 @@ venv/
 *.egg-info/
 dist/
 build/
+
+# MongoDB WiredTiger data files
+AI-TEWS/requirements/data/
+AI-TEWS/requirements/logs/
+
+# Sispro-TEWS module logs and data
+sispro-tews/*/logs/
+sispro-tews/*/data/
