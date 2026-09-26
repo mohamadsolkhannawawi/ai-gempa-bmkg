@@ -23,10 +23,10 @@ services:
       - "8005:8005"
       - "8006:8006"     # geomecca frontend (existing)
       - "8007:8007"
-      - "27017:27017"   # mongodb
-      - "6379:6379"     # redis
-      - "9092:9092"     # kafka
-      - "2181:2181"     # zookeeper
+      - "32717:27017"   # mongodb (avoid K8s conflict)
+      - "36379:6379"    # redis (avoid K8s conflict)
+      - "39092:9092"    # kafka (avoid K8s conflict)
+      - "32181:2181"    # zookeeper (avoid K8s conflict)
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/archive:/mnt/archive
