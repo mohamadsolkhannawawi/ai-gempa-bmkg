@@ -9,12 +9,7 @@ services:
     container_name: gempa-dind-wrapper
     restart: unless-stopped
     ports:
-      - "38001:38001"   # sispro public_api_module
-      - "38002:38002"   # record_stream_module
-      - "38003:38003"   # controller_module
-      - "38004:38004"   # fdsn_module
-      - "38005:38005"   # fdsn_api_module
-      - "38006:38006"   # nginx frontend
+      # Internal service ports (38001-38006) handled inside DinD, not exposed to host
       - "8000:8000"     # AI-TEWS AI modules
       - "8001:8001"     # AI modules
       - "8002:8002"
