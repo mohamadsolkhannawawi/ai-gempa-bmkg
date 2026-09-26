@@ -8,6 +8,9 @@ services:
     privileged: true
     container_name: gempa-dind-wrapper
     restart: unless-stopped
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
     ports:
       # Internal service ports (38001-38006) handled inside DinD, not exposed to host
       - "8000:8000"     # AI-TEWS AI modules
