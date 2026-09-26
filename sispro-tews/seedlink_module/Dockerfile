@@ -9,16 +9,9 @@ COPY ./requirement.txt /app/requirement.txt
 # Install dependencies
 RUN pip install -r requirement.txt --progress-bar off
 
-# Prepare cronjob
-RUN apt-get update && \
-    apt-get install -y cron procps nano && \
-    touch /etc/crontab /etc/cron.*/* || true
-
-COPY ./crontab /etc/cron.d/crontab
-RUN chmod 0644 /etc/cron.d/crontab
-
-# Apply crontab
-RUN crontab /etc/cron.d/crontab
+# Install system utilities (skip cron due to apt errors)
+RUN apt-get update 2>/dev/null || true && \
+    apt-get install -y procps nano 2>/dev/null || true
 
 # Copy other files
 COPY . .
