@@ -93,6 +93,7 @@ async def add_process_time_header(request: Request, call_next):
     log += "\n"+ str(datetime.datetime.now()) +" Response "+trace_id+" : "+ response_body[0].decode()
     log += "\n"+ str(datetime.datetime.now()) +" Response Time "+trace_id+" : "+ str(int(process_time*1000))+"\n"
     # log += "\nTimestamp "+trace_id+" : "+ str(datetime.datetime.now())+"\n"
+    os.makedirs('./logs', exist_ok=True)
     logging.basicConfig(filename="./logs/logs_record_stream_module_"+str(today_date)+".log", level=logging.INFO)
     # logging.info(log)
 
