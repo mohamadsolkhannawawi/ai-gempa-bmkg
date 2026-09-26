@@ -12,9 +12,10 @@ RUN pip install -r requirement.txt --progress-bar off
 # Prepare cronjob
 RUN apt-get update && \
     apt-get install -y cron procps nano && \
-    touch /etc/crontab /etc/cron.*/*
+    touch /etc/crontab /etc/cron.*/* || true
 
-COPY --chmod=0644 ./crontab /etc/cron.d/crontab
+COPY ./crontab /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
 
 # Apply crontab
 RUN crontab /etc/cron.d/crontab
@@ -29,7 +30,8 @@ RUN chmod +x /app/start_seedlink.sh && \
     touch /app/logs/seedlink.log
 
 # Create an entrypoint script
-COPY --chmod=0755 entrypoint.sh /app/entrypoint.sh
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod 0755 /app/entrypoint.sh
 
 # Command to run on container start
 ENTRYPOINT ["/app/entrypoint.sh"]
