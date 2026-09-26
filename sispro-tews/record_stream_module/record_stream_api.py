@@ -19,6 +19,7 @@ import uvicorn
 import datetime
 import time
 import logging
+import os
 
 
 load_dotenv()
