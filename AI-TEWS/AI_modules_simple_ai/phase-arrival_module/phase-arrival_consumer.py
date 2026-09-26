@@ -1,3 +1,7 @@
+import os
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+os.environ['MPLBACKEND'] = 'Agg'
+
 from obspy import UTCDateTime
 import os
 from kafka import KafkaConsumer, KafkaProducer

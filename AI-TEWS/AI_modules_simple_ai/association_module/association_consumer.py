@@ -1,3 +1,7 @@
+import os
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+os.environ['MPLBACKEND'] = 'Agg'
+
 import numpy as np
 import pandas as pd
 import os, json, time, redis
