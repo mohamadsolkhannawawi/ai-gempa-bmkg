@@ -2,6 +2,8 @@
 
 set -e
 
+export DOCKER_API_VERSION=1.41
+
 echo "=== Starting Docker-in-Docker for GEMPA AI-TEWS ==="
 
 # Setup Docker daemon if not running
