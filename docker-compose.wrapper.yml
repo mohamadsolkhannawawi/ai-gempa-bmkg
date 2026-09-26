@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  gempa-wrapper:
+    build:
+      context: .
+      dockerfile: Dockerfile.wrapper
+    privileged: true
+    container_name: gempa-dind-wrapper
+    restart: unless-stopped
+    ports:
+      - "38001:38001"   # sispro public_api_module
+      - "38002:38002"   # record_stream_module
+      - "38003:38003"   # controller_module
+      - "38004:38004"   # fdsn_module
+      - "38005:38005"   # fdsn_api_module
+      - "38006:38006"   # nginx frontend
+      - "8000:8000"     # AI-TEWS AI modules
+      - "8001:8001"     # AI modules
+      - "8002:8002"
+      - "8003:8003"
+      - "8004:8004"
+      - "8005:8005"
+      - "8006:8006"     # geomecca frontend (existing)
+      - "8007:8007"
+      - "27017:27017"   # mongodb
+      - "6379:6379"     # redis
+      - "9092:9092"     # kafka
+      - "2181:2181"     # zookeeper
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/archive:/mnt/archive
+      - ./sispro-tews:/app/sispro-tews
+      - ./AI-TEWS:/app/AI-TEWS
+      - ./tews-ui-vue:/app/tews-ui-vue
+      - ./.envs:/app/.envs
+      - gempa-docker-data:/var/lib/docker
+      - gempa-logs:/var/log/gempa
+    environment:
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: ["/app/entrypoint-wrapper.sh"]
+
+volumes:
+  gempa-docker-data:
+  gempa-logs:
