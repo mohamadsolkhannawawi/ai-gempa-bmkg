@@ -4,6 +4,9 @@ FROM rocm/dev-ubuntu-22.04
 # Set the working directory in the container
 WORKDIR /app
 
+# Disable OpenBLAS threading to avoid pthread_create failures in nested containers
+ENV OPENBLAS_NUM_THREADS=1
+
 # Install python
 RUN apt-get update 2>/dev/null || true && \
     apt-get install -y python3 python3-pip 2>/dev/null || true
