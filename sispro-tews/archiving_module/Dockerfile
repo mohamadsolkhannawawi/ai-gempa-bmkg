@@ -5,6 +5,8 @@ WORKDIR /app
 
 # Disable OpenBLAS threading to avoid pthread_create failures in nested containers
 ENV OPENBLAS_NUM_THREADS=1
+# Use non-interactive matplotlib backend to avoid thread creation in FontManager
+ENV MPLBACKEND=Agg
 
 # Copy the dependencies file to the working directory
 COPY ./requirement.txt /app/requirement.txt

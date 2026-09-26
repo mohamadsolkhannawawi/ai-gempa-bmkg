@@ -6,6 +6,8 @@ WORKDIR /app
 
 # Disable OpenBLAS threading to avoid pthread_create failures in nested containers
 ENV OPENBLAS_NUM_THREADS=1
+# Use non-interactive matplotlib backend to avoid thread creation in FontManager
+ENV MPLBACKEND=Agg
 
 # Install python
 RUN apt-get update 2>/dev/null || true && \
