@@ -5,7 +5,7 @@ import api from '@src/utils/api'
 import { GetAllUserListQuery } from './types'
 
 export const getUsersAPI = async (params?: GetAllUserListQuery) => {
-  const { data } = await api.get<{ data: User[]; total: number }>('/user', {
+  const { data } = await api.get<{ data: User[]; total: number }>('/api/v1/user', {
     baseURL: API_BFF_URL,
     params: {
       page: params?.page ?? 1,
@@ -18,14 +18,14 @@ export const getUsersAPI = async (params?: GetAllUserListQuery) => {
 }
 
 export const postUserAPI = async (payload: AddUserPayload) => {
-  const { data } = await api.post('/user', payload, {
+  const { data } = await api.post('/api/v1/user', payload, {
     baseURL: API_BFF_URL
   })
   return data
 }
 
 export const deleteUserAPI = async (userId: string) => {
-  const { data } = await api.delete(`/user/${userId}`, {
+  const { data } = await api.delete(`/api/v1/user/${userId}`, {
     baseURL: API_BFF_URL
   })
 
@@ -33,7 +33,7 @@ export const deleteUserAPI = async (userId: string) => {
 }
 
 export const putUserAPI = async (userId: string, payload: UpdateUserPayload) => {
-  const { data } = await api.put(`/user/${userId}`, payload, {
+  const { data } = await api.put(`/api/v1/user/${userId}`, payload, {
     baseURL: API_BFF_URL
   })
   return data

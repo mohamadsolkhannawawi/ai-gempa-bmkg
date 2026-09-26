@@ -13,7 +13,9 @@ COPY . .
 
 # Build args for Vite env vars
 ARG VITE_API_BASE_URL=http://152.118.31.54:38003
+ARG VITE_API_BFF_URL=http://152.118.31.54:38003
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_API_BFF_URL=$VITE_API_BFF_URL
 
 # Build the application
 RUN npm run build

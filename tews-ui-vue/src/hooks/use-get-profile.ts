@@ -8,7 +8,7 @@ const useGetProfile = () =>
   useQuery({
     queryKey: ['profile'],
     queryFn: async (): Promise<User> => {
-      const { data } = await api.get<APIResponse<User>>('/user/me')
+      const { data } = await api.get<APIResponse<User>>('/api/v1/user/me')
       return data.data!
     }
   })
