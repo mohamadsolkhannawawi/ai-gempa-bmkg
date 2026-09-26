@@ -1,0 +1,11 @@
+pymongo
+redis
+numpy
+pandas
+tqdm
+kafka_python==2.0.2
+obspy
+fastapi
+unzip
+uvicorn
+openpyxl

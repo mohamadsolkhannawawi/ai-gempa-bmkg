@@ -1,0 +1,21 @@
+.ol-overviewmap.ol-uncollapsible {
+  top: 4px;
+  left: 4px;
+  bottom: initial;
+  background: transparent;
+  opacity: 0.7;
+}
+
+.ol-overviewmap.ol-uncollapsible:hover {
+  opacity: 1;
+}
+
+.ol-overviewmap .ol-overviewmap-map {
+  width: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .ol-overviewmap.ol-uncollapsible {
+    display: none;
+  }
+}

@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "f1cc90df-d36d-4b12-a353-aa41868c68b2",
+		"name": "API Incoming Module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33808303"
+	},
+	"item": [
+		{
+			"name": "Auto Gempa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{'_id': ObjectId('67754aa3eab686fa062abcfe'), 'name': 'Event 2024-12-20T23: 52: 45.578732Z', 'origin_ids': [ObjectId('67754aa3eab686fa062abcfd')\r\n    ], 'preferred_origin_id': ObjectId('67754aa3eab686fa062abcfd'), 'created_at': datetime.datetime(2025,\r\n    1,\r\n    1,\r\n    14,\r\n    1,\r\n    7,\r\n    815000), 'origin_data': {'_id': ObjectId('67754aa3eab686fa062abcfd'), 'name': 'Origin 2024-12-20 23: 52: 45.578732', 'origin_time': datetime.datetime(2024,\r\n        12,\r\n        20,\r\n        23,\r\n        52,\r\n        45,\r\n        578000), 'arrival_ids': [ObjectId('676603877aaec2afb6519393'), ObjectId('6766039ce7565f00f4094ae8'), ObjectId('676603a44c7496d09109b6c7'), ObjectId('676603877aaec2afb6519390'), ObjectId('676603a62832ca4c280e8108'), ObjectId('676603877aaec2afb6519394'), ObjectId('6766039ce7565f00f4094ae9'), ObjectId('676603a44c7496d09109b6c8'), ObjectId('676603877aaec2afb6519391'), ObjectId('676603a62832ca4c280e8109')\r\n        ], 'longitude': 113.1004, 'latitude': -8.3125, 'depth': 60.487400000000015, 'err_epicenter': 474.0504, 'rms': 0.023814, 'gap': 167.2341, 'region': 'Jawa', 'sub_region': 'South Java (indian Ocean)', 'terrain': 'Sea', 'country': 'Indonesia', 'magnitude_ids': [ObjectId('67754aa3eab686fa062abcfc')\r\n        ], 'station_magnitude_ids_per_type': [], 'modified_by': None, 'auto_origin_ref_id': None, 'created_at': datetime.datetime(2024,\r\n        12,\r\n        10,\r\n        5,\r\n        23,\r\n        45,\r\n        691000), 'modified_at': None\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "172.19.0.56:38007/autogempa?format=xml",
+					"host": [
+						"172",
+						"19",
+						"0",
+						"56"
+					],
+					"port": "38007",
+					"path": [
+						"autogempa"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "xml"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gempa Terkini",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    '_id': ObjectId('6765f3b1eab686fa062aad03'), \r\n    'name': 'Event 2024-12-20T22: 21: 07.758128Z', \r\n    'origin_ids': [ObjectId('6765f3b1eab686fa062aad02')\r\n    ], \r\n    'preferred_origin_id': ObjectId('6765f3b1eab686fa062aad02'), 'created_at': datetime.datetime(2024,\r\n    12,\r\n    20,\r\n    22,\r\n    46,\r\n    9,\r\n    543000), \r\n    'origin_data': {\r\n        '_id': ObjectId('6765f3b1eab686fa062aad02'),\r\n         'name': 'Origin 2024-12-20 22: 21: 07.758128', \r\n         'origin_time': datetime.datetime(2024,\r\n        12,\r\n        20,\r\n        22,\r\n        21,\r\n        7,\r\n        758000), \r\n        'arrival_ids': [ObjectId('6765ee7f18239900c888b833'), ObjectId('6765ee3e6bdbe6a47ff14e76'), ObjectId('6765ee750731694e3df16f6f'), ObjectId('6765ee60e7d1ad9eb6031452'), ObjectId('6765eefd2832ca4c280e7cb5'), ObjectId('6765eed418239900c888b84c'), ObjectId('6765ee7f18239900c888b834'), ObjectId('6765ee3e6bdbe6a47ff14e77'), ObjectId('6765ee750731694e3df16f70'), ObjectId('6765ee60e7d1ad9eb6031453'), ObjectId('6765eefd2832ca4c280e7cb6'), ObjectId('6765eed418239900c888b84d')\r\n        ], \r\n        'longitude': 105.3359, \r\n        'latitude': -4.7656, \r\n        'depth': 31.868809999999993, \r\n        'err_epicenter': 212.0048, \r\n        'rms': 0.184498, \r\n        'gap': 299.007, '\r\n        region': 'Sumatera', \r\n        'sub_region': 'Lampung', \r\n        'terrain': 'Land', \r\n        'country': 'Indonesia', \r\n        'magnitude_ids': [ObjectId('6765f3b1eab686fa062aacff'), ObjectId('6765f3b1eab686fa062aad00')\r\n        ], \r\n        'station_magnitude_ids_per_type': [\r\n            {'type': 'MLv', 'station_magnitude_ids': [ObjectId('6765f3b1eab686fa062aad01')\r\n                ]\r\n            }\r\n        ], 'modified_by': None, 'auto_origin_ref_id': None, 'created_at': datetime.datetime(2024,\r\n        12,\r\n        10,\r\n        5,\r\n        23,\r\n        45,\r\n        691000), 'modified_at': None\r\n    }, 'magnitude_data': {'_id': ObjectId('6765f3b1eab686fa062aad00'), 'type': 'MLv', 'value': 8.533890591234861, 'modified_by': None, 'created_at': datetime.datetime(2024,\r\n        12,\r\n        10,\r\n        5,\r\n        23,\r\n        45,\r\n        691000), 'modified_at': None\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "172.19.0.56:38007/gempaterkini?format=xml",
+					"host": [
+						"172",
+						"19",
+						"0",
+						"56"
+					],
+					"port": "38007",
+					"path": [
+						"gempaterkini"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "xml"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

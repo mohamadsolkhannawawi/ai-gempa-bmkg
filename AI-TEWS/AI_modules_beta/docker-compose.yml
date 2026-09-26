@@ -1,0 +1,66 @@
+# Compose for AI
+version: '3.8'
+
+services:
+  pick-arrival_service:
+    restart: unless-stopped
+    image: pick-arrival_service
+    ports:
+      - 5000
+    build:
+      context: ./pick-arrival_module/service
+    env_file:
+      - ./.env
+    environment:
+      - CUDA_VISIBLE_DEVICES=-1
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+      replicas: 3
+
+  pick-arrival_nginx:
+    restart: unless-stopped
+    build:
+      context: ./pick-arrival_module/nginx
+    env_file:
+      - ./.env
+    ports:
+      - ${nginx_port}:80
+    depends_on:
+      - pick-arrival_service
+    
+  pick-arrival_consumer:
+    restart: unless-stopped
+    build:
+      context: ./pick-arrival_module/consumer
+    env_file:
+      - ./.env
+    environment:
+      - nginx_host=pick-arrival_nginx
+      - nginx_port=80
+    depends_on:
+      - pick-arrival_nginx
+    
+  assoc-locmag_consumer:
+    restart: unless-stopped
+    build:
+      context: ./assoc-locmag_module
+    env_file:
+      - ./.env
+
+  phase-arrival_consumer:
+    restart: unless-stopped
+    build:
+      context: ./phase-arrival_module
+    env_file:
+      - ./.env
+    environment:
+      - CUDA_VISIBLE_DEVICES=-1
+
+  assoc-relocmag_consumer:
+    restart: unless-stopped
+    build:
+      context: ./assoc-relocmag_module
+    env_file:
+      - ./.env

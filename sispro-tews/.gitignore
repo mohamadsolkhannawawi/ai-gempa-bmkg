@@ -1,0 +1,6 @@
+archive
+archive_data
+.venv
+__pycache__
+logs
+controller_module/temp

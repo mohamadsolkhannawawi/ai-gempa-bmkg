@@ -1,0 +1,1 @@
+*/15 * * * * /app/start_archiving.sh >> /app/logs/archiving.log 2>&1

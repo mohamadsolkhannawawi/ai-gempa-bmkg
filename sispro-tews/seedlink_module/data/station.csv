@@ -1,0 +1,205 @@
+_id,name,code,network,channel,location,longitude,latitude,elevation,server_seedlink,server_fdsn
+665d9a35f9201df92c945952,"AAI (Station Ambon, Indonesia)",AAI,IA,"['HNE', 'HNN', 'HNE', 'SHE', 'SHN', 'SHZ']",,128.1943,-3.6871,157.2,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945953,"ABJI (Station Asem Bagus, Java)",ABJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,114.2342,-7.7957,144.36,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945954,"ACBM (Type MR,Ayu Ciparay,Bandung,Jawa Barat)",ACBM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,107.682833,-7.029754,766.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945955,"ALTI (Station Type A, Alor Timur,Alor,Nusa Tenggara Timur)",ALTI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,125.12517,-8.29069,13.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945956,"AMPM (Station Type MR, Aifat, Maybrat, Papua Barat)",AMPM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,132.491,-1.2674,517.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945957,"APSSI (Air Periukan, Seluma, Bengkulu)",APSSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,102.465,-3.932,226.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945958,"ARKPI (Arso 4, Keerom, Papua)",ARKPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,140.592,-2.783,75.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945959,"ARSKI (Arjasa, Sumenep, Jawa Timur)",ARSKI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,115.28619,-6.85843,43.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94595a,"ATNI (Station Atambua, BMG, Indonesia)",ATNI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,124.8644,-9.0835,404.62,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94595b,"BAJI (Station Type B Bangkalan,Jawa Timur,Jawa Timur)",BAJI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,112.70853,-7.09057,76.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94595c,"BASAI (Pulau Banyak Barat, Aceh Singkil, Aceh)",BASAI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,97.407,2.307,15.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94595d,"BASI (Station Baing, Sumba, Indonesia (BMKG))",BASI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,120.5777,-10.2189,80.84,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94595e,"BATI (Station Kupang, Timor)",BATI,IA,"['SHE', 'SHN', 'SHZ']",,123.6633,-10.2065,356.11,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94595f,"BBJI (BMG-Net, Indonesia (IA-Net))",BBJI,IA,"['BHE', 'BHN', 'BHZ', 'BLE', 'BLN', 'BLZ', 'LHE', 'LHN', 'LHZ', 'LLE', 'LLN', 'LLZ', 'SHE', 'SHN', 'SHZ', 'SLE', 'SLN', 'SLZ', 'VHE', 'VHN', 'VHZ']",,107.65,-7.462603,615.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945960,"BBJM (Type MR, Bubulan,Bojonegoro,Jawa Timur)",BBJM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,111.8099,-7.326,175.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945961,"BBLSI (Type A, Banggai Tengah, Banggai Laut, Sulawesi Tengah)",BBLSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,123.52168,-1.637539,142.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945962,"BBSI (Station Bau Bau, Buton)",BBSI,IA,[],,122.56,-5.4885,95.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945963,"BBSI (Station Bau Bau, Buton)",BBSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,122.5706,-5.4879,95.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945964,"BDBI (Badung,  Bali,  Indonesia)",BDBI,IA,"['HN1', 'HN2', 'HN3', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,115.2088,-8.52,186.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945965,"BDMUI (Pulau Batang Dua, Ternate, Maluku Utara)",BDMUI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,126.362,1.322,12.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945966,"BESM (Type MR, Beutong,Nagan Raya,Aceh)",BESM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,96.325344,4.151615,646.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945967,"BGASI (Blang Kejeren, Gayo Lues, Aceh)",BGASI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,97.315,3.983,1078.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945968,"BGCI (Station Type A, Balantak,Banggai,Sulawesi Tengah)",BGCI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,123.3911,-0.8816,11.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945969,"BGCM (Type MR, Balaesang,Donggala,Sulawesi Tengah)",BGCM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,119.880075,-0.049644,18.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94596a,"BKJI (Station Type B Banjar,Kota Banjar,Jawa Barat)",BKJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,108.5322,-7.3633,84.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94596b,"BKNI (GEOFON Station Bangkinang, Sumatra, Indonesia)",BKNI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,101.0396,0.3262,65.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94596c,"BLJI (Station Banyuglugur, Java)",BLJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,113.595,-7.745,80.85,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94596d,"BMBNG (Station Type B Ternadi, Dawe, Kudus, Jawa Tengah)",BMBNG,IA,"['BHE', 'BHN', 'BHZ', 'BNE', 'BNN', 'BNZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'LNE', 'LNN', 'LNZ', 'SHE', 'SHN', 'SHZ', 'SNE', 'SNN', 'SNZ', 'VHE', 'VHN', 'VHZ']",,110.8839,-6.66347,1029.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94596e,"BMSI (Station Type B Bangko,Merangin,Jambi)",BMSI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,102.31544,-2.06641,135.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94596f,"BNDI (GEOFON Station Bandaneira, Indonesia)",BNDI,IA,"['BHE', 'BHN', 'BHZ', 'BLE', 'BLN', 'BLZ', 'LHE', 'LHN', 'LHZ', 'LLE', 'LLN', 'LLZ', 'SHE', 'SHN', 'SHZ', 'SLE', 'SLN', 'SLZ', 'VHE', 'VHN', 'VHZ']",,129.9045,-4.5224,16.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945970,"BNSI (Station Bone, Sulawesi)",BNSI,IA,"['SHE', 'SHN', 'SHZ']",,120.1065,-4.4006,261.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945971,"BOSM (Type MR, Banding Agung,Oku Selatan,Sumatera Selatan)",BOSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,104.020736,-4.859183,640.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945972,"BSI (Station Banda Aceh, Indonesia)",BSI,IA,"['HHE', 'HHN', 'HHZ']",00,95.2961,5.4964,192.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945973,"BSMI (Station Bula, Maluku, Indonesia (BMKG))",BSMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,130.4939,-3.1075,104.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945974,"BSSI (Station Benteng, P.Selayar, Indonesia (BMKG))",BSSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,120.4904,-6.1428,114.3,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945975,"BTSPI (Bonggo Timur, Sarmi, Papua)",BTSPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,139.7042,-2.3779,32.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945976,"BUJI (Station Type B Buayan,Kebumen,Jawa Tengah)",BUJI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,109.46133,-7.75603,57.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945977,"BUSI (Station Type A, Bandar Baru,Pidie Jaya,Aceh)",BUSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,96.243038,5.2445125,6.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945978,"BYJI (Station Banyu Wangi, Java)",BYJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,114.3557,-8.214,99.5,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945979,"BYLI (Station Type A, Bayan,Lombok Utara ,Nusa Tenggara Barat)",BYLI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,116.4201,-8.2273,25.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94597a,"CASI (Calang, Sumatra, Indonesia)",CASI,IA,"['HHE', 'HHN', 'HHZ', 'HNE', 'HNN', 'HNZ']",00,95.57668,4.62879,11.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94597b,"CBJI (Station Citeko, Indonesia)",CBJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,106.9349,-6.6981,1006.39,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94597c,"CCJM (Type MR, Campaka,Cianjur,Jawa Barat)",CCJM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,107.14019,-7.01692,48.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94597d,"CGJI (Station Cigeulis, Java)",CGJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,105.69,-6.6134,182.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94597e,"CIJI (Station Type B Cipedes,Kota Tasikmalaya,Jawa Barat)",CIJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,108.19589,-7.31741,418.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94597f,"CMJI (Station Cimerak, Java)",CMJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,108.449,-7.784,78.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945980,"CNJI (Station Cibinong, Java)",CNJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,107.1296,-7.309,589.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945981,"CSBJI (Compreng, Subang, Jawa Barat)",CSBJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,107.881737,-6.404687,50.6,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945982,"CSJI (Station Type B Ciracap,Sukabumi,Jawa Barat)",CSJI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,106.521,-7.3302,153.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945983,"CSJM (Type MR, Congeang,Sumedang,Jawa Barat)",CSJM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,108.0099,-6.74052,361.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945984,"CTJI (Station Waduk Cacaban, Java, BMG, Indonesia)",CTJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,109.18356,-7.00754,104.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945985,"CWJM (Type MR, Cikalong Wetan,Bandung Barat,Jawa Barat)",CWJM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,107.44486,-6.74236,649.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945986,"DBJI (Station Dramaga, Java)",DBJI,IA,"['SHE', 'SHN', 'SHZ']",,106.7497,-6.5538,210.84,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945987,"DBKI (Station Type A, Dusun Selatan,Barito Selatan,Kalimantan Tengah)",DBKI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,114.9079,-1.6792,32.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945988,"EDMPI (Edera, Mappi, Papua)",EDMPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,139.585,-7.175,15.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945989,"EGSI (Station Enggano, Bengkulu, Indonesia (BMKG))",EGSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,102.2767,-5.3526,35.73,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94598a,"ELMPI (Eligobel, Merauke, Papua)",ELMPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ', 'VG1', 'VG2']",,140.789,-7.489,51.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94598b,"FAKI (GEOFON Station Fakfak, Indonesia)",FAKI,IA,"['BHE', 'BHN', 'BHZ', 'BLE', 'BLN', 'BLZ', 'LHE', 'LHN', 'LHZ', 'LLE', 'LLN', 'LLZ', 'SHE', 'SHN', 'SHZ', 'SLE', 'SLN', 'SLZ', 'VHE', 'VHN', 'VHZ']",,132.265,-2.9192,0.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94598c,"GEJI (Station Type B Gedangan,Malang,Jawa Timur)",GEJI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,112.64507,-8.41019,80.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94598d,"GENI (GEOFON Station Genyem, Indonesia)",GENI,IA,"['HHE', 'HHN', 'HHZ', 'SHE', 'SHN', 'SHZ']",,140.167757,-2.59268,58.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94598e,"GHMI (Station Type A, Gane Barat,Halmahera Selatan,Maluku Utara)",GHMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,127.8797,-0.35629,37.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94598f,"GRJI (Station Gresik, Java)",GRJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,112.4793,-6.9145,97.14,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945990,"GTJI (Station Type B, Gemawang Temanggung)",GTJI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,110.183745,-7.163845,749.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945991,GTOI (Station Gorontalo China),GTOI,IA,"['SHE', 'SHN', 'SHZ']",00,122.87,0.7628,313.3,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945992,"HINSI (Hibala, Nias Selatan, Sumatera Utara)",HINSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,98.499,-0.54,35.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945993,"IWPI (Station Type A, Rasiei,Teluk Wondama,Papua Barat)",IWPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,134.5162,-2.7581,36.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945994,"JAGI (GEOFON Station Jajag, Java, Indonesia)",JAGI,IA,"['BHE', 'BHN', 'BHZ', 'BLE', 'BLN', 'BLZ', 'LHE', 'LHN', 'LHZ', 'LLE', 'LLN', 'LLZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,114.152,-8.4703,171.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945995,"JBJI (Station Type B Jasinga,Bogor,Jawa Barat)",JBJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,106.46986,-6.48374,146.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945996,"JHMI (Station Type A, Jailolo,Halmahera Barat,Maluku Utara)",JHMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,127.47828,1.082067,36.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945997,"JPSI (Station Type B Jurai,Pesisir Selatan,Sumatera Barat)",JPSI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,100.58645,-1.34164,38.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945998,"JSBFM (Station Type MR, Jereweh, Nusa Tenggara Barat)",JSBFM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,116.8164717,-8.8716567,79.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945999,"KARPI (Kabare, Raja Ampat, Papua Barat)",KARPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,130.991,-0.061,21.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94599a,"KASAI (Station Type A, Kota Baharu, Aceh Singkil, Aceh)",KASAI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,97.858239,2.491893,4.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94599b,"KBKI (Station Kotabaru, Kalimantan)",KBKI,IA,"['SHE', 'SHN', 'SHZ']",,116.1668,-3.2995,65.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94599c,"KBSSI (Kodi Bangedo, Sumba Barat Daya, Nusa Tenggara Timur)",KBSSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,118.993,-9.593,22.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94599d,"KHK (Station Kahang-Kahang, Bali)",KHK,IA,"['HHE', 'HHN', 'HHZ']",,115.60964,-8.36404,220.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94599e,"KJCM (Station Type MR, Kelara, Sulawesi Selatan)",KJCM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,119.8026,-5.5646,199.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c94599f,"KKKI (Station Type A, Kendawangan,Ketapang,Kalimantan Barat)",KKKI,IA,"['SHE', 'SHN', 'SHZ']",00,110.1951,-2.5137,39.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a0,"KKMI (Station Type A, Kei Kecil,Maluku Tenggara,Maluku)",KKMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,132.718,-5.6923,72.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a1,"KKSI (Station Kolaka, Sulawesi, Indonesia (BMKG))",KKSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,121.6513,-4.1718,89.03,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a2,"KLNI (Station Mataram, Plombok, BMG, Indonesia)",KLNI,IA,"['SHE', 'SHN', 'SHZ']",,116.09492,-8.42188,99.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a3,"KLSM (Type MR, Kluet Utara,Aceh Selatan,Aceh)",KLSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,97.3298,3.0863,18.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a4,"KMMI (Station Kalianget, Indonesia)",KMMI,IA,"['SHE', 'SHN', 'SHZ']",,113.9157,-7.0412,49.14,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a5,"KOMFI (Komodo, Manggarai Barat, Nusa Tenggara Timur)",KOMFI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,119.547,-8.536,16.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a6,"KPJI (Station Karang Pucung, Java)",KPJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,108.931,-7.3333,111.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a7,"KRJI (Station Kerinci, Sumatra)",KRJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,101.4619,-2.0912,810.88,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a8,KRSI (Station Karosa China),KRSI,IA,"['ENE', 'ENN', 'ENZ', 'SHE', 'SHN', 'SHZ']",00,119.42,-1.82,60.3,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459a9,"KUKI (Kutai  Barat,  Kalimantan  Timur,  Indonesia)",KUKI,IA,"['HN1', 'HN2', 'HN3', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,115.6305,-0.0394,0.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459aa,"LBNFM (Station Type MR, Lambu, Nusa Tenggara Barat)",LBNFM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,119.0124,-8.6017,75.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ab,"LBTSI (Lintau Buo Utara, Tanah Datar, Sumatera Barat)",LBTSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,100.625,-0.475,417.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ac,"LEMFI (Lembor, Manggarai Barat, Nusa Tenggara Timur)",LEMFI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,120.172,-8.707,187.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ad,"LHMI (GEOFON Station Lhokseumave, Sumatra, Indonesia)",LHMI,IA,"['BHE', 'BHN', 'BHZ', 'BLE', 'BLN', 'BLZ', 'LHE', 'LHN', 'LHZ', 'LLE', 'LLN', 'LLZ', 'SHE', 'SHN', 'SHZ', 'SLE', 'SLN', 'SLZ', 'VHE', 'VHN', 'VHZ']",,96.9472,5.2288,3.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ae,"LISM (Type MR, Lingge Isaq,Aceh Tengah,Aceh)",LISM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,96.78746,4.4785,1374.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459af,"LKUCM (Station Type MR, Langgikima, Sulawesi Tenggara)",LKUCM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,122.2332,-3.2924,107.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b0,LRTI (Station LRTI),LRTI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,123.0,-8.2752,53.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b1,"LTNSI (Lahewa Timur, Nias Utara, Sumatera Utara)",LTNSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,97.32,1.336,52.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b2,"LUJI (Station Type B Lumbang,Pasuruan,Jawa Timur)",LUJI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,113.0107,-7.826,665.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b3,"MABKI (Maratua, Berau, Kalimantan Timur)",MABKI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,118.5676,2.2433,20.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b4,"MASFI (Magepanda, Sikka, Nusa Tenggara Timur)",MASFI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,122.032,-8.537,13.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b5,"MASM (Type MR, Masjid Raya,Aceh Besar,Aceh)",MASM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,95.59667,5.29847,82.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b6,"MASSI (Marore, Kepulauan Sangihe, Sulawesi Utara)",MASSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,125.479,4.733,105.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b7,"MBBI (Station Type B Muara Bungo,Bungo,Jambi)",MBBI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,102.0984,-1.5406,113.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b8,"MBRPI (Misool Barat, Raja Ampat, Papua Barat)",MBRPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,130.407,-1.771,2.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459b9,"MBSM (Type MR, Marga Sakti Seblat ,Bengkulu Utara,Bengkulu)",MBSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,101.8374,-3.1451,37.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ba,MGAI (Station MGAI),MGAI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,126.67,4.0079,91.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459bb,"MIPI (Station Type A, Mimika Baru,Mimika,Papua)",MIPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,136.8935,-4.5301,30.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459bc,"MKBI (Station Muko-Muko, Bengkulu, Indonesia (BMKG))",MKBI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,101.2396,-2.4474,48.21,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459bd,"MKJM (Type MR, Manisrenggo,Klaten,Jawa Tengah)",MKJM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,110.4834,-7.6629,410.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459be,"MKSM (Type MR, Muara Sahung,Kaur,Bengkulu)",MKSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,103.36,-4.5288,300.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459bf,MLJI (Malang Jawa Indonesia),MLJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,112.446699,-8.157473,275.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c0,MMSI (Station Mamuju China),MMSI,IA,"['SHE', 'SHN', 'SHZ']",00,118.909,-2.6892,221.3,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c1,"MNSI (Station Mandailing Natal, Sumatra)",MNSI,IA,"['SHE', 'SHN', 'SHZ']",,99.5796,0.7955,294.4,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c2,"MSCM (Type MR, Masamba,Luwu Utara,Sulawesi Selatan)",MSCM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,120.2813,-2.5358,108.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c3,"MTAI (Station Morotai, North Maluku, Indonesia)",MTAI,IA,"['HHE', 'HHN', 'HHZ', 'SHE', 'SHN', 'SHZ']",,128.27585,2.19802,24.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c4,"MTJPI (Muara Tami, Jayapura, Papua)",MTJPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,140.864,-2.627,6.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c5,"MTMPI (Mamberamo Tengah, Mamberamo Raya, Papua)",MTMPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ', 'VG1', 'VG2']",,138.037,-2.305,67.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c6,"MUTSI (Muara, Tapanuli Utara, Sumatera Utara)",MUTSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,98.965,2.3,1571.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c7,"NANFI (Nangaroro, Nagekeo, Nusa Tenggara Timur)",NANFI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,121.302,-8.761,644.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c8,"NBMI (Station Type A, Namrole,Buru Selatan,Maluku)",NBMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,126.6995,-3.8509,59.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459c9,NBPI (Station NBPI (ex-JAY1)),NBPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,135.4972,-3.3656,98.81,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ca,"NJBM (Station Type MR, Negara, Bali)",NJBM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,114.617125,-8.30984,199.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459cb,"NKBI (Station Type B Nusa Penida,Klungkung,Bali)",NKBI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,115.5259633,-8.726115,452.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459cc,"OBMPI (Obaa, Mappi, Papua)",OBMPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,139.3,-6.555,21.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459cd,"PAASI (Pulo Aceh, Aceh Besar, Aceh)",PAASI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,95.129,5.671,9.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ce,"PAFM (Station Type MR, Pantar Tengah, Alor, NTT)",PAFM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,124.128,-8.3832,77.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459cf,"PASMI (Pagai Selatan, Kepulauan Mentawai, Sumatera Barat)",PASMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,100.2028,-2.9646,39.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d0,"PBCI (Station Type A, Poigar,Bolaang Mongondow,Sulawesi Utara)",PBCI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,124.0396,0.38301,33.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d1,"PBJI (Station Type B, Pasir Jambu)",PBJI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,107.4757,-7.0874,1090.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d2,"PBLI (Station Type A, Pujut,Lombok Tengah ,Nusa Tenggara Barat)",PBLI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,116.2778,-8.8218,106.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d3,"PBMMI (Pulau-Pulau Babar, Maluku Barat Daya, Maluku)",PBMMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,129.597,-7.86,7.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d4,"PBSI (Station Pulau Batu, Sumatra)",PBSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,98.28,-0.0547,47.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d5,"PCI (Station Palu, Indonesia)",PCI,IA,"['HHE', 'HHN', 'HHZ']",,119.8366,-0.9054,150.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d6,"PCJI (Station Pacitan, Java)",PCJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,111.1771,-8.1947,702.27,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d7,"PICM (Type MR, Parigi Utara,Parigi Moutong,Sulawesi Tengah)",PICM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,120.088757,-0.710997,40.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d8,"PKJM (Type MR, Pasawahan,Kuningan,Jawa Barat)",PKJM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,108.43985,-6.79577,290.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459d9,"PMSI (Station Majene, Sulawesi, Indonesia (BMKG))",PMSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,118.9149,-3.5008,306.8,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459da,"PPJI (Tretes, Jawa, Indonesia)",PPJI,IA,"['HHE', 'HHN', 'HHZ', 'HNE', 'HNN', 'HNZ']",,112.6352777,-7.70444,885.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459db,"PPLI (Station Type B Punduh Pedada,Pesawaran,Lampung)",PPLI,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,105.14486,-5.74103,63.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459dc,"PPSM (Type MR, Pesisir Selatan,Pesisir Barat,Lampung)",PPSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,104.0156,-5.3182,3.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459dd,"PRLJI (Station Type A, Pasiran, Lumajang, Jawa Timur)",PRLJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,113.114018,-8.232273,159.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459de,"PSJCM (Station Type MR, Pasimassungu, Kep. Selayar, Sulawesi Selatan)",PSJCM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,120.620245,-7.06,79.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459df,"PTSM (Type MR, Pangaribuan,Tapanuli Utara,Sumatera Utara)",PTSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,99.166011,2.011856,1196.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e0,"RKPI (Station Ransiki, Papua; Indonesia (BMKG))",RKPI,IA,"['SHE', 'SHN', 'SHZ', 'HN1', 'HN2', 'HN3']",,134.1773,-1.5107,106.2,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e1,"RNFM (Station Type MR, Riung, Ngada, NTT)",RNFM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,121.0261133,-8.429345,84.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e2,"RSNI (Ropang,  Sumbawa,  Nusa  Tenggara  Barat,  Indonesia)",RSNI,IA,"['HN1', 'HN2', 'HN3', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,117.56,-8.91,0.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e3,"RSSM (Type MR, Ronggurnihuta,Samosir,Sumatera Utara)",RSSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,98.782984,2.597922,1542.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e4,"RTBI (Station Rangdo, Negare, Bali, Indonesia (BMKG))",RTBI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,114.942,-8.4597,300.74,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e5,"SAUI (GEOFON Station Saumlaki, Indonesia)",SAUI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,131.2988,-7.9826,110.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e6,"SBBM (Station Type MR, Seririt, Bali)",SBBM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,114.9179,-8.2031,111.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e7,"SBJI (Station Serang, Indonesia)",SBJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,106.1318,-6.1117,64.48,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e8,"SBNI (Sabu, Nusa Tenggara Timur)",SBNI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,121.846004,-10.492279,14.5,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459e9,"SBSSI (Sigi Biromaru, Sigi, Sulawesi Tengah)",SBSSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,119.889,-1.206,221.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ea,"SDCI (Station Type A, Sindue,Donggala,Sulawesi Tengah)",SDCI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,119.768722,-0.494155,27.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459eb,"SGSI (Station Sangihe, BMG)",SGSI,IA,"['SHE', 'SHN', 'SHZ']",00,125.5286,3.686,100.47,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ec,"SIJI (Station Sorong, Indonesia (CTBTO AS042))",SIJI,IA,"['BHE', 'BHN', 'BHZ', 'SHE', 'SHN', 'SHZ']",,131.26605,-0.86912,201.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ed,"SISM (Type MR, Silih Nara,Aceh Tengah,Aceh)",SISM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,96.7288,4.6082,1034.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ee,"SISMI (Siberut Selatan, Kepulauan Mentawai, Sumatera Barat)",SISMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,99.14018,-1.7806,39.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ef,"SIUMI (Siberut Utara, Kepulauan Mentawai, Sumatera Barat)",SIUMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,98.98,-1.126,9.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f0,"SKSI (Station Type A, Sukakarya,Kota Sabang,Aceh)",SKSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,95.31271,5.894472,12.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f1,"SMKI (Station Samarinda, Kalimantan)",SMKI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,117.2085,-0.4461,97.28,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f2,"SMPI (Station Sarmi, Irian Jaya)",SMPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,138.710799,-1.981115,111.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f3,"SMRI (GEOFON Station Semarang, Java, Indonesia)",SMRI,IA,"['BHE', 'BHN', 'BHZ', 'BLE', 'BLN', 'BLZ', 'LHE', 'LHN', 'LHZ', 'LLE', 'LLN', 'LLZ', 'SHE', 'SHN', 'SHZ', 'SLE', 'SLN', 'SLZ', 'VHE', 'VHN', 'VHZ']",,110.44067,-7.04915,203.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f4,"SMSI (Station Sumalata, BMG, Indonesia)",SMSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,122.3654,0.9885,85.39,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f5,"SNJI (Station Sawahan, Indonesia (JISNET))",SNJI,IA,"['HHE', 'HHN', 'HHZ']",,111.7591,-7.7808,1341.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f6,"SNSI (Station Sinabang, Aceh, Indonesia (BMKG))",SNSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,96.3267,2.4089,14.48,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f7,"SPSI (Station Sidrap, Sulawesi)",SPSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,119.7691,-3.9646,142.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f8,"SPSJM (Station Type MR, Serang Panjang, Jawa Barat)",SPSJM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,107.6136017,-6.6669333,659.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459f9,"SPSM (Type MR, Sitellu Tali Urang Julu,Pakpak Bharat,Sumatera Utara)",SPSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,98.37383,2.51596,999.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459fa,"SRMI (Station Type A, Seram Utara,Maluku Tengah,Maluku)",SRMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,129.18185,-2.941451,18.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459fb,"SRPI (Station Serui, Papua, Indonesia (BMKG))",SRPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,136.240169,-1.876922,101.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459fc,"SSASI (Simeulue Barat, Simeulue, Aceh)",SSASI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,95.925,2.83,17.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459fd,"SUSPI (Supiori Timur, Supiori, Papua)",SUSPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,135.734,-0.732,11.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459fe,"SWPM (Station Type MR, Sidey, Manokwari, Papua)",SWPM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ']",,133.594,-0.8035,172.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c9459ff,"TAGJI (Tanjungsari, Gunung Kidul, DIY)",TAGJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,110.585,-8.077,243.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a00,"TARAI (Station Tarakan, Kalimantan, Indonesia (JISNET))",TARAI,IA,"['HHE', 'HHN', 'HHZ']",00,117.57037,3.32712,95.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a01,"TASSI (Tagulandang, Siau Tagulandang Biaro, Sulawesi Utara)",TASSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,125.386,2.347,46.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a02,"TBJI (Station Tambak Boyo, Java)",TBJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,111.8481,-6.8179,54.45,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a03,"TBKI (Station Type A, Teluk Bayur,Berau,Kalimantan Timur)",TBKI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,117.4241,2.136,22.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a04,"TDNI (Teluk Dalam, Pulau Nias)",TDNI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,97.819617,0.574382,59.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a05,"TGCM (Type MR, Telaga,Gorontalo,Gorontalo)",TGCM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,123.0778,0.5201,163.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a06,"TIPSI (Tinombo / Palasa, Parigi Moutong, Sulawesi Tengah)",TIPSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,120.419,0.489,41.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a07,"TKSM (Type MR, Tiganderket,Karo,Sumatera Utara)",TKSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,98.3244,3.1374,720.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a08,TMSI (Station TMSI),TMSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,124.925571,1.294812,771.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a09,"TNTI (GEOFON Station Ternate, Indonesia)",TNTI,IA,"['BHE', 'BHN', 'BHZ', 'BLE', 'BLN', 'BLZ', 'LHE', 'LHN', 'LHZ', 'LLE', 'LLN', 'LLZ', 'SHE', 'SHN', 'SHZ', 'SLE', 'SLN', 'SLZ', 'VHE', 'VHN', 'VHZ']",,127.3667,0.7718,43.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a0a,"TOTSI (Tojo, Tojo Una-Una, Sulawesi Tengah)",TOTSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,121.28416,-1.15292,24.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a0b,"TPSI (Station Type A, Tangse,Pidie,Aceh)",TPSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,96.017023,4.923159,54.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a0c,"TRIYO (Station Type MR, Sipora Selatan, Kep. Mentawai)",TRIYO,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,99.583,-2.0601,88.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a0d,"TSNI (Tarano,  Nusa  Tenggara  Barat,  Indonesia)",TSNI,IA,"['HN1', 'HN2', 'HN3', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,118.28,-8.71,0.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a0e,"TTSM (Type MR, Tano Tombangan Angkola,Tapanuli Selatan,Sumatera Utara)",TTSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,99.4108,1.0856,173.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a0f,"UGM (GEOFON Station Wanagama, Indonesia)",UGM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,110.5231,-7.9125,350.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a10,"ULSM (Type MR, Ulu Musi,Empat Lawang,Sumatera Selatan)",ULSM,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,102.7941,-3.7588,284.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a11,"USFM (Station Type MR, Utan, Nusa Tenggara Barat)",USFM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,117.14111,-8.41198,85.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a12,"UTSI (Station Type B Ulu Belu,Tanggamus,Lampung)",UTSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,104.55095,-5.31257,882.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a13,"UTUSI (Station Type A, Una-Una, Tojo Una-Una, Sulawesi Tengah)",UTUSI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,121.860561,-0.427364,76.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a14,"UWJI (Station Ujung Watu, Java)",UWJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,110.9474,-6.4191,61.52,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a15,"UWNPI (Uwapa, Nabire, Papua)",UWNPI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,135.587,-3.479,117.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a16,"WBMI (Station Type A, Weda Barat,Halmahera Tengah,Maluku Utara)",WBMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,127.8708,0.3393,25.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a17,"WBNI (Wera,  Bima,  Nusa  Tenggara  Barat,  Indonesia)",WBNI,IA,"['HN1', 'HN2', 'HN3', 'HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,118.8872,-8.3026,0.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a18,"WHMI (Station Type A, Wasile,Halmahera Timur,Maluku Utara)",WHMI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,128.132,1.0825,41.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a19,"WLTFM (Station Type MR, Wanasaba, Nusa Tenggara Barat)",WLTFM,IA,"['BHE', 'BHN', 'BHZ', 'HNE', 'HNN', 'HNZ', 'LHE', 'LHN', 'LHZ', 'SHE', 'SHN', 'SHZ', 'VHE', 'VHN', 'VHZ']",,116.5407,-8.51818,533.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a1a,"WOJI (Station Wonogiri, Java, Indonesia (BMKG))",WOJI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,110.9236,-7.8372,183.62,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a1b,"WSHHI (Wasile Selatan, Halmahera Timur, Maluku Utara)",WSHHI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,127.813,0.764,24.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a1c,"WWCI (Station Type A, Wangi-wangi,Wakatobi,Sulawesi Tenggara)",WWCI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,123.5251,-5.2724,26.0,172.19.3.87:18000,GFZ
+665d9a35f9201df92c945a1d,YOGI (Station Yogyakarta China),YOGI,IA,"['BHE', 'BHN', 'BHZ', 'ENE', 'ENN', 'ENZ']",00,110.295,-7.8166,176.0,172.19.3.87:18000,GFZ

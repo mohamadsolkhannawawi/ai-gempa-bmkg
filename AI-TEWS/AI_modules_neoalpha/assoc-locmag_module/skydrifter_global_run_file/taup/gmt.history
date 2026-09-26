@@ -1,0 +1,10 @@
+# GMT 6 Session common arguments shelf
+BEGIN GMT 6.3.0
+B	100:Travel Time:/:sec:
+J	p
+Jp	pa0.002/90
+R	0/180/5678/6378
+X	0
+Y	0
+@L	4
+END

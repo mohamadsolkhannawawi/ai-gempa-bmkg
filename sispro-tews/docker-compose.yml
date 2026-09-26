@@ -1,0 +1,137 @@
+version: '3.8'
+
+services:
+  archiving_module:
+    build:
+      context: ./archiving_module
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - ${archive_location}:/archive
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
+    deploy:
+      resources:
+        limits:
+          memory: 20G
+      replicas: ${archive_replica_count}  # Scale the service to 7 instances
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+
+  record_stream_module:
+    build:
+      context: ./record_stream_module
+    env_file:
+      - ./.env
+    ports:
+      - "38001:8001"
+    tty: true
+    volumes:
+      - ${archive_location}:/archive
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+  
+  controller_module:
+    build:
+      context: ./controller_module
+    env_file:
+      - ./.env
+    ports:
+      - "38003:8003"
+    tty: true
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+
+  # web socket general
+  websocket_general:
+    build:
+      context: ./controller_module
+      dockerfile: Dockerfile_general
+    env_file:
+      - ./.env
+    ports:
+      - "38005:8005"
+    tty: true
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+
+
+  websocket_waveform:
+    build:
+      context: ./controller_module
+      dockerfile: Dockerfile_waveform
+    env_file:
+      - ./.env
+    ports:
+      - "38004:8004"  # Map external port to an internal port (for load balancing purposes)
+    tty: true
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+  
+  fdsn_module:
+    build:
+      context: ./fdsn_module
+    env_file:
+      - ./.env
+    tty: true
+    volumes:
+      - ${archive_location}:/archive
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+  
+  fdsn_api_module:
+    build:
+      context: ./fdsn_module
+      dockerfile: Dockerfile_API
+    env_file:
+      - ./.env
+    ports:
+      - "38002:8002"
+    tty: true
+    volumes:
+      - ${archive_location}:/archive
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+
+  public_api_module:
+    build:
+      context: ./api_incoming_module
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - "38007:8007"
+    tty: true
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+  
+  seedlink_module:
+    build:
+      context: ./seedlink_module
+    env_file:
+      - ./.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+      replicas: ${seedlink_replica_count} # Scale the service to 5 instances
+    restart: unless-stopped
+    networks: 
+      - sispro-tews_network
+  
+networks:
+  # (useful for local deployment)
+  sispro-tews_network:
+    external: true
+    name: sispro-tews_req

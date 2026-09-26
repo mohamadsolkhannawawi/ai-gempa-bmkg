@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: sispro-tews_fe-1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "38006:8004"
+    restart: unless-stopped
+    networks:
+      - sispro-tews_network 
+
+networks:
+  sispro-tews_network:
+    external: true
+    name: sispro-tews_req

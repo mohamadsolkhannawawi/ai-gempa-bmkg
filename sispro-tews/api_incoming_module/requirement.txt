@@ -1,0 +1,13 @@
+uvicorn
+obspy
+rocketry
+pydantic==1.10.10
+sshtunnel
+pymongo
+natsort
+fastapi
+passlib
+python-jose
+confluent_kafka
+python-dotenv
+pandas

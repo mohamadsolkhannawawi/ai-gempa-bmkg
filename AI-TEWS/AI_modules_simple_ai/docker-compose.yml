@@ -1,0 +1,62 @@
+# Compose for AI
+version: '3.8'
+
+services:
+  p-pick_service:
+    restart: always
+    image: p-pick_service
+    ports:
+      - 8000
+    build:
+      context: ./p-pick_module/service
+    env_file:
+      - ./.env
+    environment:
+      - CUDA_VISIBLE_DEVICES=-1
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+      replicas: 5  # Scale the service to 3 instances
+
+  p-pick_nginx:
+    restart: always
+    build:
+      context: ./p-pick_module/nginx
+    env_file:
+      - ./.env
+    ports:
+      - ${nginx_port}:80
+    depends_on:
+      - p-pick_service
+    
+  p-pick_consumer:
+    restart: always
+    build:
+      context: ./p-pick_module/consumer
+    env_file:
+      - ./.env
+    environment:
+      - nginx_host=p-pick_nginx
+      - nginx_port=80
+    depends_on:
+      - p-pick_nginx
+    
+  association_module:
+    build:
+      context: ./association_module
+    env_file:
+      - ./.env
+    
+  phase-arrival_module:
+    build:
+      context: ./phase-arrival_module
+    env_file:
+      - ./.env
+    
+  locmag_module:
+    build:
+      context: ./locmag_module
+    env_file:
+      - ./.env
+    

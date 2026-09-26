@@ -1,0 +1,73 @@
+# Compose for AI
+version: '3.3'
+
+services:
+  pick-arrival_service:
+    restart: unless-stopped
+    image: pick-arrival_service
+    ports:
+      - 5000
+    build:
+      context: ./
+      dockerfile: ./pick-arrival_module/service/Dockerfile
+    env_file:
+      - ./.env
+    environment:
+      - CUDA_VISIBLE_DEVICES=-1
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+      replicas: 3
+    networks: 
+      - sispro-tews_network
+  
+  pick-arrival_nginx:
+    restart: unless-stopped
+    build:
+      context: ./pick-arrival_module/nginx
+    env_file:
+      - ./.env
+    ports:
+      - ${nginx_port}:80 
+    depends_on:
+      - pick-arrival_service
+    networks: 
+      - sispro-tews_network
+    
+  pick-arrival_consumer:
+    restart: unless-stopped
+    build:
+      context: ./pick-arrival_module/consumer
+    env_file:
+      - ./.env
+    environment:
+      - nginx_host=pick-arrival_nginx
+      - nginx_port=80
+    depends_on:
+      - pick-arrival_nginx
+    networks: 
+      - sispro-tews_network
+    
+  assoc-locmag_consumer:
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: ./assoc-locmag_module/Dockerfile_nll
+    env_file:
+      - ./.env
+    networks: 
+      - sispro-tews_network
+
+  assoc-relocmag_consumer:
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: ./assoc-relocmag_module/Dockerfile
+    env_file:
+      - ./.env
+
+networks:
+  sispro-tews_network:
+    # external: (useful for local deployment)
+    name: sispro-tews_req

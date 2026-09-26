@@ -1,0 +1,57 @@
+# # Use the official Tensorflow image
+# FROM pytorch/pytorch:2.4.1-cuda12.4-cudnn9-runtime
+# # FROM rocm/dev-ubuntu-22.04
+
+# # TODO: Temporary because of server limitations, define a good base image here 
+FROM python:3.10-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+#### Install NonLinLoc ####
+# Install requirements for NonLinLoc and clone NonLinLoc repo
+# Separated for faster build time when error
+RUN apt update && \
+    apt install -y git cmake build-essential default-jre wget gmt unzip && \
+    git clone https://github.com/ut-beg-texnet/NonLinLoc
+
+# Install TauP
+RUN wget http://www.seis.sc.edu/downloads/TauP/TauP-2.6.1.tgz && \ 
+    tar zxf TauP-2.6.1.tgz
+
+# Build NonLinLoc
+RUN cd ./NonLinLoc/src && \
+    mkdir bin && \
+    cmake . && \
+    make
+
+ENV TAUP_HOME=/app/TauP-2.6.0
+ENV PATH=/app/NonLinLoc/src/bin:${TAUP_HOME}/bin:$PATH
+
+# Download TauP files
+RUN wget http://alomax.free.fr/nlloc/java/TauP_NLL.jar && \
+    wget http://alomax.free.fr/nlloc/java/TauP_Table_NLL.class && \
+    wget http://alomax.free.fr/nlloc/java/TauP_Table_NLL.java && \
+    wget http://alomax.free.fr/nlloc/java/TauP_Table_NLL.sh && \
+    wget http://alomax.free.fr/nlloc/java/TauP_Table_NLL_7.00.jar && \
+    wget http://alomax.free.fr/nlloc/java/plot_time.gmt.sh
+
+# Run TauP
+# RUN cd ./NonLinLoc/nlloc_global_sample && ./run_global_sample.sh
+
+#### Install Python dependencies and run assoc-locmag_consumer.py ####
+RUN pip install --no-cache-dir torch==2.4.1 --default-timeout=100
+
+# Copy skydrifter_file from parent dir to working dir
+# Separates big file copy for faster deployment while dev
+COPY ./skydrifter_file /app/skydrifter_file
+
+# Copy and install requirements (separated from dir copy to prevent multiple install on code changes)
+COPY ./assoc-locmag_module/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt --default-timeout=100
+
+# Copy the current directory contents into the container at /app
+COPY ./assoc-locmag_module/ .
+
+# Run python when the container launches
+CMD ["python3", "-u", "assoc-locmag_consumer.py"]

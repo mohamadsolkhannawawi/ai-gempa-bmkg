@@ -1,0 +1,79 @@
+# Compose for required modules
+version: '3.8'
+
+services:
+  zookeeper:
+    image: zookeeper:3.6.0
+    ports:
+      - 2181:2181
+    deploy:
+      resources:
+          limits:
+            memory: 500M
+    restart: unless-stopped
+    networks:
+      - sispro-tews_network
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - ${kafka_port}:${kafka_port}
+      - ${kafka_external_port}:${kafka_external_port}
+    environment:
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:${kafka_port},OUTSIDE://0.0.0.0:${kafka_external_port}
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:${kafka_port},OUTSIDE://${kafka_external_host}:${kafka_external_port}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LOG_RETENTION_HOURS: 24
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 5000
+    depends_on:
+      - zookeeper
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+    
+    restart: unless-stopped
+    networks:
+      - sispro-tews_network
+
+  redis:
+    image: redis/redis-stack-server
+    ports:
+      - ${redis_port}:6379
+    command: redis-server --maxclients 1000000 --protected-mode no
+    deploy:
+      resources:
+        limits:
+          memory: 15G
+    restart: unless-stopped
+    networks:
+      - sispro-tews_network
+
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - ${database_port}:27017
+    volumes:
+      - ${database_data_path}:/data/db/
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    restart: unless-stopped
+    networks:
+      - sispro-tews_network
+
+  flusher:
+    build:
+      context: ./flush_module
+    env_file:
+      - ./.env
+    restart: unless-stopped
+    networks:
+      - sispro-tews_network 
+
+networks:
+  sispro-tews_network:
+    name: sispro-tews_req

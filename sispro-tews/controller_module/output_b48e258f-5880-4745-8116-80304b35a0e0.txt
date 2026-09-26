@@ -1,0 +1,48 @@
+
+Event:
+Public ID               bmg2025ziwg
+Preferred Origin ID     670aac5d37bf598a1dfea8e7
+Preferred Magnitude ID  670aac5d37bf598a1dfea8e6 
+Description
+    region name: Sawu Sea, Nusa Tenggara, Indonesia
+Creation Time           2024-10-12 16:59:48
+
+Origin:
+    Public ID              670aac5d37bf598a1dfea8e7
+    Date                   2024-10-12
+    Time                   16:59:48.208000 +/-    0.8 s
+    Latitude               -9.6719 deg  +/-      5 km
+    Longitude              121.3246 deg  +/-      2 km
+    Depth                  452.9297 km   +/-    6 km
+    Agency                 BMKG
+    Creation time          2024-10-12 16:59:48 
+            
+    26 Phase arrivals: 
+
+		sta   net   phase   time   
+		ALTI	IA 	P    	2024-10-12 17:02:05.225000
+		ALTI	IA 	S    	2024-10-12 17:02:05.225000
+		DBJI	IA 	P    	2024-10-12 17:01:34.300000
+		DBJI	IA 	S    	2024-10-12 17:01:34.300000
+		TOTSI	IA 	P    	2024-10-12 17:02:01.630000
+		TOTSI	IA 	S    	2024-10-12 17:02:01.630000
+		ATNI	IA 	P    	2024-10-12 17:01:53.325000
+		ATNI	IA 	S    	2024-10-12 17:01:53.325000
+		BBLSI	IA 	P    	2024-10-12 17:01:47.025000
+		BBLSI	IA 	S    	2024-10-12 17:01:47.025000
+		LKUCM	IA 	P    	2024-10-12 17:02:48.072000
+		LKUCM	IA 	S    	2024-10-12 17:02:48.072000
+		WBNI	IA 	P    	2024-10-12 17:01:47.975000
+		WBNI	IA 	S    	2024-10-12 17:01:47.975000
+		KJCM	IA 	P    	2024-10-12 17:02:11.472000
+		KJCM	IA 	S    	2024-10-12 17:02:11.472000
+		LRTI	IA 	P    	2024-10-12 17:03:31.850000
+		LRTI	IA 	S    	2024-10-12 17:03:31.850000
+		JHMI	IA 	P    	2024-10-12 17:04:28.400000
+		JHMI	IA 	S    	2024-10-12 17:04:28.400000
+		CGJI	IA 	P    	2024-10-12 17:03:07.210000
+		CGJI	IA 	S    	2024-10-12 17:03:07.210000
+		KUKI	IA 	P    	2024-10-12 17:03:39.525000
+		KUKI	IA 	S    	2024-10-12 17:03:39.525000
+		SSASI	IA 	P    	2024-10-12 17:03:38.190000
+		SSASI	IA 	S    	2024-10-12 17:03:38.190000
