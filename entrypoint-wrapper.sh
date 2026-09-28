@@ -3,6 +3,7 @@
 set -e
 
 export DOCKER_API_VERSION=1.41
+export COMPOSE_HTTP_TIMEOUT=300
 
 echo "=== Starting Docker-in-Docker for GEMPA AI-TEWS ==="
 echo ""
@@ -135,9 +136,12 @@ cd /app/AI-TEWS/requirements
 echo "[WRAPPER] Cleaning previous infrastructure containers..."
 docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
 
-# Build and start with fresh containers
+# Build and start with sequential build
 echo "[WRAPPER] Building infrastructure services..."
-docker-compose -f docker-compose.yml up -d --build --force-recreate
+docker-compose -f docker-compose.yml build
+
+echo "[WRAPPER] Creating infrastructure containers..."
+docker-compose -f docker-compose.yml up -d --no-build --force-recreate
 
 echo "[WRAPPER] Waiting for infrastructure services to be ready (60s)..."
 sleep 60
@@ -162,13 +166,17 @@ export MONGO_DB_NAME="${MONGO_DB_NAME:-sispro-tews}"
 export MONGO_CONNECT_RETRIES="${MONGO_CONNECT_RETRIES:-10}"
 export MONGO_CONNECT_RETRY_DELAY="${MONGO_CONNECT_RETRY_DELAY:-3}"
 
-# Clean and rebuild backend services
+# Clean previous backend containers
 echo "[WRAPPER] Cleaning previous backend containers..."
 docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
 
-# Start services with full rebuild
+# Start services with sequential build (avoid parallel timeout)
 echo "[WRAPPER] Building backend services..."
-docker-compose -f docker-compose.yml up -d --build --force-recreate
+docker-compose -f docker-compose.yml build
+
+# Create containers without building (images already built)
+echo "[WRAPPER] Creating backend containers..."
+docker-compose -f docker-compose.yml up -d --no-build --force-recreate
 
 echo "[WRAPPER] Waiting for backend services to be ready (60s)..."
 sleep 60
@@ -184,9 +192,12 @@ cd /app/AI-TEWS/AI_modules_simple_ai
 echo "[WRAPPER] Cleaning previous AI containers..."
 docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
 
-# Build and start with fresh containers
+# Build and start with sequential build
 echo "[WRAPPER] Building AI modules..."
-docker-compose -f docker-compose.yml up -d --build --force-recreate
+docker-compose -f docker-compose.yml build
+
+echo "[WRAPPER] Creating AI containers..."
+docker-compose -f docker-compose.yml up -d --no-build --force-recreate
 
 echo "[WRAPPER] Waiting for AI modules to be ready (30s)..."
 sleep 30
@@ -202,9 +213,12 @@ cd /app/tews-ui-vue
 echo "[WRAPPER] Cleaning previous frontend containers..."
 docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
 
-# Build and start with fresh containers
+# Build and start with sequential build
 echo "[WRAPPER] Building frontend..."
-docker-compose -f docker-compose.yml up -d --build --force-recreate
+docker-compose -f docker-compose.yml build
+
+echo "[WRAPPER] Creating frontend containers..."
+docker-compose -f docker-compose.yml up -d --no-build --force-recreate
 
 echo "[WRAPPER] Waiting for frontend to be ready (30s)..."
 sleep 30
