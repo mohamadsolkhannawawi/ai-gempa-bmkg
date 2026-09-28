@@ -582,25 +582,103 @@ docker exec gempa-dind-wrapper docker logs sispro-tews_controller_module_1 --tai
 
 ## 👨‍💼 Admin User Setup
 
-### 1. Verifikasi Default Admin User
+⚠️ **PENTING:** Admin credentials sekarang menggunakan **environment variables** untuk keamanan.
+
+### Security Best Practice (v2.0)
+
+Admin user credentials **TIDAK LAGI HARDCODED**. Sekarang dari `.env.seed` file.
+
+**Keuntungan:**
+- ✓ No password exposure di git
+- ✓ Auto-seeding saat startup
+- ✓ Production-ready security
+
+### 1. Setup Credentials (WAJIB - ONE-TIME)
 
 ```bash
-# Check apakah admin user sudah ada
-docker exec gempa-dind-wrapper docker exec sispro-tews_controller_module_1 python3 -c "
-import pymongo
-client = pymongo.MongoClient('mongodb://mongodb:27017/')
-db = client['sispro-tews']
-user = db.user.find_one({'username': 'admin'})
-if user:
-    print('✓ Admin user exists')
-    print('Username:', user['username'])
-    print('Role:', user.get('role', 'N/A'))
-else:
-    print('✗ Admin user not found')
-"
+# Copy template
+cp .env.seed.example .env.seed
+
+# Edit dengan secure password
+nano .env.seed
+
+# Set permissions
+chmod 600 .env.seed
 ```
 
-### 2. Create Admin User (jika belum ada)
+**Minimal config:**
+```bash
+INITIAL_ADMIN_USERNAME=admin
+INITIAL_ADMIN_PASSWORD=YourSecurePassword123!   # MIN 8 chars
+INITIAL_ADMIN_EMAIL=admin@bmkg.go.id
+```
+
+**Generate secure password:**
+```bash
+openssl rand -base64 24
+```
+
+### 2. Deploy dengan Auto-Seeding
+
+```bash
+# One-command deployment (auto-seed included)
+docker-compose -f docker-compose.wrapper.yml up -d --build
+
+# Monitor seeding
+docker logs -f gempa-dind-wrapper | grep SEED
+```
+
+Output expected:
+```
+[SEED] ✓ Admin user created successfully
+[SEED]   ID: 6abac8d91d3a6ea4672e4580
+[SEED]   Username: admin
+[SEED]   Email: admin@bmkg.go.id
+[SEED]   Role: superadmin
+```
+
+### 3. Verify Admin User
+
+```bash
+# Check admin exists
+docker exec gempa-dind-wrapper docker exec requirements_mongodb_1 \
+  mongo sispro-tews --eval 'db.user.findOne({username: "admin"})'
+```
+
+Expected: JSON dengan `_id`, `username`, `role: "superadmin"`
+
+### 4. Login & Change Password
+
+- URL: http://152.118.31.54:8006
+- Username: dari `.env.seed`
+- Password: dari `.env.seed`
+
+⚠️ **WAJIB ganti password** via UI setelah first login!
+
+---
+
+### Troubleshooting
+
+**Admin tidak bisa login:**
+```bash
+# Re-run seed manual
+docker exec gempa-dind-wrapper docker exec sispro-tews_controller_module_1 \
+  python3 /app/seed_admin_user.py
+```
+
+**Env vars tidak loaded:**
+```bash
+# Check environment
+docker exec gempa-dind-wrapper docker exec sispro-tews_controller_module_1 \
+  env | grep INITIAL_ADMIN
+
+# Verify .env.seed
+cat .env.seed
+```
+
+---
+
+### Legacy Manual Seed (deprecated)
 
 ```bash
 # Enter controller container
