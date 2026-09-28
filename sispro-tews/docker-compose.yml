@@ -48,6 +48,18 @@ services:
       context: ./controller_module
     env_file:
       - ./.env
+    # Override seed credentials from wrapper environment
+    environment:
+      - INITIAL_ADMIN_USERNAME=${INITIAL_ADMIN_USERNAME}
+      - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD}
+      - INITIAL_ADMIN_EMAIL=${INITIAL_ADMIN_EMAIL}
+      - INITIAL_ADMIN_FULLNAME=${INITIAL_ADMIN_FULLNAME}
+      - INITIAL_ADMIN_REGION=${INITIAL_ADMIN_REGION}
+      - MONGO_HOST=${MONGO_HOST:-mongodb}
+      - MONGO_PORT=${MONGO_PORT:-27017}
+      - MONGO_DB_NAME=${MONGO_DB_NAME:-sispro-tews}
+      - MONGO_CONNECT_RETRIES=${MONGO_CONNECT_RETRIES:-10}
+      - MONGO_CONNECT_RETRY_DELAY=${MONGO_CONNECT_RETRY_DELAY:-3}
     ports:
       - "38003:8003"
     tty: true

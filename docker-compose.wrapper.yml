@@ -34,10 +34,24 @@ services:
       - ./.envs:/app/.envs
       - gempa-docker-data:/var/lib/docker
       - gempa-logs:/var/log/gempa
+    # Load seed credentials from env file
+    env_file:
+      - .env.seed
     environment:
       - DISPLAY=${DISPLAY}
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      # Pass seed env vars to inner containers (exported by entrypoint)
+      - INITIAL_ADMIN_USERNAME=${INITIAL_ADMIN_USERNAME}
+      - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD}
+      - INITIAL_ADMIN_EMAIL=${INITIAL_ADMIN_EMAIL:-admin@bmkg.go.id}
+      - INITIAL_ADMIN_FULLNAME=${INITIAL_ADMIN_FULLNAME:-Administrator BMKG}
+      - INITIAL_ADMIN_REGION=${INITIAL_ADMIN_REGION:-Indonesia}
+      - MONGO_HOST=${MONGO_HOST:-mongodb}
+      - MONGO_PORT=${MONGO_PORT:-27017}
+      - MONGO_DB_NAME=${MONGO_DB_NAME:-sispro-tews}
+      - MONGO_CONNECT_RETRIES=${MONGO_CONNECT_RETRIES:-10}
+      - MONGO_CONNECT_RETRY_DELAY=${MONGO_CONNECT_RETRY_DELAY:-3}
     deploy:
       resources:
         reservations:
