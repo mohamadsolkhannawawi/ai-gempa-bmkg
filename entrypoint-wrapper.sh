@@ -130,7 +130,14 @@ echo ""
 echo "[WRAPPER] Starting infrastructure services (Kafka, MongoDB, Redis, Zookeeper)..."
 
 cd /app/AI-TEWS/requirements
-docker-compose -f docker-compose.yml up -d
+
+# Clean previous infrastructure containers
+echo "[WRAPPER] Cleaning previous infrastructure containers..."
+docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+
+# Build and start with fresh containers
+echo "[WRAPPER] Building infrastructure services..."
+docker-compose -f docker-compose.yml up -d --build --force-recreate
 
 echo "[WRAPPER] Waiting for infrastructure services to be ready (60s)..."
 sleep 60
@@ -155,8 +162,13 @@ export MONGO_DB_NAME="${MONGO_DB_NAME:-sispro-tews}"
 export MONGO_CONNECT_RETRIES="${MONGO_CONNECT_RETRIES:-10}"
 export MONGO_CONNECT_RETRY_DELAY="${MONGO_CONNECT_RETRY_DELAY:-3}"
 
-# Start services (environment vars will be passed to containers)
-docker-compose -f docker-compose.yml up -d --no-deps --remove-orphans
+# Clean and rebuild backend services
+echo "[WRAPPER] Cleaning previous backend containers..."
+docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+
+# Start services with full rebuild
+echo "[WRAPPER] Building backend services..."
+docker-compose -f docker-compose.yml up -d --build --force-recreate
 
 echo "[WRAPPER] Waiting for backend services to be ready (60s)..."
 sleep 60
@@ -167,7 +179,14 @@ sleep 60
 echo "[WRAPPER] Starting AI modules..."
 
 cd /app/AI-TEWS/AI_modules_simple_ai
-docker-compose -f docker-compose.yml up -d
+
+# Clean previous AI containers
+echo "[WRAPPER] Cleaning previous AI containers..."
+docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+
+# Build and start with fresh containers
+echo "[WRAPPER] Building AI modules..."
+docker-compose -f docker-compose.yml up -d --build --force-recreate
 
 echo "[WRAPPER] Waiting for AI modules to be ready (30s)..."
 sleep 30
@@ -178,7 +197,14 @@ sleep 30
 echo "[WRAPPER] Starting frontend..."
 
 cd /app/tews-ui-vue
-docker-compose -f docker-compose.yml up -d
+
+# Clean previous frontend containers
+echo "[WRAPPER] Cleaning previous frontend containers..."
+docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+
+# Build and start with fresh containers
+echo "[WRAPPER] Building frontend..."
+docker-compose -f docker-compose.yml up -d --build --force-recreate
 
 echo "[WRAPPER] Waiting for frontend to be ready (30s)..."
 sleep 30
