@@ -1,0 +1,49 @@
+# Environment files with credentials
+.env
+.env.local
+.env.*.local
+.env.seed
+.env.prod
+.env.production
+.envs/*.env
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+logs/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Node
+node_modules/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backups
+*.bak
+*.backup
+backup/
+
+# Temporary
+tmp/
+temp/
