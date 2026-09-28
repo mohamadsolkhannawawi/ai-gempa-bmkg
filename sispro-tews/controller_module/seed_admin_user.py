@@ -67,15 +67,21 @@ def seed_admin():
         db = client[DB_NAME]
         user_collection = db["user"]
         
+        # Hash password using pbkdf2_sha256
+        hashed_password = pbkdf2_sha256.hash(ADMIN_PASSWORD)
+        
         # Check if admin already exists
         existing = user_collection.find_one({"username": ADMIN_USERNAME})
         if existing:
-            print(f"[SEED] ✓ User '{ADMIN_USERNAME}' already exists. Skipping seed.")
+            # Update password if user exists
+            result = user_collection.update_one(
+                {"username": ADMIN_USERNAME},
+                {"$set": {"password": hashed_password}}
+            )
+            print(f"[SEED] ✓ User '{ADMIN_USERNAME}' password updated.")
+            print(f"[SEED]   Updated: {result.modified_count} document(s)")
             client.close()
             return True
-        
-        # Hash password using pbkdf2_sha256
-        hashed_password = pbkdf2_sha256.hash(ADMIN_PASSWORD)
         
         # Create admin user document
         user_data = {
