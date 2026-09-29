@@ -65,9 +65,8 @@ const page = ref(Number(routeQuery['page'] ?? '1'))
 const stations = computed(() => data?.value?.data ?? [])
 const disabledStationIds = computed(() => profile.value?.disable_stations ?? [])
 const userStations = computed(() => {
-  console.log("stations.value.stations", stations.value.stations)
   if (!profile.value) return []
-  return stations.value.stations.filter((station) => {
+  return stations.value.filter((station) => {
     const hasFiltededChannel = TRACEVIEW_FILTERED_CHANNEL.some((filteredChannel) =>
       station.channel.includes(filteredChannel)
     )

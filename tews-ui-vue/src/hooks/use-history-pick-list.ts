@@ -17,7 +17,7 @@ const useHistoryPickList = (stationId: string, channelName: string) => {
   const { data: arrivalListData } = useQuery({
     queryKey: ['history-arrival-list', stationId],
     queryFn: () =>
-      api.get<RealtimeArrival[]>(`/station/${stationId}/arrival`, {
+      api.get<RealtimeArrival[]>(`/arrival/getbystation?station_id=${stationId}`, {
         baseURL: API_BFF_URL,
         params
       })
