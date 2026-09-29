@@ -20,7 +20,6 @@ db = client[db_name]
 stations_collection = db['station']
 
 CSV_PATH = "./data/station.csv"
-GEOFON_SERVER = "geofon.gfz-potsdam.de:18000"
 
 def parse_channel_string(channel_str):
     """Convert Python list string to actual list."""
@@ -49,6 +48,8 @@ def import_stations():
                     latitude = float(row.get('latitude', 0)) if row.get('latitude') else None
                     elevation = float(row.get('elevation', 0)) if row.get('elevation') else None
                     location = row.get('location', '').strip() or None
+                    server_seedlink = row.get('server_seedlink', '').strip()
+                    server_fdsn = row.get('server_fdsn', '').strip()
                     
                     if not code or not network:
                         count_error += 1
@@ -64,8 +65,8 @@ def import_stations():
                         'latitude': latitude,
                         'elevation': elevation,
                         'location': location,
-                        'server_seedlink': GEOFON_SERVER,  # GEOFON public
-                        'server_fdsn': 'GFZ'
+                        'server_seedlink': server_seedlink,
+                        'server_fdsn': server_fdsn
                     }
                     
                     # Upsert (update if exists, insert if new)
