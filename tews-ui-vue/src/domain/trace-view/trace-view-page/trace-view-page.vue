@@ -66,11 +66,13 @@ const stations = computed(() => data?.value?.data ?? [])
 const disabledStationIds = computed(() => profile.value?.disable_stations ?? [])
 const userStations = computed(() => {
   if (!profile.value) return []
+  const isSuperadmin = profile.value.role === 'superadmin'
   return stations.value.filter((station) => {
     const hasFiltededChannel = TRACEVIEW_FILTERED_CHANNEL.some((filteredChannel) =>
       station.channel.includes(filteredChannel)
     )
-    return hasFiltededChannel && profile.value.stations.includes(station._id)
+    const isAllowed = isSuperadmin || profile.value.stations.includes(station._id)
+    return hasFiltededChannel && isAllowed
   })
 })
 

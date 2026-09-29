@@ -227,6 +227,8 @@ async def station_get_waveform_stats_service(db, station_id):
             df["expiration_timestamp"], errors="coerce"
         )
         valid_df = df[df["expiration_timestamp"] > current_timestamp]
+        if valid_df.empty:
+            return get_response(False, "cannot get station waveform detail: waveform data expired", None)
         waveform_values = np.concatenate(valid_df["waveform"].values)
 
         # == Calculate waveform statitics

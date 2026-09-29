@@ -8,7 +8,7 @@ import { defineModel } from 'vue'
 const range = defineModel<{
   start: Date
   end: Date
-}>('range')
+}>('range', { default: () => ({ start: new Date(), end: new Date() }) })
 </script>
 
 <template>

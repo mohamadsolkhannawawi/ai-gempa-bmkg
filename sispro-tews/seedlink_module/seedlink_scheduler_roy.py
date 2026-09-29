@@ -278,8 +278,11 @@ async def main():
         station_datas = db["station"]
         if regional:
             user_data = db["user"].find_one({"username": regional})
-            station_ids = user_data["stations"]
-            station_datas = [db["station"].find_one({'_id': ObjectId(station_id)}) for station_id in station_ids]
+            if user_data is None or not user_data.get("stations"):
+                print(f"Regional user '{regional}' not found or has no stations, processing all stations")
+            else:
+                station_ids = user_data["stations"]
+                station_datas = [db["station"].find_one({'_id': ObjectId(station_id)}) for station_id in station_ids]
 
         if not os.path.isfile("./data/station.csv"):
             print("First pulling station")
