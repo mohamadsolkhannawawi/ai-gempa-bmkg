@@ -5,8 +5,7 @@ import api from '@src/utils/api'
 import { GetAllUserListQuery } from './types'
 
 export const getUsersAPI = async (params?: GetAllUserListQuery) => {
-  const { data } = await api.get<{ data: User[]; total: number }>('/user', {
-    baseURL: API_BFF_URL,
+  const { data } = await api.get<{ data: User[]; total: number }>('/user/getall', {
     params: {
       page: params?.page ?? 1,
       limit: params?.limit ?? 10,
@@ -18,23 +17,17 @@ export const getUsersAPI = async (params?: GetAllUserListQuery) => {
 }
 
 export const postUserAPI = async (payload: AddUserPayload) => {
-  const { data } = await api.post('/user', payload, {
-    baseURL: API_BFF_URL
-  })
+  const { data } = await api.post('/user', payload)
   return data
 }
 
 export const deleteUserAPI = async (userId: string) => {
-  const { data } = await api.delete(`/user/${userId}`, {
-    baseURL: API_BFF_URL
-  })
+  const { data } = await api.delete(`/user/${userId}`)
 
   return data
 }
 
 export const putUserAPI = async (userId: string, payload: UpdateUserPayload) => {
-  const { data } = await api.put(`/user/${userId}`, payload, {
-    baseURL: API_BFF_URL
-  })
+  const { data } = await api.put(`/user/${userId}`, payload)
   return data
 }
