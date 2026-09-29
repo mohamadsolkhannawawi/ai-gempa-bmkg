@@ -5,7 +5,7 @@ import api from '@src/utils/api'
 import { GetAllUserListQuery } from './types'
 
 export const getUsersAPI = async (params?: GetAllUserListQuery) => {
-  const { data } = await api.get<{ data: User[]; total: number }>('/user/getall', {
+  const { data } = await api.get<{ data: { users: User[]; total: number } }>('/user/getall', {
     params: {
       page: params?.page ?? 1,
       limit: params?.limit ?? 10,
@@ -13,7 +13,7 @@ export const getUsersAPI = async (params?: GetAllUserListQuery) => {
     }
   })
 
-  return data
+  return { data: data.data.users, total: data.data.total }
 }
 
 export const postUserAPI = async (payload: AddUserPayload) => {
