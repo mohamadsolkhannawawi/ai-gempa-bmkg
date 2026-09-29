@@ -34,24 +34,31 @@ echo "=== Switching to $DESC ==="
 echo ""
 
 # Update .env in wrapper (for next wrapper rebuild)
-echo "[1/4] Updating sispro-tews/.env..."
+echo "[1/5] Updating sispro-tews/.env..."
 sed -i.bak "s/^STATION_CSV=.*/STATION_CSV=$CSV/" sispro-tews/.env
 echo "      ✓ STATION_CSV=$CSV"
 
-# Update .env inside running wrapper
-echo "[2/4] Restarting controller_module..."
+# Update .env inside running wrapper (root dir)
+echo "[2/5] Updating wrapper /app/sispro-tews/.env..."
 docker exec gempa-dind-wrapper bash -c "
   cd /app/sispro-tews
   sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
+" 2>/dev/null || echo "      ⚠ Wrapper not running"
+
+# Update controller_module/.env in wrapper
+echo "[3/5] Updating wrapper /app/sispro-tews/controller_module/.env..."
+docker exec gempa-dind-wrapper bash -c "
+  cd /app/sispro-tews/controller_module
+  sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
   docker-compose restart controller_module
   sleep 15
-" 2>/dev/null || echo "      ⚠ Wrapper not running, will apply on next build"
+" 2>/dev/null || echo "      ⚠ Wrapper not running"
 
 # Verify seed
-echo "[3/4] Verifying station seed..."
+echo "[4/5] Verifying station seed..."
 docker exec gempa-dind-wrapper docker exec requirements_mongodb_1 mongo sispro-tews --quiet --eval "db.station.count()" 2>/dev/null || echo "      (wrapper offline)"
 
-echo "[4/4] Restarting seedlink replicas..."
+echo "[5/5] Restarting seedlink replicas..."
 docker exec gempa-dind-wrapper bash -c "
   cd /app/sispro-tews
   docker-compose up -d seedlink_module
@@ -62,7 +69,8 @@ echo ""
 echo "✓ Switched to $DESC"
 echo ""
 echo "Status:"
-echo "  .env updated: $(grep -o "STATION_CSV=$CSV" sispro-tews/.env && echo '✓' || echo '✗')"
+echo "  Root .env: $(grep -o \"STATION_CSV=$CSV\" sispro-tews/.env && echo '✓' || echo '✗')"
+echo "  Controller .env: $(docker exec gempa-dind-wrapper cat /app/sispro-tews/controller_module/.env 2>/dev/null | grep -c \"STATION_CSV=$CSV\" 2>/dev/null && echo '✓' || echo '✗')"
 echo ""
 echo "Monitor progress (check wrapper logs):"
 echo "  tail -f <(docker logs gempa-dind-wrapper 2>&1 | grep -iE 'seed|station|trace')"
@@ -70,4 +78,4 @@ echo ""
 echo "Verify when complete:"
 echo "  - Wrapper: docker logs gempa-dind-wrapper 2>&1 | tail -5"
 echo "  - Stations: docker exec gempa-dind-wrapper sh -c 'docker exec requirements_mongodb_1 mongo sispro-tews --quiet --eval \"db.station.count()\"'"
-echo "  - Seedlink: docker exec gempa-dind-wrapper sh -c 'docker logs sispro-tews_seedlink_module_1' | grep -c 'Received trace'"
+echo "  - Server: curl -s http://localhost:38003/api/v1/station/getall | grep -o '\"server_seedlink\":\"[^\"]*\"' | head -1"
