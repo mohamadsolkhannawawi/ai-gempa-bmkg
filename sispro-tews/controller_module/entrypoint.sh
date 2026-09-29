@@ -49,7 +49,12 @@ if [ $? -ne 0 ]; then
     echo "[CONTROLLER] ✗ Seed failed, but continuing (may already exist)"
 fi
 
-# Start controller application
+# Run IA stations seed (idempotent upsert)
+echo "[CONTROLLER]"
+echo "[CONTROLLER] Running IA stations seed..."
+python3 /app/seed_ia_stations.py
+
+echo "[CONTROLLER]"
 echo "[CONTROLLER]"
 echo "[CONTROLLER] Starting Uvicorn server..."
 echo "[CONTROLLER] =========================================="

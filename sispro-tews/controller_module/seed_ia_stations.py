@@ -11,14 +11,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# MongoDB connection
-mongo_uri = os.getenv("MONGODB_URI", "mongodb://mongodb:27017/")
-db_name = os.getenv("MONGODB_DB", "sispro-tews")
-client = MongoClient(mongo_uri)
+# MongoDB connection (compose uses database_host/port/name)
+MONGO_HOST = os.getenv("database_host", "mongodb")
+MONGO_PORT = os.getenv("database_port", "27017")
+db_name = os.getenv("database_name", "sispro-tews")
+client = MongoClient(f"mongodb://{MONGO_HOST}:{MONGO_PORT}/")
 db = client[db_name]
 stations_collection = db['station']
 
-CSV_PATH = "../seedlink_module/data/station.csv"
+CSV_PATH = "./data/station.csv"
 GEOFON_SERVER = "geofon.gfz-potsdam.de:18000"
 
 def parse_channel_string(channel_str):
@@ -36,7 +37,7 @@ def import_stations():
     
     try:
         with open(CSV_PATH, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f, delimiter='|')
+            reader = csv.DictReader(f, delimiter=',')
             for row in reader:
                 try:
                     # Parse data
