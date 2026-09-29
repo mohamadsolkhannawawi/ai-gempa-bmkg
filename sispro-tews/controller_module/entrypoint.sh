@@ -1,7 +1,6 @@
 #!/bin/bash
 # Entrypoint for controller_module container
 # Runs seed first, then starts the application
-set -e
 
 echo "[CONTROLLER] ========== Controller Module Entrypoint =========="
 echo "[CONTROLLER] Starting SISPRO-TEWS Controller Module"
