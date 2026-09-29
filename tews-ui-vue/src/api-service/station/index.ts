@@ -10,8 +10,8 @@ export const putUpdateStationStatusAPI = async (payload: PutUpdateStationStatusP
 }
 
 export const getStationListAPI = async (useRealAPI = false, params?: GetStationListQuery) => {
-  const { data } = await api.get<{ data: Station[]; total?: number }>('/station/getall')
-  return data
+  const { data } = await api.get<{ data: { stations: Station[]; total?: number } }>('/station/getall')
+  return { data: data.data.stations, total: data.data.total }
 }
 
 export const getStationWaveformStatusAPI = async (stationId: string) => {
