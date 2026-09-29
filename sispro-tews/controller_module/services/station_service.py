@@ -173,7 +173,7 @@ def station_get_detail_service(db, station_id, current_user):
 
 async def station_get_waveform_stats_service(db, station_id):
     # Define channel priorities
-    VELOCITY_CHANNEL_PRIORITY = ["BHZ", "SHZ"]
+    VELOCITY_CHANNEL_PRIORITY = ["BHZ", "HHZ", "SHZ"]
 
     station_data = station_find_by_id_repository(db, station_id=station_id)
 
