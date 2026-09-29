@@ -39,10 +39,10 @@ services:
       - sispro-tews_network
 
   redis:
-    image: redis/redis-stack-server
+    image: redis:7.2.5-alpine
     ports:
       - ${redis_port}:6379
-    command: redis-server --maxclients 1000000 --protected-mode no
+    command: redis-server --save "" --appendonly no --maxmemory 512mb --maxmemory-policy allkeys-lru --protected-mode no
     deploy:
       resources:
         limits:
