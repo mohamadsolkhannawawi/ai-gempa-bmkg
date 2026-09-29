@@ -104,6 +104,7 @@ class MySeedLinkClient(EasySeedLinkClient):
         super().__init__(server_url, False)
 
         # Setup seedlink connection
+        self.conn.timeout = 60  # required: is_connected() uses .timeout, None crashes
         self.conn.set_net_timeout(60)
         # self.conn.set_net_delay(0)
         # self.conn.set_keep_alive(30)
