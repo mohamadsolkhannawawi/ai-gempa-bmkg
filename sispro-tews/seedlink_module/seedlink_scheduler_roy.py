@@ -275,7 +275,7 @@ async def main():
         print(f"Redis: {os.getenv('redis_host')}:{os.getenv('redis_port')}")
         producer = connect_kafka()
 
-        station_datas = db["station"]
+        station_datas = list(db["station"].find({}))
         if regional:
             user_data = db["user"].find_one({"username": regional})
             if user_data is None or not user_data.get("stations"):
