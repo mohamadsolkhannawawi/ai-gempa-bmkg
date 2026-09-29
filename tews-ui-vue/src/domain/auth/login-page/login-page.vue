@@ -23,7 +23,7 @@ const { isPending, mutate: login } = useMutation({
   mutationFn: (data: LoginSchema) =>
     api<LoginResponse>({
       method: 'POST',
-      url: '/api/v1/user/login',
+      url: '/user/login',
       data
     }),
   onSuccess({ data }) {
