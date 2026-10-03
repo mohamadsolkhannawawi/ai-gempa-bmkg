@@ -1,63 +1,43 @@
 #!/usr/bin/env python3
 """
-Test GE network stations dari geofon.gfz-potsdam.de:18000
-Jalankan di server dengan: python3 test_ge_stations.py
+Test GE network station count via get_info("STREAMS") XML parsing
+Source: Claude approach - no streaming, just XML parse
 """
 from obspy.clients.seedlink.easyseedlink import EasySeedLinkClient
+import xml.etree.ElementTree as ET
 import signal
 import sys
 
-SERVER = "geofon.gfz-potsdam.de:18000"
-stations = set()
-packet_count = 0
-
-class GEStationClient(EasySeedLinkClient):
-    def on_data(self, trace):
-        global packet_count, stations
-        packet_count += 1
-        station = f"{trace.stats.network}.{trace.stats.station}"
-        if trace.stats.network == "GE":
-            stations.add(trace.stats.station)
-            print(f"[{packet_count}] {station}.{trace.stats.location}.{trace.stats.channel} - Total GE stations: {len(stations)}")
-    
-    def on_seedlink_error(self):
-        print("SeedLink error!")
-        self.conn.disconnect()
+SERVER = "geofon.gfz.de:18000"
 
 def signal_handler(sig, frame):
-    print(f"\n{'='*60}")
-    print(f"Received {packet_count} packets")
-    print(f"Total GE stations found: {len(stations)}")
-    print(f"Station codes: {sorted(stations)}")
+    print("\nInterrupted.")
     sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
 
 print(f"Connecting to {SERVER}...")
-# Workaround obspy 1.5.1 bug: timeout=None causes TypeError
-# Create client without connecting first
-import obspy.clients.seedlink.client.seedlinkconnection as slconn
-original_init = slconn.SeedLinkConnection.__init__
+client = EasySeedLinkClient(SERVER)
+print("Capabilities:", client.capabilities)
 
-def patched_init(self, *args, **kwargs):
-    original_init(self, *args, **kwargs)
-    if self.timeout is None:
-        self.timeout = 30  # Force default timeout
+print("\nFetching STREAMS info...")
+xml = client.get_info("STREAMS")
+print(f"STREAMS XML length: {len(xml)} chars")
+print("\nFirst 1000 chars:")
+print(xml[:1000])
+print("...")
 
-slconn.SeedLinkConnection.__init__ = patched_init
+root = ET.fromstring(xml)
 
-client = GEStationClient(SERVER)
+# Semua stasiun jaringan GE
+stasiun = {s.get("name") for s in root.iter("station") if s.get("network") == "GE"}
+print(f"\n{'='*60}")
+print(f"Jumlah stasiun GE: {len(stasiun)}")
+print(f"Stasiun: {sorted(stasiun)}")
 
-print("\nServer capabilities:", client.capabilities)
+# Hanya yang punya channel BH?
+bh = {s.get("name") for s in root.iter("station") if s.get("network") == "GE"
+      and any(st.get("seedname", "").startswith("BH") for st in s.iter("stream"))}
+print(f"\nJumlah stasiun GE dengan BH?: {len(bh)}")
+print(f"Stasiun BH: {sorted(bh)}")
 print(f"{'='*60}")
-
-# Subscribe to GE network, all stations, BH channels (broadband high-gain)
-client.select_stream("GE", "*", "BH?")
-
-print("Listening for GE network streams... (Press Ctrl+C to stop)")
-print(f"{'='*60}\n")
-
-try:
-    client.run()
-except KeyboardInterrupt:
-    signal_handler(None, None)
