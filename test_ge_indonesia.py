@@ -1,46 +1,40 @@
 #!/usr/bin/env python3
 """
-Filter GE stations di Indonesia dari STREAMS XML
+Stasiun Indonesia (GE+IA network) aktif di SeedLink
+Method: FDSN metadata + SeedLink real-time intersection
 """
 from obspy.clients.seedlink.easyseedlink import EasySeedLinkClient
+from obspy.clients.fdsn import Client
 import xml.etree.ElementTree as ET
 
-SERVER = "geofon.gfz.de:18000"
+print("Fetching FDSN metadata...")
+fdsn = Client("GFZ")
+inv = fdsn.get_stations(
+    network="GE,IA",              # GE = GEOFON, IA = BMKG Indonesia
+    channel="BH?",
+    minlatitude=-11, maxlatitude=6,
+    minlongitude=95, maxlongitude=141,
+    level="station",
+)
+indo = {(net.code, sta.code) for net in inv for sta in net}
+print(f"Stasiun Indonesia (FDSN): {len(indo)}")
 
-print(f"Connecting to {SERVER}...")
-client = EasySeedLinkClient(SERVER)
+print("\nFetching SeedLink live availability...")
+client = EasySeedLinkClient("geofon.gfz.de:18000")
+root = ET.fromstring(client.get_info("STREAMS"))
 
-print("Fetching STREAMS info...")
-xml = client.get_info("STREAMS")
-root = ET.fromstring(xml)
+live = {
+    (s.get("network"), s.get("name"))
+    for s in root.iter("station")
+    if any(st.get("seedname", "").startswith("BH") for st in s.iter("stream"))
+}
+print(f"Stasiun live di SeedLink (all networks): {len(live)}")
 
-print("\nFetching STATIONS info (with coordinates)...")
-stations_xml = client.get_info("STATIONS")
-stations_root = ET.fromstring(stations_xml)
-
-# Parse station coordinates from STATIONS
-ge_coords = {}
-for station in stations_root.iter("station"):
-    if station.get("network") == "GE":
-        name = station.get("name")
-        lat = float(station.get("latitude", "0"))
-        lon = float(station.get("longitude", "0"))
-        desc = station.get("description", "")
-        ge_coords[name] = {"lat": lat, "lon": lon, "desc": desc}
-
-# Indonesia bounding box (approximate)
-# Latitude: -11 to 6
-# Longitude: 95 to 141
-indonesia_stations = []
-for name, info in ge_coords.items():
-    lat, lon = info["lat"], info["lon"]
-    if -11 <= lat <= 6 and 95 <= lon <= 141:
-        indonesia_stations.append((name, lat, lon, info["desc"]))
-
+# Intersection: stasiun Indonesia + aktif di SeedLink
+hasil = sorted(indo & live)
 print(f"\n{'='*60}")
-print(f"Total GE stations: {len(ge_coords)}")
-print(f"GE stations in Indonesia region: {len(indonesia_stations)}")
+print(f"Stasiun Indonesia aktif di SeedLink: {len(hasil)}")
 print(f"{'='*60}\n")
 
-for name, lat, lon, desc in sorted(indonesia_stations):
-    print(f"{name:10} | {lat:7.3f}, {lon:8.3f} | {desc}")
+for net, sta in hasil:
+    print(f"{net}.{sta}")
