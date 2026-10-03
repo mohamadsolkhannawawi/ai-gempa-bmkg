@@ -34,6 +34,18 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 print(f"Connecting to {SERVER}...")
+# Workaround obspy 1.5.1 bug: timeout=None causes TypeError
+# Create client without connecting first
+import obspy.clients.seedlink.client.seedlinkconnection as slconn
+original_init = slconn.SeedLinkConnection.__init__
+
+def patched_init(self, *args, **kwargs):
+    original_init(self, *args, **kwargs)
+    if self.timeout is None:
+        self.timeout = 30  # Force default timeout
+
+slconn.SeedLinkConnection.__init__ = patched_init
+
 client = GEStationClient(SERVER)
 
 print("\nServer capabilities:", client.capabilities)
