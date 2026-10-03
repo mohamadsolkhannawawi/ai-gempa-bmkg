@@ -170,6 +170,8 @@ services:
       context: ./seedlink_module
     env_file:
       - ./.env
+    ports:
+      - "18000:18000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
     tty: true
