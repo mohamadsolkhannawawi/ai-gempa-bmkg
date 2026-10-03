@@ -18,6 +18,7 @@ inv = fdsn.get_stations(
 )
 indo = {(net.code, sta.code) for net in inv for sta in net}
 print(f"Stasiun Indonesia (FDSN): {len(indo)}")
+print(f"FDSN stations: {sorted(indo)}")
 
 print("\nFetching SeedLink live availability...")
 client = EasySeedLinkClient("geofon.gfz.de:18000")
@@ -29,6 +30,7 @@ live = {
     if any(st.get("seedname", "").startswith("BH") for st in s.iter("stream"))
 }
 print(f"Stasiun live di SeedLink (all networks): {len(live)}")
+print(f"SeedLink GE+IA: {sorted([x for x in live if x[0] in ('GE', 'IA')])}")
 
 # Intersection: stasiun Indonesia + aktif di SeedLink
 hasil = sorted(indo & live)
