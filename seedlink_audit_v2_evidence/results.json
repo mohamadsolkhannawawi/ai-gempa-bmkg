@@ -1,0 +1,1006 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-10-05T12:30:27+00:00",
+    "public_ip": "118.99.73.114",
+    "python": "3.12.10",
+    "outdir": "C:\\Users\\HP/seedlink_audit/20261005_123027",
+    "bbox": {
+      "minlatitude": -11.5,
+      "maxlatitude": 6.5,
+      "minlongitude": 94.5,
+      "maxlongitude": 141.5
+    }
+  },
+  "phase1_web": {
+    "gfz_forum": {
+      "url": "https://geofon.gfz.de/forum/t/no-data-for-geofon-stations-in-indonesia/43807",
+      "http": 200,
+      "chars": 1742,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\web_gfz_forum.txt",
+      "hits": {
+        "BMKG": 3,
+        "Indonesia": 3,
+        "28 Aug": 0,
+        "04:55": 1,
+        "internal": 0,
+        "redistribut": 2,
+        "restor": 1,
+        "SeedLink": 2,
+        "FDSNWS": 1
+      },
+      "post_dates": [
+        "2026-09-03T08:51:02.074Z",
+        "2026-09-15T11:17:40.124Z",
+        "2026-09-15T15:57:09.155Z",
+        "2026-09-24T09:57:59.302Z"
+      ]
+    },
+    "earthscope_news": {
+      "url": "https://www.earthscope.org/news/seedlink-service-is-moving-as-part-of-our-cloud-transition/",
+      "http": 200,
+      "chars": 7791,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\web_earthscope_news.txt",
+      "hits": {
+        "rtserve.earthscope.org": 3,
+        "18500": 1,
+        "TLS": 1,
+        "version 4": 0,
+        "v4": 2,
+        "18000": 1,
+        "iris.washington.edu": 3,
+        "May": 1
+      }
+    },
+    "geoshake_api": {
+      "url": "https://api.geoshake.org/",
+      "http": 200,
+      "chars": 23065,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\web_geoshake_api.txt",
+      "hits": {
+        "seedlink": 3,
+        "18000": 3,
+        "GW": 3,
+        "anonym": 3,
+        "fdsnws": 3,
+        "station": 3,
+        "_LNZ": 1,
+        "_ENZ": 1
+      }
+    },
+    "fdsn_geoshake": {
+      "url": "https://www.fdsn.org/datacenters/detail/GEOSHAKE/",
+      "http": 200,
+      "chars": 2102,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\web_fdsn_geoshake.txt",
+      "hits": {
+        "seedlink": 2,
+        "18000": 2,
+        "GW": 1,
+        "GEOSHAKE": 3,
+        "2026": 1
+      }
+    },
+    "fdsn_auspass": {
+      "url": "https://www.fdsn.org/datacenters/detail/AusPass/",
+      "http": 200,
+      "chars": 1254,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\web_fdsn_auspass.txt",
+      "hits": {
+        "seedlink": 0,
+        "18000": 0,
+        "fdsnws": 3,
+        "AusPass": 3
+      }
+    }
+  },
+  "phase2_connectivity": [
+    {
+      "host": "seedlink.geoshake.org",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "52.57.227.137"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 187,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.4) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "GeoShake SeedLink"
+      ],
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "rtserve.earthscope.org",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "18.190.248.70",
+        "3.146.240.204"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 262,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "EarthScope Ring Server"
+      ],
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "rtserve.earthscope.org",
+      "port": 18500,
+      "tls": true,
+      "dns": "OK",
+      "ips": [
+        "18.190.248.70",
+        "3.146.240.204"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 246,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "EarthScope Ring Server"
+      ],
+      "tls_info": {
+        "version": "TLSv1.2",
+        "subject_cn": "*.earthscope.org",
+        "not_after": "Mar  1 23:59:59 2027 GMT"
+      },
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "rtserve.iris.washington.edu",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "18.190.248.70",
+        "3.146.240.204"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 269,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "EarthScope Ring Server"
+      ],
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "geofon.gfz.de",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "139.17.228.65"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 3200,
+      "hello": [
+        "SeedLink v4.0 [HMB SeedLink v0.2 (2026.110)] :: SLPROTO:4.0",
+        "GEOFON"
+      ],
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "auspass.edu.au",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "150.203.69.61"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 362,
+      "hello": [
+        "SeedLink v3.3 (2024.020)",
+        "ANU"
+      ],
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "seedlink.resif.fr",
+      "port": 18000,
+      "tls": false,
+      "dns": "NXDOMAIN/ERR",
+      "ips": [],
+      "tcp": null,
+      "connect_ms": null,
+      "hello": null,
+      "tls_info": null,
+      "error": "[Errno 11001] getaddrinfo failed",
+      "cloudflare_ips": []
+    },
+    {
+      "host": "rtserve.resif.fr",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "129.88.201.40"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 171,
+      "hello": [
+        "SeedLink v3.1 (2020.075 RingServer) :: SLPROTO:3.1 CAP EXTREPLY NSWILDCARD BATCH WS:13",
+        "Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr"
+      ],
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "eida.bgr.de",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "193.174.161.29"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 214,
+      "hello": [
+        "SeedLink v3.3 (2020.203)",
+        "SZGRF"
+      ],
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": []
+    },
+    {
+      "host": "geof.bmkg.go.id",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "104.20.20.136",
+        "172.66.159.70",
+        "2606:4700:10::6814:1488",
+        "2606:4700:10::ac42:9f46"
+      ],
+      "tcp": "TIMEOUT",
+      "connect_ms": null,
+      "hello": null,
+      "tls_info": null,
+      "error": null,
+      "cloudflare_ips": [
+        "104.20.20.136",
+        "172.66.159.70",
+        "2606:4700:10::6814:1488",
+        "2606:4700:10::ac42:9f46"
+      ]
+    }
+  ],
+  "phase3_inventory": {
+    "seedlink.geoshake.org:18000": {
+      "stations": 57,
+      "networks": {
+        "GW": 57
+      },
+      "station_attrs": [
+        "begin_seq",
+        "description",
+        "end_seq",
+        "name",
+        "network",
+        "stream_check"
+      ],
+      "stream_attrs": [
+        "begin_time",
+        "end_time",
+        "location",
+        "seedname",
+        "type"
+      ],
+      "xml_has_latlon": false,
+      "stations_with_end_time": 0,
+      "stations_fresh_lt_600s": 0,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.4) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "GeoShake SeedLink"
+      ],
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\info_streams_seedlink.geoshake.org_18000.xml",
+      "gw_sample": {
+        "GW.A2SJK": [
+          "00.LNZ"
+        ],
+        "GW.A3BEY": [
+          "00.LNZ"
+        ],
+        "GW.A5224": [
+          "00.LNZ"
+        ],
+        "GW.A73T7": [
+          "00.EN1",
+          "00.EN2",
+          "00.ENZ",
+          "00.LNZ"
+        ],
+        "GW.AUFRM": [
+          "00.LNZ"
+        ],
+        "GW.B6B49": [
+          "00.EN1",
+          "00.EN2",
+          "00.ENZ",
+          "00.LNZ"
+        ],
+        "GW.BH2JN": [
+          "00.LNZ"
+        ],
+        "GW.BZAZP": [
+          "00.EN1",
+          "00.EN2",
+          "00.ENZ",
+          "00.LNZ"
+        ],
+        "GW.D5U9H": [
+          "00.LNZ"
+        ],
+        "GW.DBNEC": [
+          "00.LNZ"
+        ]
+      }
+    },
+    "rtserve.earthscope.org:18000": {
+      "stations": 4258,
+      "networks": {
+        "UW": 456,
+        "AK": 230,
+        "AU": 199,
+        "AV": 192,
+        "IM": 186,
+        "UU": 179,
+        "UO": 146,
+        "CN": 144,
+        "N4": 134,
+        "TX": 126,
+        "OK": 116,
+        "NM": 97,
+        "NN": 96,
+        "CC": 74,
+        "4O": 72,
+        "RE": 72,
+        "PB": 66,
+        "C1": 65,
+        "IU": 60,
+        "HV": 58,
+        "US": 56,
+        "CI": 53,
+        "MB": 50,
+        "S1": 46,
+        "PE": 41,
+        "PR": 40,
+        "II": 38,
+        "GS": 34,
+        "RV": 34,
+        "GB": 32,
+        "OH": 30,
+        "G": 29,
+        "OZ": 28,
+        "SB": 28,
+        "WY": 28,
+        "CZ": 27,
+        "SC": 26,
+        "AB": 21,
+        "ET": 21,
+        "JP": 21,
+        "M8": 21,
+        "GM": 19,
+        "KR": 19,
+        "O2": 19,
+        "WU": 19,
+        "CA": 18,
+        "NT": 18,
+        "1E": 17,
+        "AE": 16,
+        "HZ": 16,
+        "KY": 16,
+        "QZ": 16,
+        "PQ": 15,
+        "ON": 14,
+        "AG": 13,
+        "IE": 13,
+        "LD": 13,
+        "OO": 13,
+        "BX": 12,
+        "JM": 12,
+        "SN": 12,
+        "CO": 11,
+        "NV": 11,
+        "PT": 11,
+        "C": 10,
+        "DK": 10,
+        "EI": 10,
+        "IW": 10,
+        "LO": 10,
+        "PS": 10,
+        "QN": 10,
+        "RO": 10,
+        "AC": 9,
+        "CM": 9,
+        "NZ": 9,
+        "WI": 9,
+        "1Q": 8,
+        "C0": 8,
+        "CH": 8,
+        "CU": 8,
+        "EC": 8,
+        "KO": 8,
+        "PL": 8,
+        "VD": 8,
+        "AT": 7,
+        "GE": 7,
+        "GT": 7,
+        "MX": 7,
+        "TC": 7,
+        "TW": 7,
+        "XL": 7,
+        "C8": 6,
+        "NE": 6,
+        "NP": 6,
+        "TJ": 6,
+        "6K": 5,
+        "A0": 5,
+        "GO": 5,
+        "IC": 5,
+        "MN": 5,
+        "MY": 5,
+        "MZ": 5,
+        "OV": 5,
+        "SV": 5,
+        "UT": 5,
+        "WW": 5,
+        "XH": 5,
+        "2M": 4,
+        "A2": 4,
+        "AI": 4,
+        "AM": 4,
+        "HL": 4,
+        "MS": 4,
+        "NX": 4,
+        "PM": 4,
+        "S8": 4,
+        "TD": 4,
+        "WM": 4,
+        "ZC": 4,
+        "4T": 3,
+        "AF": 3,
+        "BC": 3,
+        "BE": 3,
+        "BK": 3,
+        "BL": 3,
+        "BV": 3,
+        "CW": 3,
+        "HT": 3,
+        "IN": 3,
+        "LB": 3,
+        "NA": 3,
+        "NU": 3,
+        "YS": 3,
+        "3A": 2,
+        "CY": 2,
+        "LM": 2,
+        "LX": 2,
+        "MM": 2,
+        "MP": 2,
+        "WF": 2,
+        "YX": 2,
+        "1G": 1,
+        "AY": 1,
+        "DR": 1,
+        "EO": 1,
+        "EP": 1,
+        "GR": 1,
+        "HK": 1,
+        "JW": 1,
+        "KG": 1,
+        "KZ": 1,
+        "MI": 1,
+        "MU": 1,
+        "NK": 1,
+        "NL": 1,
+        "NW": 1,
+        "OI": 1,
+        "OW": 1,
+        "RC": 1,
+        "RI": 1,
+        "SE": 1,
+        "SG": 1,
+        "SS": 1,
+        "WA": 1,
+        "XU": 1
+      },
+      "station_attrs": [
+        "begin_seq",
+        "description",
+        "end_seq",
+        "name",
+        "network",
+        "stream_check"
+      ],
+      "stream_attrs": [
+        "begin_time",
+        "end_time",
+        "location",
+        "seedname",
+        "type"
+      ],
+      "xml_has_latlon": false,
+      "stations_with_end_time": 0,
+      "stations_fresh_lt_600s": 0,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "EarthScope Ring Server"
+      ],
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\info_streams_rtserve.earthscope.org_18000.xml"
+    },
+    "auspass.edu.au:18000": {
+      "stations": 83,
+      "networks": {
+        "S1": 53,
+        "M8": 30
+      },
+      "station_attrs": [
+        "begin_seq",
+        "description",
+        "end_seq",
+        "name",
+        "network",
+        "stream_check"
+      ],
+      "stream_attrs": [
+        "begin_recno",
+        "begin_time",
+        "end_recno",
+        "end_time",
+        "gap_check",
+        "gap_treshold",
+        "location",
+        "seedname",
+        "type"
+      ],
+      "xml_has_latlon": false,
+      "stations_with_end_time": 80,
+      "stations_fresh_lt_600s": 71,
+      "hello": [
+        "SeedLink v3.3 (2024.020)",
+        "ANU"
+      ],
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\info_streams_auspass.edu.au_18000.xml"
+    },
+    "rtserve.resif.fr:18000": {
+      "stations": 479,
+      "networks": {
+        "FR": 179,
+        "RA": 98,
+        "PF": 36,
+        "XP": 33,
+        "G": 31,
+        "GL": 18,
+        "MT": 16,
+        "MQ": 13,
+        "CL": 12,
+        "RD": 12,
+        "WI": 10,
+        "QM": 7,
+        "FF": 6,
+        "ND": 5,
+        "FO": 3
+      },
+      "station_attrs": [
+        "begin_seq",
+        "description",
+        "end_seq",
+        "name",
+        "network",
+        "stream_check"
+      ],
+      "stream_attrs": [
+        "begin_time",
+        "end_time",
+        "location",
+        "seedname",
+        "type"
+      ],
+      "xml_has_latlon": false,
+      "stations_with_end_time": 479,
+      "stations_fresh_lt_600s": 471,
+      "hello": [
+        "SeedLink v3.1 (2020.075 RingServer) :: SLPROTO:3.1 CAP EXTREPLY NSWILDCARD BATCH WS:13",
+        "Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr"
+      ],
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\info_streams_rtserve.resif.fr_18000.xml"
+    },
+    "eida.bgr.de:18000": {
+      "stations": 200,
+      "networks": {
+        "GR": 106,
+        "TH": 47,
+        "SX": 16,
+        "GQ": 8,
+        "KQ": 7,
+        "GE": 7,
+        "LE": 3,
+        "BW": 3,
+        "AM": 2,
+        "IU": 1
+      },
+      "station_attrs": [
+        "begin_seq",
+        "description",
+        "end_seq",
+        "name",
+        "network",
+        "stream_check"
+      ],
+      "stream_attrs": [
+        "begin_recno",
+        "begin_time",
+        "end_recno",
+        "end_time",
+        "gap_check",
+        "gap_treshold",
+        "location",
+        "seedname",
+        "type"
+      ],
+      "xml_has_latlon": false,
+      "stations_with_end_time": 198,
+      "stations_fresh_lt_600s": 187,
+      "hello": [
+        "SeedLink v3.3 (2020.203)",
+        "SZGRF"
+      ],
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\info_streams_eida.bgr.de_18000.xml"
+    },
+    "geofon.gfz.de:18000": {
+      "stations": 387,
+      "networks": {
+        "GE": 63,
+        "IS": 37,
+        "GR": 34,
+        "CX": 25,
+        "CZ": 24,
+        "HE": 20,
+        "DK": 19,
+        "AW": 18,
+        "MN": 17,
+        "YU": 14,
+        "NU": 10,
+        "SK": 10,
+        "EE": 9,
+        "FN": 9,
+        "RO": 9,
+        "M1": 8,
+        "PL": 8,
+        "CK": 7,
+        "EI": 7,
+        "JS": 5,
+        "WM": 5,
+        "GX": 4,
+        "HN": 4,
+        "MK": 4,
+        "BW": 3,
+        "SX": 3,
+        "TT": 3,
+        "1D": 2,
+        "2Q": 2,
+        "CP": 2,
+        "IO": 1,
+        "IU": 1
+      },
+      "station_attrs": [
+        "begin_seq",
+        "description",
+        "end_seq",
+        "name",
+        "network",
+        "stream_check"
+      ],
+      "stream_attrs": [
+        "begin_recno",
+        "begin_time",
+        "end_recno",
+        "end_time",
+        "gap_check",
+        "gap_treshold",
+        "location",
+        "seedname",
+        "type"
+      ],
+      "xml_has_latlon": false,
+      "stations_with_end_time": 274,
+      "stations_fresh_lt_600s": 234,
+      "hello": [
+        "SeedLink v4.0 [HMB SeedLink v0.2 (2026.110)] :: SLPROTO:4.0",
+        "GEOFON"
+      ],
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_123027\\info_streams_geofon.gfz.de_18000.xml"
+    }
+  },
+  "phase4_fdsn": {
+    "EARTHSCOPE": {
+      "http": 200,
+      "url": "https://service.earthscope.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-21&level=station&format=text",
+      "stations": 76,
+      "networks": {
+        "SY": 33,
+        "GE": 17,
+        "MY": 13,
+        "MS": 7,
+        "PS": 3,
+        "AU": 2,
+        "II": 1
+      }
+    },
+    "GFZ": {
+      "http": 200,
+      "url": "https://geofon.gfz.de/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-21&level=station&format=text",
+      "stations": 21,
+      "networks": {
+        "GE": 21
+      }
+    }
+  },
+  "phase4_intersection": {
+    "seedlink.geoshake.org:18000": [],
+    "rtserve.earthscope.org:18000": [
+      {
+        "net": "AU",
+        "sta": "XMI",
+        "lat": -10.4501,
+        "lon": 105.6884,
+        "channels": [
+          "00.BHE",
+          "00.BHN",
+          "00.BHZ",
+          "D0.LCQ"
+        ],
+        "age_s": null,
+        "country": "AU"
+      },
+      {
+        "net": "II",
+        "sta": "KAPI",
+        "lat": -5.0142,
+        "lon": 119.7517,
+        "channels": [
+          "00.BH1",
+          "00.BH2",
+          "00.BHZ",
+          "00.EN1",
+          "00.EN2",
+          "00.ENZ",
+          "00.LCE",
+          "00.LCQ"
+        ],
+        "age_s": null,
+        "country": "ID"
+      },
+      {
+        "net": "MS",
+        "sta": "BESC",
+        "lat": 1.3421,
+        "lon": 103.8513,
+        "channels": [
+          ".ACE",
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".BLE",
+          ".BLN",
+          ".BLZ",
+          ".EHE"
+        ],
+        "age_s": null,
+        "country": "SG"
+      },
+      {
+        "net": "MS",
+        "sta": "KAPK",
+        "lat": 1.2967,
+        "lon": 103.888298,
+        "channels": [
+          ".ACE",
+          ".EHE",
+          ".EHN",
+          ".EHZ",
+          ".HNE",
+          ".HNN",
+          ".HNZ",
+          ".LCE"
+        ],
+        "age_s": null,
+        "country": "SG"
+      },
+      {
+        "net": "MS",
+        "sta": "NTU",
+        "lat": 1.3537,
+        "lon": 103.685097,
+        "channels": [
+          ".ACE",
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".BLE",
+          ".BLN",
+          ".BLZ",
+          ".EHE"
+        ],
+        "age_s": null,
+        "country": "SG"
+      },
+      {
+        "net": "MS",
+        "sta": "UBIN",
+        "lat": 1.4179,
+        "lon": 103.953796,
+        "channels": [
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".BLE",
+          ".BLN",
+          ".BLZ",
+          ".HHE",
+          ".HHN"
+        ],
+        "age_s": null,
+        "country": "SG"
+      },
+      {
+        "net": "MY",
+        "sta": "IPM",
+        "lat": 4.4795,
+        "lon": 101.025497,
+        "channels": [
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".LHE",
+          ".LHN",
+          ".LHZ"
+        ],
+        "age_s": null,
+        "country": "MY"
+      },
+      {
+        "net": "MY",
+        "sta": "KOM",
+        "lat": 1.7922,
+        "lon": 103.846703,
+        "channels": [
+          ".BHE",
+          ".BHN",
+          ".BHZ"
+        ],
+        "age_s": null,
+        "country": "MY"
+      },
+      {
+        "net": "MY",
+        "sta": "KSM",
+        "lat": 1.4733,
+        "lon": 110.308296,
+        "channels": [
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".LHE",
+          ".LHN",
+          ".LHZ"
+        ],
+        "age_s": null,
+        "country": "MY"
+      },
+      {
+        "net": "MY",
+        "sta": "KUM",
+        "lat": 5.2902,
+        "lon": 100.6492,
+        "channels": [
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".LHE",
+          ".LHN",
+          ".LHZ"
+        ],
+        "age_s": null,
+        "country": "MY"
+      },
+      {
+        "net": "MY",
+        "sta": "SBM",
+        "lat": 2.4529,
+        "lon": 112.213997,
+        "channels": [
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".LHE",
+          ".LHN",
+          ".LHZ"
+        ],
+        "age_s": null,
+        "country": "MY"
+      },
+      {
+        "net": "PS",
+        "sta": "JAY",
+        "lat": -2.5147,
+        "lon": 140.703,
+        "channels": [
+          ".BHE",
+          ".BHN",
+          ".BHZ",
+          ".LCE",
+          ".LCQ",
+          ".LHE",
+          ".LHN",
+          ".LHZ"
+        ],
+        "age_s": null,
+        "country": "ID"
+      }
+    ],
+    "auspass.edu.au:18000": [],
+    "rtserve.resif.fr:18000": [],
+    "eida.bgr.de:18000": [],
+    "geofon.gfz.de:18000": []
+  },
+  "phase4_watchlist": {
+    "BBJI": [],
+    "BKB": [],
+    "BKNI": [],
+    "BNDI": [],
+    "CISI": [],
+    "FAKI": [],
+    "GENI": [],
+    "GSI": [],
+    "JAGI": [],
+    "KAPI": [
+      "rtserve.earthscope.org:18000 -> II.KAPI (umur_data=Nones)"
+    ],
+    "LHMI": [],
+    "LUWI": [],
+    "MMRI": [],
+    "MNAI": [],
+    "PLAI": [],
+    "PMBI": [],
+    "PMBT": [],
+    "SANI": [],
+    "SAUI": [],
+    "SMRI": [],
+    "SOEI": [],
+    "TNTI": [],
+    "TOLI": [],
+    "TOLI2": [],
+    "UGM": [],
+    "WRAB": [
+      "rtserve.earthscope.org:18000 -> II.WRAB (umur_data=Nones)"
+    ],
+    "YOGI": []
+  },
+  "phase4_geoshake": {
+    "http": 200,
+    "url": "https://api.geoshake.org/fdsnws/station/1/query?network=GW&level=station&format=text",
+    "with_metadata": 57,
+    "in_bbox": [],
+    "live": 57,
+    "live_without_metadata": 57
+  }
+}

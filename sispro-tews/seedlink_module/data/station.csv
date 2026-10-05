@@ -203,3 +203,5 @@ _id,name,code,network,channel,location,longitude,latitude,elevation,server_seedl
 665d9a35f9201df92c945a1b,"WSHHI (Wasile Selatan, Halmahera Timur, Maluku Utara)",WSHHI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",,127.813,0.764,24.0,172.19.3.87:18000,GFZ
 665d9a35f9201df92c945a1c,"WWCI (Station Type A, Wangi-wangi,Wakatobi,Sulawesi Tenggara)",WWCI,IA,"['HNE', 'HNN', 'HNZ', 'SHE', 'SHN', 'SHZ']",00,123.5251,-5.2724,26.0,172.19.3.87:18000,GFZ
 665d9a35f9201df92c945a1d,YOGI (Station Yogyakarta China),YOGI,IA,"['BHE', 'BHN', 'BHZ', 'ENE', 'ENN', 'ENZ']",00,110.295,-7.8166,176.0,172.19.3.87:18000,GFZ
+674115a0f9201df92c999001,"KAPI (Kendari, Sulawesi Tenggara, Indonesia)",KAPI,II,"['BH1', 'BH2', 'BHZ', 'EN1', 'EN2', 'ENZ', 'LH1', 'LH2', 'LHZ', 'VH1', 'VH2', 'VHZ']",00,119.752,-5.014,148.0,rtserve.earthscope.org:18000,EARTHSCOPE
+674115a0f9201df92c999002,"JAY (Jayapura, Papua, Indonesia)",JAY,PS,"['BHE', 'BHN', 'BHZ', 'LCE', 'LCN', 'LCZ']",00,140.703,-2.515,125.0,rtserve.earthscope.org:18000,EARTHSCOPE
