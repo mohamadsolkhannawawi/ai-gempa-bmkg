@@ -170,8 +170,9 @@ services:
       context: ./seedlink_module
     env_file:
       - ./.env
-    ports:
-      - "18000:18000"
+    # NOTE: Seedlink is internal scheduler, not exposed to host.
+    # Port 18000 used for SeedLink client connections (via Kafka/Redis bridge).
+    # Multiple replicas share internal network; no port binding needed.
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
     tty: true
