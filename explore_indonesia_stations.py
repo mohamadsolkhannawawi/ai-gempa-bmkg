@@ -1,195 +1,132 @@
 #!/usr/bin/env python3
 """
-Explore Indonesia seismic stations from audit results.
-Find all stations in Indonesia bounding box (-11.5 to 6.5 lat, 94.5 to 141.5 lon)
-and recommend which ones to add to station_indonesia.csv for real-time streaming.
+Explore Indonesia seismic stations from audit results - FIXED VERSION
+Deep recursive search for nested station data.
 """
 
 import json
 from collections import defaultdict
 
-# Indonesia bounding box
-INDO_BBOX = {
-    'min_lat': -11.5,
-    'max_lat': 6.5,
-    'min_lon': 94.5,
-    'max_lon': 141.5
-}
+INDO_BBOX = {'min_lat': -11.5, 'max_lat': 6.5, 'min_lon': 94.5, 'max_lon': 141.5}
+
+def find_station_lists(obj, path="", depth=0):
+    """Recursively find station lists."""
+    results = []
+    if depth > 5:
+        return results
+    
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            new_path = f"{path}.{k}" if path else k
+            if isinstance(v, list) and len(v) > 0 and isinstance(v[0], dict):
+                first_keys = list(v[0].keys())
+                if ('network' in first_keys and 'code' in first_keys) or 'stations' in k.lower():
+                    results.append((new_path, v))
+            results.extend(find_station_lists(v, new_path, depth+1))
+    elif isinstance(obj, list) and len(obj) > 0 and isinstance(obj[0], dict):
+        first_keys = list(obj[0].keys())
+        if 'network' in first_keys and 'code' in first_keys:
+            results.append((f"{path}[list]", obj))
+    return results
 
 def main():
-    # Load audit results
     try:
         with open('seedlink_audit_v2_evidence/results.json') as f:
             d = json.load(f)
     except FileNotFoundError:
-        print("ERROR: seedlink_audit_v2_evidence/results.json not found")
+        print("ERROR: results.json not found")
         return
 
-    print("=" * 80)
-    print("AUDIT RESULTS - INDONESIA SEISMIC STATIONS EXPLORER")
-    print("=" * 80)
+    print("="*80)
+    print("INDONESIA STATIONS EXPLORER (Deep Search)")
+    print("="*80)
     print()
-
-    # 1. Show top-level structure
-    print("1. AUDIT DATA STRUCTURE:")
-    print()
-    for k in sorted(d.keys()):
-        v = d[k]
-        v_type = type(v).__name__
-        if isinstance(v, list):
-            print(f"   {k:45s} : {v_type:10s} ({len(v):4d} items)")
-        elif isinstance(v, dict):
-            print(f"   {k:45s} : {v_type:10s} ({len(v):4d} keys)")
-        else:
-            print(f"   {k:45s} : {v_type:10s}")
-
-    print()
-    print("=" * 80)
-    print("2. FINDING STATION LISTS")
-    print("=" * 80)
-    print()
-
-    # Find all station lists (list of dicts with network/code)
-    candidates = []
-
-    for key, val in d.items():
-        # Direct list of dicts
-        if isinstance(val, list) and len(val) > 0:
-            if isinstance(val[0], dict):
-                first_keys = list(val[0].keys())
-                if 'network' in first_keys and 'code' in first_keys:
-                    candidates.append((key, val))
-                    print(f"   Found: {key}")
-                    print(f"     Count: {len(val)}")
-                    print(f"     Keys: {', '.join(first_keys[:6])}")
-                    print()
-        
-        # Nested dict -> list of dicts
-        elif isinstance(val, dict):
-            for subkey, subval in val.items():
-                if isinstance(subval, list) and len(subval) > 0:
-                    if isinstance(subval[0], dict):
-                        first_keys = list(subval[0].keys())
-                        if 'network' in first_keys and 'code' in first_keys:
-                            candidates.append((f"{key}.{subkey}", subval))
-                            print(f"   Found: {key}.{subkey}")
-                            print(f"     Count: {len(subval)}")
-                            print(f"     Keys: {', '.join(first_keys[:6])}")
-                            print()
-
-    print("=" * 80)
-    print("3. FILTERING INDONESIA BBOX STATIONS")
-    print("=" * 80)
-    print()
-
-    all_indo_stations = []
-
-    for key, stations in candidates:
-        indo_in_this_key = []
-        
+    
+    candidates = find_station_lists(d)
+    print(f"Found {len(candidates)} station lists:\n")
+    
+    for path, stations in candidates:
+        print(f"  {path}: {len(stations)} stations")
+        if stations:
+            s = stations[0]
+            print(f"    Example: {s.get('network','?')}.{s.get('code','?')}")
+    
+    print("\n" + "="*80)
+    print("FILTERING INDONESIA BBOX")
+    print("="*80 + "\n")
+    
+    all_indo = []
+    for path, stations in candidates:
+        indo = []
         for s in stations:
             lat = s.get('latitude') or s.get('lat')
             lon = s.get('longitude') or s.get('lon')
-            
-            if lat is None or lon is None:
-                continue
-            
-            # Check bounding box
-            if (INDO_BBOX['min_lat'] <= lat <= INDO_BBOX['max_lat'] and
-                INDO_BBOX['min_lon'] <= lon <= INDO_BBOX['max_lon']):
-                indo_in_this_key.append(s)
-        
-        if indo_in_this_key:
-            print(f"   From {key}: {len(indo_in_this_key)} stations")
-            all_indo_stations.extend(indo_in_this_key)
-
-    print()
-    print(f"   Total (with duplicates): {len(all_indo_stations)}")
-    print()
-
-    # Deduplicate by network.code
+            if lat and lon:
+                if INDO_BBOX['min_lat'] <= lat <= INDO_BBOX['max_lat'] and \
+                   INDO_BBOX['min_lon'] <= lon <= INDO_BBOX['max_lon']:
+                    indo.append(s)
+        if indo:
+            print(f"  {path}: {len(indo)} Indonesia stations")
+            all_indo.extend(indo)
+    
     seen = set()
-    unique_indo = []
-
-    for s in all_indo_stations:
+    unique = []
+    for s in all_indo:
         key = (s.get('network'), s.get('code'))
         if key not in seen:
             seen.add(key)
-            unique_indo.append(s)
-
-    print(f"   Total (unique): {len(unique_indo)}")
-    print()
-
-    print("=" * 80)
-    print("4. STATIONS BY NETWORK")
-    print("=" * 80)
-    print()
-
-    by_network = defaultdict(list)
-    for s in unique_indo:
-        by_network[s.get('network')].append(s)
-
-    for net in sorted(by_network.keys()):
-        stations = by_network[net]
-        print(f"   {net}: {len(stations)} stations")
-        for s in stations:
-            code = s.get('code', '?')
+            unique.append(s)
+    
+    print(f"\nTotal unique: {len(unique)}\n")
+    
+    if not unique:
+        print("⚠ No stations found. Debugging first 2 lists:\n")
+        for path, stations in candidates[:2]:
+            print(f"{path} sample:")
+            for s in stations[:2]:
+                print(f"  {s.get('network','?')}.{s.get('code','?')}  lat={s.get('latitude','?')} lon={s.get('longitude','?')}")
+        return
+    
+    print("="*80)
+    print("BY NETWORK")
+    print("="*80 + "\n")
+    
+    by_net = defaultdict(list)
+    for s in unique:
+        by_net[s.get('network')].append(s)
+    
+    for net in sorted(by_net.keys()):
+        print(f"{net}: {len(by_net[net])} stations")
+        for s in by_net[net]:
+            code = s.get('code','?')
             lat = s.get('latitude') or s.get('lat') or 0
             lon = s.get('longitude') or s.get('lon') or 0
-            loc = s.get('location', '') or ''
-            country = s.get('country_code') or s.get('country') or '?'
-            print(f"      {net}.{code:6s}  loc={loc:3s}  lat={lat:7.3f} lon={lon:8.3f}  ({country})")
-
-    print()
-    print("=" * 80)
-    print("5. RECOMMENDATIONS")
-    print("=" * 80)
-    print()
-
-    # Filter by country_code == 'ID'
-    id_only = [s for s in unique_indo if s.get('country_code') == 'ID']
-
-    if id_only:
-        print(f"   ✓ Stations geocoded as Indonesia (country_code='ID'): {len(id_only)}")
-        print()
-        for s in id_only:
-            net = s.get('network')
-            code = s.get('code')
-            lat = s.get('latitude') or s.get('lat')
-            lon = s.get('longitude') or s.get('lon')
-            loc = s.get('location', '00') or '00'
-            name = s.get('name', code)
-            print(f"      {net}.{code:6s}  {name}")
-            print(f"        Position: {lat:.3f}, {lon:.3f}")
-            print(f"        Location code: {loc}")
-            print()
-    else:
-        print("   ⚠ No stations with country_code='ID'")
-        print("   Fallback: Using all stations in Indonesia bbox:")
-        print()
-        for s in unique_indo[:15]:
-            net = s.get('network')
-            code = s.get('code')
-            lat = s.get('latitude') or s.get('lat')
-            lon = s.get('longitude') or s.get('lon')
-            loc = s.get('location', '00') or '00'
-            country = s.get('country_code') or s.get('country') or '?'
-            name = s.get('name', code)
-            print(f"      {net}.{code:6s}  {name}")
-            print(f"        Position: {lat:.3f}, {lon:.3f} ({country})")
-            print(f"        Location code: {loc}")
-            print()
-
-    print()
-    print("=" * 80)
-    print("NEXT STEPS")
-    print("=" * 80)
-    print()
-    print("1. Choose stations from above list")
-    print("2. Edit: sispro-tews/controller_module/data/station_indonesia.csv")
-    print("3. Commit & push to GitHub")
-    print("4. Restart controller (auto-seed chosen stations)")
-    print()
+            country = s.get('country_code') or '?'
+            print(f"  {net}.{code:6s}  {lat:7.3f},{lon:8.3f}  ({country})")
+    
+    print("\n" + "="*80)
+    print("CSV FORMAT (for station_indonesia.csv)")
+    print("="*80 + "\n")
+    
+    id_only = [s for s in unique if s.get('country_code') == 'ID']
+    target = id_only if id_only else unique
+    
+    print("_id,name,code,network,channel,location,longitude,latitude,elevation,server_seedlink,server_fdsn")
+    for s in target:
+        _id = s.get('_id', 'gen_'+s.get('code','x'))
+        name = s.get('name', s.get('code',''))
+        code = s.get('code')
+        net = s.get('network')
+        chan = str(s.get('channel', ['BHZ','BHN','BHE']))
+        loc = s.get('location', '00') or '00'
+        lon = s.get('longitude') or s.get('lon') or 0
+        lat = s.get('latitude') or s.get('lat') or 0
+        elev = s.get('elevation') or 0
+        srv_sl = s.get('server_seedlink', 'rtserve.earthscope.org:18000')
+        srv_fdsn = s.get('server_fdsn', 'EARTHSCOPE')
+        print(f'{_id},"{name}",{code},{net},"{chan}",{loc},{lon},{lat},{elev},{srv_sl},{srv_fdsn}')
+    
+    print("\n" + "="*80)
 
 if __name__ == '__main__':
     main()
