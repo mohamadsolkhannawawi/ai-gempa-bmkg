@@ -60,6 +60,7 @@ services:
       - MONGO_DB_NAME=${MONGO_DB_NAME:-sispro-tews}
       - MONGO_CONNECT_RETRIES=${MONGO_CONNECT_RETRIES:-10}
       - MONGO_CONNECT_RETRY_DELAY=${MONGO_CONNECT_RETRY_DELAY:-3}
+      - STATION_CSV=station_indonesia.csv
     ports:
       - "38003:8003"
     tty: true

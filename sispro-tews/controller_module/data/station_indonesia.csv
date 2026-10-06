@@ -1,0 +1,3 @@
+_id,name,code,network,channel,location,longitude,latitude,elevation,server_seedlink,server_fdsn
+6ac43acd57d26a7a31882d4d,"KAPI (Kendari, Sulawesi Tenggara, Indonesia)",KAPI,II,"['BHZ', 'BHN', 'BHE']",00,119.752,-5.014,148.0,rtserve.earthscope.org:18000,EARTHSCOPE
+6ac43acd57d26a7a31882d4e,"JAY (Jayapura, Papua, Indonesia)",JAY,PS,"['BHZ', 'BHN', 'BHE']",00,140.703,-2.515,125.0,rtserve.earthscope.org:18000,EARTHSCOPE
