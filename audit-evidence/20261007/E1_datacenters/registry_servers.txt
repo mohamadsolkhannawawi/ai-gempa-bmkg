@@ -1,0 +1,2 @@
+rtserve.earthscope.org:18000
+seedlink.geoshake.org:18000

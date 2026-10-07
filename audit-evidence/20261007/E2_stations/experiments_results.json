@@ -1,0 +1,348 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-10-07T01:26:38+00:00",
+    "public_ip": "118.99.73.114",
+    "python": "3.11.16",
+    "experiments": [
+      "e4",
+      "e5"
+    ]
+  },
+  "e4_archive": [
+    {
+      "provider": "EARTHSCOPE",
+      "net": "II",
+      "sta": "KAPI",
+      "cha": "BH?",
+      "availability": {
+        "url": "https://service.earthscope.org/fdsnws/availability/1/query?net=II&sta=KAPI&cha=BH?&start=2026-08-01&end=2026-10-07&merge=quality,samplerate&format=text",
+        "http": 404,
+        "error": null,
+        "rows": 1,
+        "latest": null,
+        "sample": [
+          "This service has been retired"
+        ]
+      },
+      "windows": {
+        "pra_28Agu": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=II&sta=KAPI&loc=*&cha=BH?&start=2026-08-20T00:00:00&end=2026-08-20T00:02:00",
+          "http": 502,
+          "error": null,
+          "bytes": 122
+        },
+        "pasca_28Agu": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=II&sta=KAPI&loc=*&cha=BH?&start=2026-09-10T00:00:00&end=2026-09-10T00:02:00",
+          "http": 200,
+          "error": null,
+          "bytes": 69632,
+          "records": 17,
+          "channels": [
+            "00.BH1",
+            "00.BH2",
+            "00.BHZ",
+            "10.BH1",
+            "10.BH2",
+            "10.BHZ"
+          ],
+          "first_start": "2026-09-10T00:00:00.019500+00:00",
+          "last_end": "2026-09-10T00:02:00.019500+00:00",
+          "lag_s_vs_now": 2337884.6,
+          "file": "C:\\Users\\HP/seedlink_audit/exp_20261007_012638\\archive_pasca_28Agu_II_KAPI.mseed"
+        },
+        "terbaru": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=II&sta=KAPI&loc=*&cha=BH?&start=2026-10-07T01:11:38&end=2026-10-07T01:25:38",
+          "http": null,
+          "error": "TimeoutError: The read operation timed out",
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "provider": "EARTHSCOPE",
+      "net": "PS",
+      "sta": "JAY",
+      "cha": "BH?",
+      "availability": {
+        "url": "https://service.earthscope.org/fdsnws/availability/1/query?net=PS&sta=JAY&cha=BH?&start=2026-08-01&end=2026-10-07&merge=quality,samplerate&format=text",
+        "http": 404,
+        "error": null,
+        "rows": 1,
+        "latest": null,
+        "sample": [
+          "This service has been retired"
+        ]
+      },
+      "windows": {
+        "pra_28Agu": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=PS&sta=JAY&loc=*&cha=BH?&start=2026-08-20T00:00:00&end=2026-08-20T00:02:00",
+          "http": 200,
+          "error": null,
+          "bytes": 8192,
+          "records": 16,
+          "channels": [
+            ".BHE",
+            ".BHN",
+            ".BHZ"
+          ],
+          "first_start": "2026-08-20T00:00:00.011300+00:00",
+          "last_end": "2026-08-20T00:02:00.011300+00:00",
+          "lag_s_vs_now": 4152358.1,
+          "file": "C:\\Users\\HP/seedlink_audit/exp_20261007_012638\\archive_pra_28Agu_PS_JAY.mseed"
+        },
+        "pasca_28Agu": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=PS&sta=JAY&loc=*&cha=BH?&start=2026-09-10T00:00:00&end=2026-09-10T00:02:00",
+          "http": 200,
+          "error": null,
+          "bytes": 8192,
+          "records": 16,
+          "channels": [
+            ".BHE",
+            ".BHN",
+            ".BHZ"
+          ],
+          "first_start": "2026-09-10T00:00:00.011300+00:00",
+          "last_end": "2026-09-10T00:02:00.011300+00:00",
+          "lag_s_vs_now": 2337960.6,
+          "file": "C:\\Users\\HP/seedlink_audit/exp_20261007_012638\\archive_pasca_28Agu_PS_JAY.mseed"
+        },
+        "terbaru": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=PS&sta=JAY&loc=*&cha=BH?&start=2026-10-07T01:11:38&end=2026-10-07T01:25:38",
+          "http": 200,
+          "error": null,
+          "bytes": 44544,
+          "records": 87,
+          "channels": [
+            ".BHE",
+            ".BHN",
+            ".BHZ"
+          ],
+          "first_start": "2026-10-07T01:11:38.011300+00:00",
+          "last_end": "2026-10-07T01:25:38.011300+00:00",
+          "lag_s_vs_now": 145.0,
+          "file": "C:\\Users\\HP/seedlink_audit/exp_20261007_012638\\archive_terbaru_PS_JAY.mseed"
+        }
+      }
+    },
+    {
+      "provider": "GFZ",
+      "net": "GE",
+      "sta": "TOLI",
+      "cha": "?HZ",
+      "availability": {
+        "url": "https://geofon.gfz.de/fdsnws/availability/1/query?net=GE&sta=TOLI&cha=?HZ&start=2026-08-01&end=2026-10-07&merge=quality,samplerate&format=text",
+        "http": 204,
+        "error": null,
+        "rows": 0,
+        "latest": null,
+        "sample": []
+      },
+      "windows": {
+        "pra_28Agu": {
+          "url": "https://geofon.gfz.de/fdsnws/dataselect/1/query?net=GE&sta=TOLI&loc=*&cha=?HZ&start=2026-08-20T00:00:00&end=2026-08-20T00:02:00",
+          "http": 204,
+          "error": null,
+          "bytes": 0
+        },
+        "pasca_28Agu": {
+          "url": "https://geofon.gfz.de/fdsnws/dataselect/1/query?net=GE&sta=TOLI&loc=*&cha=?HZ&start=2026-09-10T00:00:00&end=2026-09-10T00:02:00",
+          "http": 204,
+          "error": null,
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "provider": "GFZ",
+      "net": "GE",
+      "sta": "YOGI",
+      "cha": "?HZ",
+      "availability": {
+        "url": "https://geofon.gfz.de/fdsnws/availability/1/query?net=GE&sta=YOGI&cha=?HZ&start=2026-08-01&end=2026-10-07&merge=quality,samplerate&format=text",
+        "http": 204,
+        "error": null,
+        "rows": 0,
+        "latest": null,
+        "sample": []
+      },
+      "windows": {
+        "pra_28Agu": {
+          "url": "https://geofon.gfz.de/fdsnws/dataselect/1/query?net=GE&sta=YOGI&loc=*&cha=?HZ&start=2026-08-20T00:00:00&end=2026-08-20T00:02:00",
+          "http": 204,
+          "error": null,
+          "bytes": 0
+        },
+        "pasca_28Agu": {
+          "url": "https://geofon.gfz.de/fdsnws/dataselect/1/query?net=GE&sta=YOGI&loc=*&cha=?HZ&start=2026-09-10T00:00:00&end=2026-09-10T00:02:00",
+          "http": 204,
+          "error": null,
+          "bytes": 0
+        }
+      }
+    },
+    {
+      "provider": "GFZ",
+      "net": "GE",
+      "sta": "BKB",
+      "cha": "?HZ",
+      "availability": {
+        "url": "https://geofon.gfz.de/fdsnws/availability/1/query?net=GE&sta=BKB&cha=?HZ&start=2026-08-01&end=2026-10-07&merge=quality,samplerate&format=text",
+        "http": 200,
+        "error": null,
+        "rows": 3,
+        "latest": null,
+        "sample": [
+          "GE       BKB     --       BHZ     2026-08-01T00:00:00.000000Z 2026-10-06T00:00:00.000000Z",
+          "GE       BKB     --       SHZ     2026-08-01T00:00:00.000000Z 2026-09-25T11:58:14.883000Z",
+          "GE       BKB     --       SHZ     2026-09-25T11:58:21.743000Z 2026-10-06T00:00:00.000000Z"
+        ]
+      },
+      "windows": {
+        "pra_28Agu": {
+          "url": "https://geofon.gfz.de/fdsnws/dataselect/1/query?net=GE&sta=BKB&loc=*&cha=?HZ&start=2026-08-20T00:00:00&end=2026-08-20T00:02:00",
+          "http": 200,
+          "error": null,
+          "bytes": 14848,
+          "records": 29,
+          "channels": [
+            ".BHZ",
+            ".SHZ"
+          ],
+          "first_start": "2026-08-19T23:59:55.421800+00:00",
+          "last_end": "2026-08-20T00:02:08.321800+00:00",
+          "lag_s_vs_now": 4152374.5,
+          "file": "C:\\Users\\HP/seedlink_audit/exp_20261007_012638\\archive_pra_28Agu_GE_BKB.mseed"
+        },
+        "pasca_28Agu": {
+          "url": "https://geofon.gfz.de/fdsnws/dataselect/1/query?net=GE&sta=BKB&loc=*&cha=?HZ&start=2026-09-10T00:00:00&end=2026-09-10T00:02:00",
+          "http": 403,
+          "error": null,
+          "bytes": 279
+        }
+      }
+    },
+    {
+      "provider": "EARTHSCOPE",
+      "net": "GE",
+      "sta": "TOLI",
+      "cha": "?HZ",
+      "availability": {
+        "url": "https://service.earthscope.org/fdsnws/availability/1/query?net=GE&sta=TOLI&cha=?HZ&start=2026-08-01&end=2026-10-07&merge=quality,samplerate&format=text",
+        "http": 404,
+        "error": null,
+        "rows": 1,
+        "latest": null,
+        "sample": [
+          "This service has been retired"
+        ]
+      },
+      "windows": {
+        "pra_28Agu": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=GE&sta=TOLI&loc=*&cha=?HZ&start=2026-08-20T00:00:00&end=2026-08-20T00:02:00",
+          "http": 204,
+          "error": null,
+          "bytes": 0
+        },
+        "pasca_28Agu": {
+          "url": "https://service.earthscope.org/fdsnws/dataselect/1/query?net=GE&sta=TOLI&loc=*&cha=?HZ&start=2026-09-10T00:00:00&end=2026-09-10T00:02:00",
+          "http": 204,
+          "error": null,
+          "bytes": 0
+        }
+      }
+    }
+  ],
+  "e5_bmkg": {
+    "autogempa.json": {
+      "url": "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json",
+      "http": 200,
+      "error": null,
+      "bytes": 403,
+      "content_type": "application/json",
+      "last_modified": null,
+      "etag": null,
+      "cache_control": "max-age=60",
+      "server": "cloudflare",
+      "n_events": 1,
+      "newest_event_utc": "2026-10-06T21:56:46+00:00",
+      "newest_event_age_h": 3.5,
+      "fields": [
+        "Bujur",
+        "Coordinates",
+        "DateTime",
+        "Dirasakan",
+        "Jam",
+        "Kedalaman",
+        "Lintang",
+        "Magnitude",
+        "Potensi",
+        "Shakemap",
+        "Tanggal",
+        "Wilayah"
+      ]
+    },
+    "gempaterkini.json": {
+      "url": "https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json",
+      "http": 200,
+      "error": null,
+      "bytes": 4138,
+      "content_type": "application/json",
+      "last_modified": null,
+      "etag": null,
+      "cache_control": "max-age=60",
+      "server": "cloudflare",
+      "n_events": 15,
+      "newest_event_utc": "2026-10-06T20:15:26+00:00",
+      "newest_event_age_h": 5.2,
+      "fields": [
+        "Bujur",
+        "Coordinates",
+        "DateTime",
+        "Jam",
+        "Kedalaman",
+        "Lintang",
+        "Magnitude",
+        "Potensi",
+        "Tanggal",
+        "Wilayah"
+      ]
+    },
+    "gempadirasakan.json": {
+      "url": "https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json",
+      "http": 200,
+      "error": null,
+      "bytes": 4653,
+      "content_type": "application/json",
+      "last_modified": null,
+      "etag": null,
+      "cache_control": "max-age=60",
+      "server": "cloudflare",
+      "n_events": 15,
+      "newest_event_utc": "2026-10-06T21:56:46+00:00",
+      "newest_event_age_h": 3.5,
+      "fields": [
+        "Bujur",
+        "Coordinates",
+        "DateTime",
+        "Dirasakan",
+        "Jam",
+        "Kedalaman",
+        "Lintang",
+        "Magnitude",
+        "Tanggal",
+        "Wilayah"
+      ]
+    },
+    "autogempa.xml": {
+      "url": "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.xml",
+      "http": 200,
+      "error": null,
+      "bytes": 530,
+      "content_type": "text/xml",
+      "last_modified": null,
+      "etag": null,
+      "cache_control": "max-age=60",
+      "server": "cloudflare"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+Output: C:\Users\HP/seedlink_audit/20261007_011921
+Meta: {'timestamp_utc': '2026-10-07T01:19:21+00:00', 'public_ip': '118.99.73.114', 'python': '3.11.16', 'outdir': 'C:\\Users\\HP/seedlink_audit/20261007_011921', 'bbox': {'minlatitude': -11.5, 'maxlatitude': 6.5, 'minlongitude': 94.5, 'maxlongitude': 141.5}}
+
+======================================================================
+FASE 2: KONEKTIVITAS + HELLO
+======================================================================
+seedlink.geoshake.org:18000  DNS=OK TCP=OPEN HELLO=['SeedLink v4.0 (RingServer/4.5.4) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13', 'GeoShake SeedLink'] 
+rtserve.earthscope.org:18000  DNS=OK TCP=OPEN HELLO=['SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13', 'EarthScope Ring Server'] 
+rtserve.earthscope.org:18500 [TLS]  DNS=OK TCP=OPEN HELLO=['SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13', 'EarthScope Ring Server'] 
+rtserve.iris.washington.edu:18000  DNS=OK TCP=OPEN HELLO=['SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13', 'EarthScope Ring Server'] 
+geofon.gfz.de:18000  DNS=OK TCP=OPEN HELLO=['SeedLink v4.0 [HMB SeedLink v0.2 (2026.110)] :: SLPROTO:4.0', 'GEOFON'] 
+auspass.edu.au:18000  DNS=OK TCP=OPEN HELLO=['SeedLink v3.3 (2024.020)', 'ANU'] 
+seedlink.resif.fr:18000  DNS=NXDOMAIN/ERR TCP=None HELLO=None ERR=[Errno 11001] getaddrinfo failed
+rtserve.resif.fr:18000  DNS=OK TCP=OPEN HELLO=['SeedLink v3.1 (2020.075 RingServer) :: SLPROTO:3.1 CAP EXTREPLY NSWILDCARD BATCH WS:13', 'Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr'] 
+eida.bgr.de:18000  DNS=OK TCP=OPEN HELLO=['SeedLink v3.3 (2020.203)', 'SZGRF'] 
+geof.bmkg.go.id:18000  DNS=OK TCP=TIMEOUT HELLO=None 
+   >>> geof.bmkg.go.id: 4/4 IP di rentang Cloudflare
+
+======================================================================
+FASE 3: INVENTARIS INFO STREAMS (SeedLink v3 mentah)
+======================================================================
+
+seedlink.geoshake.org:18000: 59 stasiun, 1 jaringan; XML memuat lat/lon? False
+  atribut <station>: ['begin_seq', 'description', 'end_seq', 'name', 'network', 'stream_check']
+  atribut <stream> : ['begin_time', 'end_time', 'location', 'seedname', 'type']
+  jaringan terbesar: [('GW', 59)]
+  stasiun dengan data < 10 menit: 0/0
+  contoh stasiun GW (10 pertama):
+    ('GW', 'A2SJK'): ['00.LNZ']  umur=Nones
+    ('GW', 'A3BEY'): ['00.LNZ']  umur=Nones
+    ('GW', 'A5224'): ['00.LNZ']  umur=Nones
+    ('GW', 'A73T7'): ['00.LNZ']  umur=Nones
+    ('GW', 'AUFRM'): ['00.LNZ']  umur=Nones
+    ('GW', 'B6B49'): ['00.LNZ']  umur=Nones
+    ('GW', 'BH2JN'): ['00.LNZ']  umur=Nones
+    ('GW', 'BZAZP'): ['00.EN1', '00.EN2', '00.ENZ', '00.LNZ']  umur=Nones
+    ('GW', 'D5U9H'): ['00.EN1', '00.EN2', '00.ENZ', '00.LNZ']  umur=Nones
+    ('GW', 'DBNEC'): ['00.LNZ']  umur=Nones
+
+rtserve.earthscope.org:18000: 4306 stasiun, 166 jaringan; XML memuat lat/lon? False
+  atribut <station>: ['begin_seq', 'description', 'end_seq', 'name', 'network', 'stream_check']
+  atribut <stream> : ['begin_time', 'end_time', 'location', 'seedname', 'type']
+  jaringan terbesar: [('UW', 456), ('AK', 240), ('AU', 199), ('AV', 192), ('IM', 186), ('UU', 181), ('UO', 146), ('CN', 144)]
+  stasiun dengan data < 10 menit: 0/0
+
+auspass.edu.au:18000: 84 stasiun, 2 jaringan; XML memuat lat/lon? False
+  atribut <station>: ['begin_seq', 'description', 'end_seq', 'name', 'network', 'stream_check']
+  atribut <stream> : ['begin_recno', 'begin_time', 'end_recno', 'end_time', 'gap_check', 'gap_treshold', 'location', 'seedname', 'type']
+  jaringan terbesar: [('S1', 53), ('M8', 31)]
+  stasiun dengan data < 10 menit: 70/80
+
+rtserve.resif.fr:18000: 472 stasiun, 15 jaringan; XML memuat lat/lon? False
+  atribut <station>: ['begin_seq', 'description', 'end_seq', 'name', 'network', 'stream_check']
+  atribut <stream> : ['begin_time', 'end_time', 'location', 'seedname', 'type']
+  jaringan terbesar: [('FR', 175), ('RA', 95), ('PF', 35), ('XP', 34), ('G', 31), ('GL', 18), ('MT', 15), ('MQ', 13)]
+  stasiun dengan data < 10 menit: 467/472
+
+eida.bgr.de:18000: 200 stasiun, 10 jaringan; XML memuat lat/lon? False
+  atribut <station>: ['begin_seq', 'description', 'end_seq', 'name', 'network', 'stream_check']
+  atribut <stream> : ['begin_recno', 'begin_time', 'end_recno', 'end_time', 'gap_check', 'gap_treshold', 'location', 'seedname', 'type']
+  jaringan terbesar: [('GR', 106), ('TH', 47), ('SX', 16), ('GQ', 8), ('KQ', 7), ('GE', 7), ('LE', 3), ('BW', 3)]
+  stasiun dengan data < 10 menit: 184/198
+
+geofon.gfz.de:18000: 387 stasiun, 32 jaringan; XML memuat lat/lon? False
+  atribut <station>: ['begin_seq', 'description', 'end_seq', 'name', 'network', 'stream_check']
+  atribut <stream> : ['begin_recno', 'begin_time', 'end_recno', 'end_time', 'gap_check', 'gap_treshold', 'location', 'seedname', 'type']
+  jaringan terbesar: [('GE', 63), ('IS', 37), ('GR', 34), ('CX', 25), ('CZ', 24), ('HE', 20), ('DK', 19), ('AW', 18)]
+  stasiun dengan data < 10 menit: 246/274
+
+======================================================================
+FASE 4: KOORDINAT FDSN x STASIUN LIVE
+======================================================================
+FDSN EARTHSCOPE: HTTP=200 stasiun aktif di bbox (endafter 2026-08-23)=76 jaringan={'SY': 33, 'GE': 17, 'MY': 13, 'MS': 7, 'PS': 3, 'AU': 2, 'II': 1}
+FDSN GFZ: HTTP=200 stasiun aktif di bbox (endafter 2026-08-23)=21 jaringan={'GE': 21}
+Total stasiun unik (net,sta) di bbox: 82
+
+seedlink.geoshake.org:18000: 0 stasiun LIVE yang koordinatnya masuk bbox {}
+
+rtserve.earthscope.org:18000: 12 stasiun LIVE yang koordinatnya masuk bbox {'AU': 1, 'II': 1, 'MS': 4, 'MY': 5, 'PS': 1}
+   AU.XMI    lat=-10.450 lon=105.688 umur_data=Nones ['00.BHE', '00.BHN', '00.BHZ', 'D0.LCQ']
+   II.KAPI   lat=-5.014 lon=119.752 umur_data=Nones ['00.BH1', '00.BH2', '00.BHZ', '00.EN1']
+   MS.BESC   lat=1.342 lon=103.851 umur_data=Nones ['.ACE', '.BHE', '.BHN', '.BHZ']
+   MS.KAPK   lat=1.297 lon=103.888 umur_data=Nones ['.ACE', '.EHE', '.EHN', '.EHZ']
+   MS.NTU    lat=1.354 lon=103.685 umur_data=Nones ['.ACE', '.BHE', '.BHN', '.BHZ']
+   MS.UBIN   lat=1.418 lon=103.954 umur_data=Nones ['.ACE', '.BHE', '.BHN', '.BHZ']
+   MY.IPM    lat=4.479 lon=101.025 umur_data=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   MY.KOM    lat=1.792 lon=103.847 umur_data=Nones ['.BHE', '.BHN', '.BHZ']
+   MY.KSM    lat=1.473 lon=110.308 umur_data=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   MY.KUM    lat=5.290 lon=100.649 umur_data=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   MY.SBM    lat=2.453 lon=112.214 umur_data=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   PS.JAY    lat=-2.515 lon=140.703 umur_data=Nones ['.BHE', '.BHN', '.BHZ', '.LCE']
+
+auspass.edu.au:18000: 0 stasiun LIVE yang koordinatnya masuk bbox {}
+
+rtserve.resif.fr:18000: 0 stasiun LIVE yang koordinatnya masuk bbox {}
+
+eida.bgr.de:18000: 0 stasiun LIVE yang koordinatnya masuk bbox {}
+
+geofon.gfz.de:18000: 0 stasiun LIVE yang koordinatnya masuk bbox {}
+
+Geocoding negara (Nominatim, maks 40 titik unik)...
+  seedlink.geoshake.org:18000: Counter()
+  rtserve.earthscope.org:18000: Counter({'MY': 5, 'SG': 4, 'ID': 2, 'AU': 1})
+  auspass.edu.au:18000: Counter()
+  rtserve.resif.fr:18000: Counter()
+  eida.bgr.de:18000: Counter()
+  geofon.gfz.de:18000: Counter()
+
+Watchlist (KAPI/WRAB/BKNI + 25 kode GE Indonesia) - ditemukan di server mana:
+   BBJI  : TIDAK ADA di server mana pun
+   BKB   : TIDAK ADA di server mana pun
+   BKNI  : TIDAK ADA di server mana pun
+   BNDI  : TIDAK ADA di server mana pun
+   CISI  : TIDAK ADA di server mana pun
+   FAKI  : TIDAK ADA di server mana pun
+   GENI  : TIDAK ADA di server mana pun
+   GSI   : TIDAK ADA di server mana pun
+   JAGI  : TIDAK ADA di server mana pun
+   KAPI  : ['rtserve.earthscope.org:18000 -> II.KAPI (umur_data=Nones)']
+   LHMI  : TIDAK ADA di server mana pun
+   LUWI  : TIDAK ADA di server mana pun
+   MMRI  : TIDAK ADA di server mana pun
+   MNAI  : TIDAK ADA di server mana pun
+   PLAI  : TIDAK ADA di server mana pun
+   PMBI  : TIDAK ADA di server mana pun
+   PMBT  : TIDAK ADA di server mana pun
+   SANI  : TIDAK ADA di server mana pun
+   SAUI  : TIDAK ADA di server mana pun
+   SMRI  : TIDAK ADA di server mana pun
+   SOEI  : TIDAK ADA di server mana pun
+   TNTI  : TIDAK ADA di server mana pun
+   TOLI  : TIDAK ADA di server mana pun
+   TOLI2 : TIDAK ADA di server mana pun
+   UGM   : TIDAK ADA di server mana pun
+   WRAB  : ['rtserve.earthscope.org:18000 -> II.WRAB (umur_data=Nones)']
+   YOGI  : TIDAK ADA di server mana pun
+
+GeoShake: lokasi semua stasiun GW lewat FDSN (tanpa filter bbox)
+   HTTP=200  stasiun GW dengan metadata=60  di dalam bbox Indonesia=0  live di SeedLink=59  live TANPA metadata=59
+
+======================================================================
+FASE 5: UJI STREAMING LIVE (90s per stasiun)
+======================================================================
+
+>>> rtserve.earthscope.org:18000 II.KAPI selectors=['BH?', 'EN?']

@@ -1,0 +1,138 @@
+Output: C:\Users\HP/seedlink_audit/exp_20261007_012250
+Meta: {'timestamp_utc': '2026-10-07T01:22:50+00:00', 'public_ip': '118.99.73.114', 'python': '3.11.16', 'experiments': ['e1', 'e2', 'e3']}
+
+======================================================================
+E1: CRAWL REGISTRI FDSN DATA CENTER
+======================================================================
+indeks HTTP=200 err=None; pusat data ditemukan: 33
+  AusPass: seedlink=[] fdsnws-station=['https://auspass.edu.au/fdsnws/station/1/']
+  BGR: seedlink=[] fdsnws-station=['https://eida.bgr.de/fdsnws/station/1/']
+  BGS: seedlink=[] fdsnws-station=['https://eida.bgs.ac.uk/fdsnws/station/1/']
+  EPOSFR: seedlink=[] fdsnws-station=['https://seisdata.epos-france.fr/fdsnws/station/1/']
+  ETH: seedlink=[] fdsnws-station=['https://eida.ethz.ch/fdsnws/station/1/']
+  EarthScope: seedlink=['rtserve.earthscope.org:18000'] fdsnws-station=['http://service.earthscope.org/fdsnws/station/1']
+  GEOFON: seedlink=[] fdsnws-station=['https://geofon.gfz.de/fdsnws/station/1/']
+  GEOSHAKE: seedlink=['seedlink.geoshake.org:18000'] fdsnws-station=['https://api.geoshake.org/fdsnws/station/1/']
+  GeoNet: seedlink=[] fdsnws-station=['https://service.geonet.org.nz/fdsnws/station/1/']
+  ICGC: seedlink=[] fdsnws-station=['https://ws.icgc.cat/fdsnws/station/1/']
+  IESDMC: seedlink=[] fdsnws-station=['http://batsws.earth.sinica.edu.tw/fdsnws/station/1/']
+  INGV: seedlink=[] fdsnws-station=['https://webservices.ingv.it/fdsnws/station/1/']
+  IPGP: seedlink=[] fdsnws-station=['http://ws.ipgp.fr/fdsnws/station/1/']
+  KAGSR: seedlink=[] fdsnws-station=['http://sdis.emsd.ru/fdsnws/station/1/']
+  KIT: seedlink=[] fdsnws-station=['http://ws.gpi.kit.edu/fdsnws/station/1']
+  KOERI: seedlink=[] fdsnws-station=['https://eida.koeri.boun.edu.tr/fdsnws/station/1/']
+  LMU: seedlink=[] fdsnws-station=['https://erde.geophysik.uni-muenchen.de/fdsnws/station/1/']
+  NCEDC: seedlink=[] fdsnws-station=['https://service.ncedc.org/fdsnws/station/1']
+  NIEP: seedlink=[] fdsnws-station=['https://eida-sc3.infp.ro/fdsnws/station/1/']
+  NOA: seedlink=[] fdsnws-station=['https://eida.gein.noa.gr/fdsnws/station/1/']
+  NRCAN: seedlink=[] fdsnws-station=['https://earthquakescanada.nrcan.gc.ca/fdsnws/station/1/']
+  ODC: seedlink=[] fdsnws-station=['https://www.orfeus-eu.org/fdsnws/station/1/']
+  OSDC: seedlink=[] fdsnws-station=['http://osdc.obslab.cn/fdsnws/station/1/']
+  RASPISHAKE: seedlink=[] fdsnws-station=['https://data.raspberryshake.org/fdsnws/station/1/']
+  RSBR: seedlink=[] fdsnws-station=['http://rsbr.iag.usp.br/fdsnws/station/1/']
+  SCEDC: seedlink=[] fdsnws-station=['https://service.scedc.caltech.edu/fdsnws/station/1/']
+  UIB-NORSAR: seedlink=[] fdsnws-station=['https://eida.geo.uib.no/fdsnws/station/1/']
+  USP: seedlink=[] fdsnws-station=['http://seisrequest.iag.usp.br/fdsnws/station/1']
+
+Total endpoint SeedLink yang dideklarasikan operator: 2 -> registry_servers.txt
+
+======================================================================
+E2: SURVEY SERVER x STASIUN FDSN DI BBOX INDONESIA
+======================================================================
+FDSN EARTHSCOPE: HTTP=200 stasiun aktif di bbox=76 {'SY': 33, 'GE': 17, 'MY': 13, 'MS': 7, 'PS': 3, 'AU': 2, 'II': 1}
+FDSN GFZ: HTTP=200 stasiun aktif di bbox=21 {'GE': 21}
+FDSN GEOSHAKE: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN AUSPASS: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN BGR_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN BGS_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN EPOSFR_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN ETH_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN EARTHSCOPE_REG: HTTP=200 stasiun aktif di bbox=76 {'SY': 33, 'GE': 17, 'MY': 13, 'MS': 7, 'PS': 3, 'AU': 2, 'II': 1}
+FDSN GEONET_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN ICGC_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN IESDMC_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN INGV_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN IPGP_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN KAGSR_REG: HTTP=200 stasiun aktif di bbox=0 {}
+FDSN KIT_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN KOERI_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN LMU_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN NCEDC_REG: HTTP=400 stasiun aktif di bbox=0 {}
+FDSN NIEP_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN NOA_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN NRCAN_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN ODC_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN OSDC_REG: HTTP=None stasiun aktif di bbox=0 {}
+FDSN RASPISHAKE_REG: HTTP=200 stasiun aktif di bbox=125 {'AM': 125}
+FDSN RSBR_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN SCEDC_REG: HTTP=400 stasiun aktif di bbox=0 {}
+FDSN UIB-NORSAR_REG: HTTP=204 stasiun aktif di bbox=0 {}
+FDSN USP_REG: HTTP=204 stasiun aktif di bbox=0 {}
+Total stasiun unik (net,sta) di bbox dari semua pusat data: 200
+
+rtserve.earthscope.org:18000: 4302 stasiun | di bbox: 12 (data <10 menit: 0) | IA: False
+   AU.XMI    lat=-10.450 lon=105.688 umur=Nones ['00.BHE', '00.BHN', '00.BHZ', 'D0.LCQ']
+   II.KAPI   lat=-5.014 lon=119.752 umur=Nones ['00.BH1', '00.BH2', '00.BHZ', '00.EN1']
+   MS.BESC   lat=1.342 lon=103.851 umur=Nones ['.ACE', '.BHE', '.BHN', '.BHZ']
+   MS.KAPK   lat=1.297 lon=103.888 umur=Nones ['.ACE', '.EHE', '.EHN', '.EHZ']
+   MS.NTU    lat=1.354 lon=103.685 umur=Nones ['.ACE', '.BHE', '.BHN', '.BHZ']
+   MS.UBIN   lat=1.418 lon=103.954 umur=Nones ['.ACE', '.BHE', '.BHN', '.BHZ']
+   MY.IPM    lat=4.479 lon=101.025 umur=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   MY.KOM    lat=1.792 lon=103.847 umur=Nones ['.BHE', '.BHN', '.BHZ']
+   MY.KSM    lat=1.473 lon=110.308 umur=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   MY.KUM    lat=5.290 lon=100.649 umur=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   MY.SBM    lat=2.453 lon=112.214 umur=Nones ['.BHE', '.BHN', '.BHZ', '.LHE']
+   PS.JAY    lat=-2.515 lon=140.703 umur=Nones ['.BHE', '.BHN', '.BHZ', '.LCE']
+
+seedlink.geoshake.org:18000: 59 stasiun | di bbox: 0 (data <10 menit: 0) | IA: False
+
+geofon.gfz.de:18000: 387 stasiun | di bbox: 0 (data <10 menit: 0) | IA: False
+
+auspass.edu.au:18000: 84 stasiun | di bbox: 0 (data <10 menit: 0) | IA: False
+
+rtserve.resif.fr:18000: 472 stasiun | di bbox: 0 (data <10 menit: 0) | IA: False
+
+eida.bgr.de:18000: 200 stasiun | di bbox: 0 (data <10 menit: 0) | IA: False
+
+rtserver.ipgp.fr:18000: 147 stasiun | di bbox: 0 (data <10 menit: 0) | IA: False
+
+eida.orfeus-eu.org:18000: 161 stasiun | di bbox: 0 (data <10 menit: 0) | IA: False
+
+Geocoding negara (Nominatim, maks 40 titik unik)...
+  rtserve.earthscope.org:18000: {'AU': 1, 'ID': 2, 'SG': 4, 'MY': 5}
+
+RINGKASAN: server | stasiun | di bbox | segar(<10m)
+  rtserve.earthscope.org:18000               4302     12      0
+  seedlink.geoshake.org:18000                  59      0      0
+  geofon.gfz.de:18000                         387      0      0
+  auspass.edu.au:18000                         84      0      0
+  rtserve.resif.fr:18000                      472      0      0
+  eida.bgr.de:18000                           200      0      0
+  rtserver.ipgp.fr:18000                      147      0      0
+  eida.orfeus-eu.org:18000                    161      0      0
+
+======================================================================
+E3: PROBE HTTP RINGSERVER (/id, /streams)
+======================================================================
+rtserve.earthscope.org:18000 GET /id: HTTP=200 err=None bytes=165 lines=5
+    ['ringserver/4.5.6', 'Organization: EarthScope Ring Server', 'Server start: 2026-09-15T05:45:03Z']
+rtserve.earthscope.org:18000 GET /streams: HTTP=200 err=None bytes=3000000 lines=36251
+    'KAPI': 5 baris cocok ['FDSN:II_KAPI_00_B_H_1/MSEED 2026-10-06T23:45:31.219538Z 2026-10-07T01:25:43.844538Z', 'FDSN:II_KAPI_00_B_H_2/MSEED 2026-10-06T23:45:24.194538Z 2026-10-07T01:25:43.969538Z']
+    'JAY': 5 baris cocok ['FDSN:PS_JAY_10_B_N_E/MSEED 2026-10-06T23:45:08.861303Z 2026-10-07T01:25:29.161303Z', 'FDSN:PS_JAY_10_B_N_N/MSEED 2026-10-06T23:45:09.161303Z 2026-10-07T01:25:29.461303Z']
+seedlink.geoshake.org:18000 GET /id: HTTP=200 err=None bytes=160 lines=5
+    ['ringserver/4.5.4', 'Organization: GeoShake SeedLink', 'Server start: 2026-09-19T14:07:50Z']
+seedlink.geoshake.org:18000 GET /streams: HTTP=200 err=None bytes=9095 lines=107
+    'KAPI': 0 baris cocok []
+    'JAY': 0 baris cocok []
+rtserve.resif.fr:18000 GET /id: HTTP=200 err=None bytes=115 lines=2
+    ['ringserver/2020.075', 'Organization: Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr']
+rtserve.resif.fr:18000 GET /streams: HTTP=200 err=None bytes=202502 lines=2572
+    'KAPI': 0 baris cocok []
+    'JAY': 0 baris cocok []
+rtserve.earthscope.org:18500 TLS GET /id: HTTP=200 err=None bytes=165 lines=5
+    ['ringserver/4.5.6', 'Organization: EarthScope Ring Server', 'Server start: 2026-09-15T09:06:16Z']
+rtserve.earthscope.org:18500 TLS GET /streams: HTTP=200 err=None bytes=3000000 lines=36252
+    'KAPI': 5 baris cocok ['FDSN:II_KAPI_00_B_H_1/MSEED 2026-10-06T23:45:31.219538Z 2026-10-07T01:25:54.244538Z', 'FDSN:II_KAPI_00_B_H_2/MSEED 2026-10-06T23:45:34.619538Z 2026-10-07T01:25:54.119538Z']
+    'JAY': 5 baris cocok ['FDSN:PS_JAY_10_B_N_E/MSEED 2026-10-06T23:45:08.861303Z 2026-10-07T01:25:29.161303Z', 'FDSN:PS_JAY_10_B_N_N/MSEED 2026-10-06T23:45:09.161303Z 2026-10-07T01:25:29.461303Z']
+
+SELESAI. Bukti mentah + experiments_results.json ada di C:\Users\HP/seedlink_audit/exp_20261007_012250

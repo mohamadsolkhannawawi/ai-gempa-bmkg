@@ -1,0 +1,435 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-10-07T01:29:11+00:00",
+    "public_ip": "118.99.73.114",
+    "python": "3.11.16",
+    "experiments": [
+      "e6"
+    ]
+  },
+  "e6_leads": {
+    "luhtfiimanal/seedlink-rs": {
+      "tree_http": 200,
+      "error": null,
+      "files": {
+        "CLAUDE.md": {
+          "urls": [
+            "https://docs.fdsn.org/projects/seedlink/",
+            "https://ds.iris.edu/ds/nodes/dmc/services/seedlink/",
+            "https://github.com/EarthScope/libslink",
+            "https://github.com/luhtfiimanal/miniseed-rs"
+          ],
+          "host_port": [
+            "geofon.gfz-potsdam.de:18000",
+            "rtserve.iris.washington.edu:18000"
+          ],
+          "ips": [],
+          "key_lines": [
+            "# CLAUDE.md \u2014 seedlink-rs",
+            "Pure Rust SeedLink client and server. Zero unsafe, zero C dependency. Apache 2.0.",
+            "**SeedLink v3** real-time seismic data streaming protocol:",
+            "- **Protocol**: SeedLink command parsing, frame format, handshake",
+            "- **Client**: Async TCP client (tokio) \u2014 connect to IRIS/BMKG/GEOFON servers",
+            "seedlink-rs/           # Cargo workspace",
+            "seedlink-protocol/   # Shared: commands, frames, parsing",
+            "seedlink-client/     # Async client (tokio)",
+            "seedlink-server/     # Async server (tokio)",
+            "| `seedlink-protocol/` | `seedlink-rs-protocol` |",
+            "| `seedlink-client/` | `seedlink-rs-client` |",
+            "| `seedlink-server/` | `seedlink-rs-server` |",
+            "cargo test -p seedlink-rs-protocol         # test single crate",
+            "CD publishes in order: `seedlink-rs-protocol` \u2192 (wait 30s) \u2192 `seedlink-rs-client`.",
+            "Token scope pattern on crates.io: `seedlink-rs-*`.",
+            "Python scripts capture/generate SeedLink protocol exchanges \u2192 Rust tests assert against them.",
+            "## SeedLink Protocol Overview",
+            "SeedLink is a TCP-based protocol for real-time seismic data streaming.",
+            "|<-- SeedLink vX.Y ... ------|",
+            "### SeedLink v3 Frame Format",
+            "Bytes 0-7:    SeedLink header",
+            "- SeedLink v3 protocol: https://ds.iris.edu/ds/nodes/dmc/services/seedlink/",
+            "- SeedLink v4 (draft): https://docs.fdsn.org/projects/seedlink/",
+            "- IRIS SeedLink servers: rtserve.iris.washington.edu:18000",
+            "- GEOFON SeedLink: geofon.gfz-potsdam.de:18000"
+          ]
+        },
+        "PROMPT.md": {
+          "urls": [
+            "https://docs.fdsn.org/projects/seedlink/",
+            "https://docs.obspy.org/packages/obspy.clients.seedlink.html",
+            "https://ds.iris.edu/ds/nodes/dmc/services/seedlink/",
+            "https://github.com/EarthScope/libslink",
+            "https://github.com/luhtfiimanal/miniseed-rs"
+          ],
+          "host_port": [],
+          "ips": [],
+          "key_lines": [
+            "# seedlink-rs \u2014 Agent Bootstrap Prompt",
+            "`seedlink-rs` is a pure Rust workspace for SeedLink real-time seismic data streaming. It provides a protocol parser, async client, and async server \u2014 all built on tokio and using `miniseed-rs` for min",
+            "### Phase 1: Protocol Foundation (`seedlink-protocol`)",
+            "1. Define SeedLink command types: `Hello`, `Station`, `Select`, `Data`, `Time`, `End`, `Bye`, `Info`",
+            "4. Define SeedLink frame: 8-byte header (\"SL\" + 6-char hex sequence) + 512-byte miniSEED",
+            "### Phase 2: Client (`seedlink-client`)",
+            "### Phase 3: Server (`seedlink-server`)",
+            "For SeedLink, the Python oracle can:",
+            "- **Capture real traffic**: Connect to IRIS/GEOFON SeedLink servers, record raw TCP bytes",
+            "- **Parse with ObsPy**: `obspy.clients.seedlink` provides reference client implementation",
+            "- **Validate frames**: Decode captured SeedLink frames and extract miniSEED records",
+            "\"server_responds\": \"SeedLink v3.1 (2020.075)\\r\\n...\\r\\n\",",
+            "\"software\": \"SeedLink\",",
+            "## SeedLink Key Concepts",
+            "- SeedLink v3 protocol: https://ds.iris.edu/ds/nodes/dmc/services/seedlink/",
+            "- SeedLink v4 (draft): https://docs.fdsn.org/projects/seedlink/",
+            "- ObsPy SeedLink client: https://docs.obspy.org/packages/obspy.clients.seedlink.html"
+          ]
+        },
+        "README.md": {
+          "urls": [
+            "https://crates.io/crates/seedlink-rs-client",
+            "https://crates.io/crates/seedlink-rs-protocol",
+            "https://crates.io/crates/seedlink-rs-server",
+            "https://docs.rs/seedlink-rs-protocol",
+            "https://docs.rs/seedlink-rs-protocol/badge.svg",
+            "https://github.com/EarthScope/ringserver",
+            "https://github.com/SeisComP/seedlink",
+            "https://github.com/luhtfiimanal/miniseed-rs",
+            "https://github.com/luhtfiimanal/seedlink-rs/actions/workflows/ci.yml",
+            "https://github.com/luhtfiimanal/seedlink-rs/actions/workflows/ci.yml/badge.svg",
+            "https://img.shields.io/badge/license-Apache--2.0-blue.svg",
+            "https://img.shields.io/badge/rust-2024_edition-orange.svg",
+            "https://img.shields.io/crates/v/seedlink-rs-protocol.svg",
+            "https://www.rust-lang.org/"
+          ],
+          "host_port": [
+            "geofon.gfz-potsdam.de:18000",
+            "rtserve.iris.washington.edu:18000"
+          ],
+          "ips": [
+            {
+              "value": "0.0.0.0:18000",
+              "private": true
+            }
+          ],
+          "key_lines": [
+            "# seedlink-rs",
+            "Pure Rust SeedLink client and server. Zero `unsafe`, zero C dependency.",
+            "[![Crates.io](https://img.shields.io/crates/v/seedlink-rs-protocol.svg)](https://crates.io/crates/seedlink-rs-protocol)",
+            "[![docs.rs](https://docs.rs/seedlink-rs-protocol/badge.svg)](https://docs.rs/seedlink-rs-protocol)",
+            "[![CI](https://github.com/luhtfiimanal/seedlink-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/luhtfiimanal/seedlink-rs/actions/workflows/ci.yml)",
+            "| [seedlink-rs-protocol](https://crates.io/crates/seedlink-rs-protocol) | SeedLink protocol types, commands, and frame parsing |",
+            "| [seedlink-rs-client](https://crates.io/crates/seedlink-rs-client) | Async SeedLink client (tokio) |",
+            "| [seedlink-rs-server](https://crates.io/crates/seedlink-rs-server) | Async SeedLink server (tokio) |",
+            "use seedlink_rs_client::SeedLinkClient;",
+            "async fn main() -> seedlink_rs_client::Result<()> {",
+            "let mut client = SeedLinkClient::connect(\"rtserve.iris.washington.edu:18000\").await?;",
+            "use seedlink_rs_server::SeedLinkServer;",
+            "async fn main() -> seedlink_rs_server::Result<()> {",
+            "let server = SeedLinkServer::bind(\"0.0.0.0:18000\").await?;",
+            "use seedlink_rs_server::{SeedLinkServer, ServerConfig, SyncPolicy};",
+            "persist_dir: Some(\"/var/lib/seedlink/journal\".into()),",
+            "let server = SeedLinkServer::bind_with_config(\"0.0.0.0:18000\", config).await?;",
+            "// Serve a connection without a TCP hop (e.g. behind a WebSocket bridge)",
+            "let stream = connector.connect(); // speaks SeedLink over a duplex pipe",
+            "### Protocol (`seedlink-rs-protocol`)",
+            "- Full SeedLink v3 and v4 command parsing and serialization (14 commands)",
+            "### Client (`seedlink-rs-client`)",
+            "### Server (`seedlink-rs-server`)",
+            "bridge WebSocket/other transports without a localhost TCP hop",
+            "Tested against real SeedLink servers:"
+          ]
+        },
+        "docs/ARCHITECTURE.md": {
+          "urls": [
+            "https://docs.fdsn.org/projects/seedlink/"
+          ],
+          "host_port": [
+            "geofon.gfz-potsdam.de:18000",
+            "rtserve.iris.washington.edu:18000"
+          ],
+          "ips": [
+            {
+              "value": "0.0.0.0:18000",
+              "private": true
+            }
+          ],
+          "key_lines": [
+            "# seedlink-rs Architecture",
+            "seedlink-rs is a pure Rust workspace for SeedLink real-time seismic data streaming.",
+            "Three crates: `seedlink-protocol` (shared types), `seedlink-client` (async client),",
+            "`seedlink-server` (async server).",
+            "## SeedLink Protocol",
+            "SeedLink is a TCP-based protocol for real-time seismic data streaming, developed",
+            "Official specification: https://docs.fdsn.org/projects/seedlink/",
+            "2. Server responds with capabilities: `SeedLink v4.0 ... :: SLPROTO:4.0 SLPROTO:3.1`",
+            "SeedLink sequence numbers are **server-assigned, global counters** that index",
+            "| seq miniSEED <-> seq SeedLink | **Nobody** | They are independent         |",
+            "### `seedlink-protocol`",
+            "### `seedlink-client`",
+            "let mut client = SeedLinkClient::connect(\"rtserve.iris.washington.edu:18000\").await?;",
+            "### `seedlink-server`",
+            "let server = SeedLinkServer::bind(\"0.0.0.0:18000\").await?;",
+            "- `rtserve.iris.washington.edu:18000` (IRIS/EarthScope)",
+            "- `geofon.gfz-potsdam.de:18000` (GEOFON/GFZ)"
+          ]
+        },
+        "docs/FEATURES.md": {
+          "urls": [],
+          "host_port": [
+            "geofon.gfz-potsdam.de:18000",
+            "rtserve.iris.washington.edu:18000"
+          ],
+          "ips": [
+            {
+              "value": "0.0.0.0:18000",
+              "private": true
+            },
+            {
+              "value": "127.0.0.1:54321",
+              "private": true
+            },
+            {
+              "value": "127.0.0.1:54322",
+              "private": true
+            }
+          ],
+          "key_lines": [
+            "# seedlink-rs \u2014 Feature Documentation",
+            "Pure Rust SeedLink client and server. Zero `unsafe`, zero C dependency. Apache-2.0.",
+            "- [seedlink-rs-protocol](#seedlink-rs-protocol)",
+            "- [seedlink-rs-client](#seedlink-rs-client)",
+            "- [SeedLinkClient](#seedlinkclient)",
+            "- [seedlink-rs-server](#seedlink-rs-server)",
+            "- [SeedLinkServer](#seedlinkserver)",
+            "seedlink-rs/                  # Cargo workspace",
+            "seedlink-protocol/          # Crate: seedlink-rs-protocol",
+            "seedlink-client/            # Crate: seedlink-rs-client",
+            "seedlink-server/            # Crate: seedlink-rs-server",
+            "| `seedlink-protocol/` | `seedlink-rs-protocol` | Shared protocol types, commands, frame parsing |",
+            "| `seedlink-client/` | `seedlink-rs-client` | Async SeedLink client (tokio) |",
+            "| `seedlink-server/` | `seedlink-rs-server` | Async SeedLink server (tokio) |",
+            "## seedlink-rs-protocol",
+            "Shared protocol layer for SeedLink v3/v4, used by both client and server.",
+            "All 14 SeedLink commands are implemented with version-aware parsing and serialization.",
+            "- `ProtocolVersion::V3` \u2014 SeedLink v3.x (default)",
+            "- `ProtocolVersion::V4` \u2014 SeedLink v4.x (negotiated via `SLPROTO 4.0`)",
+            "## seedlink-rs-client",
+            "Async SeedLink client built on tokio. Connects to any SeedLink v3/v4 server (IRIS, BMKG, GEOFON, etc.).",
+            "### SeedLinkClient",
+            "use seedlink_rs_client::SeedLinkClient;",
+            "let mut client = SeedLinkClient::connect(\"rtserve.iris.washington.edu:18000\").await?;",
+            "println!(\"Server: {}\", client.server_info().software); // \"SeedLink v3.1 ...\""
+          ]
+        },
+        "Cargo.toml": {
+          "urls": [
+            "https://github.com/luhtfiimanal/seedlink-rs"
+          ],
+          "host_port": [],
+          "ips": [],
+          "key_lines": [
+            "\"seedlink-protocol\",",
+            "\"seedlink-client\",",
+            "\"seedlink-server\",",
+            "repository = \"https://github.com/luhtfiimanal/seedlink-rs\"",
+            "seedlink-rs-protocol = { version = \"0.4.0\", path = \"seedlink-protocol\" }"
+          ]
+        },
+        "seedlink-client/src/client.rs": {
+          "urls": [],
+          "host_port": [
+            "rtserve.iris.washington.edu:18000"
+          ],
+          "ips": [
+            {
+              "value": "127.0.0.1",
+              "private": true
+            }
+          ],
+          "key_lines": [
+            "use seedlink_rs_protocol::{Command, InfoLevel, ProtocolVersion, Response, SequenceNumber};",
+            "/// Async SeedLink client for connecting to seismic data servers.",
+            "/// Implements the SeedLink v3/v4 protocol state machine:",
+            "/// # async fn example() -> seedlink_rs_client::Result<()> {",
+            "/// use seedlink_rs_client::SeedLinkClient;",
+            "/// let mut client = SeedLinkClient::connect(\"rtserve.iris.washington.edu:18000\").await?;",
+            "pub struct SeedLinkClient {",
+            "impl SeedLinkClient {",
+            "/// Connect to a SeedLink server with default configuration.",
+            "/// Connect to a SeedLink server with custom [`ClientConfig`].",
+            "/// `pattern` is a SeedLink channel selector (e.g., `\"BHZ\"`, `\"??.BHZ\"`).",
+            "/// Read the next SeedLink frame from the server.",
+            "let mut buf = [0u8; seedlink_rs_protocol::frame::v3::FRAME_LEN];",
+            "let raw = seedlink_rs_protocol::frame::v3::parse(&buf)?;",
+            "let mut header = [0u8; seedlink_rs_protocol::frame::v4::MIN_HEADER_LEN];",
+            "seedlink_rs_protocol::frame::v4::MIN_HEADER_LEN + remaining,",
+            "seedlink_rs_protocol::frame::v4::MIN_HEADER_LEN + remaining,",
+            ".read_exact(&mut full[seedlink_rs_protocol::frame::v4::MIN_HEADER_LEN..])",
+            "let (raw, _) = seedlink_rs_protocol::frame::v4::parse(&full)?;",
+            "use seedlink_rs_protocol::frame::{PayloadFormat, PayloadSubformat, v3, v4};",
+            "let client = SeedLinkClient::connect(&server.addr().to_string())",
+            "assert_eq!(client.server_info().software, \"SeedLink\");",
+            "let client = SeedLinkClient::connect(&server.addr().to_string())",
+            "hello_line1: \"SeedLink v3.1 :: SLPROTO:4.0\".to_owned(),",
+            "let client = SeedLinkClient::connect(&server.addr().to_string())"
+          ]
+        },
+        "seedlink-client/src/connection.rs": {
+          "urls": [],
+          "host_port": [],
+          "ips": [
+            {
+              "value": "127.0.0.1",
+              "private": true
+            },
+            {
+              "value": "192.0.2.1:18000",
+              "private": true
+            }
+          ],
+          "key_lines": [
+            "use seedlink_rs_protocol::frame::{v3, v4};",
+            "use seedlink_rs_protocol::{Command, ProtocolVersion};",
+            "use seedlink_rs_protocol::SequenceNumber;",
+            "use seedlink_rs_protocol::frame::{PayloadFormat, PayloadSubformat};",
+            "\"192.0.2.1:18000\","
+          ]
+        },
+        "seedlink-client/src/lib.rs": {
+          "urls": [],
+          "host_port": [
+            "rtserve.iris.washington.edu:18000"
+          ],
+          "ips": [],
+          "key_lines": [
+            "//! Async SeedLink client for real-time seismic data streaming.",
+            "//! Connect to SeedLink v3/v4 servers (IRIS, BMKG, GEOFON, etc.) and receive",
+            "//! # async fn example() -> seedlink_rs_client::Result<()> {",
+            "//! use seedlink_rs_client::SeedLinkClient;",
+            "//! let mut client = SeedLinkClient::connect(\"rtserve.iris.washington.edu:18000\").await?;",
+            "pub use client::SeedLinkClient;",
+            "pub use seedlink_rs_protocol::DataFrame;"
+          ]
+        },
+        "seedlink-client/src/mock.rs": {
+          "urls": [],
+          "host_port": [],
+          "ips": [
+            {
+              "value": "127.0.0.1",
+              "private": true
+            }
+          ],
+          "key_lines": [
+            "use seedlink_rs_protocol::ProtocolVersion;",
+            "hello_line1: \"SeedLink v3.1 (2020.075)\".to_owned(),",
+            "hello_line1: \"SeedLink v4.0 (mock) :: SLPROTO:4.0 SLPROTO:3.1\".to_owned(),"
+          ]
+        },
+        "seedlink-client/tests/integration.rs": {
+          "urls": [],
+          "host_port": [
+            "rtserve.iris.washington.edu:18000"
+          ],
+          "ips": [],
+          "key_lines": [
+            "//! Integration tests that connect to real SeedLink servers.",
+            "//! - `SEEDLINK_TEST_SERVER` \u2014 v3 server (e.g., `rtserve.iris.washington.edu:18000`)",
+            "//! - `SEEDLINK_V4_TEST_SERVER` \u2014 v4 server (e.g., `localhost:18000`)",
+            "use seedlink_rs_client::{ClientConfig, ClientState, SeedLinkClient};",
+            "use seedlink_rs_protocol::{InfoLevel, ProtocolVersion, SequenceNumber};",
+            "std::env::var(\"SEEDLINK_TEST_SERVER\").ok()",
+            "std::env::var(\"SEEDLINK_V4_TEST_SERVER\").ok()",
+            "eprintln!(\"skipping: SEEDLINK_TEST_SERVER not set\");",
+            "let client = SeedLinkClient::connect_with_config(&addr, config)",
+            "eprintln!(\"skipping: SEEDLINK_TEST_SERVER not set\");",
+            "let mut client = SeedLinkClient::connect_with_config(&addr, config)",
+            "eprintln!(\"skipping: SEEDLINK_TEST_SERVER not set\");",
+            "let mut client = SeedLinkClient::connect_with_config(&addr, config)",
+            "eprintln!(\"skipping: SEEDLINK_V4_TEST_SERVER not set\");",
+            "let mut client = SeedLinkClient::connect_with_config(&addr, config)",
+            "eprintln!(\"skipping: SEEDLINK_TEST_SERVER not set\");",
+            "let mut client = SeedLinkClient::connect_with_config(&addr, config)",
+            "eprintln!(\"skipping: SEEDLINK_TEST_SERVER not set\");",
+            "let mut client = SeedLinkClient::connect_with_config(&addr, config.clone())",
+            "let mut client2 = SeedLinkClient::connect_with_config(&addr, config)"
+          ]
+        }
+      },
+      "hosts": {
+        "github.com": 7,
+        "crates.io": 3,
+        "img.shields.io": 3,
+        "docs.rs": 2,
+        "docs.fdsn.org": 1,
+        "docs.obspy.org": 1,
+        "ds.iris.edu": 1,
+        "www.rust-lang.org": 1
+      },
+      "private_ips": [
+        "0.0.0.0:18000",
+        "127.0.0.1",
+        "127.0.0.1:54321",
+        "127.0.0.1:54322",
+        "192.0.2.1:18000"
+      ]
+    },
+    "bagusindrayana/ews-concept": {
+      "tree_http": 200,
+      "error": null,
+      "files": {
+        "CREDIT.md": {
+          "urls": [
+            "https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=190042",
+            "https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=102266",
+            "https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=109578",
+            "https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=63578",
+            "https://pixabay.com/users/liecio-3298866/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=109578",
+            "https://pixabay.com/users/liecio-3298866/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=190042"
+          ],
+          "host_port": [],
+          "ips": [],
+          "key_lines": []
+        },
+        "README.md": {
+          "urls": [
+            "https://codepen.io/hlfcoding/pen/oXpWOV",
+            "https://github.com/eppofahmi/geojson-indonesia",
+            "https://github.com/treyerl/timezones",
+            "https://inatews.bmkg.go.id/wrs/index.html",
+            "https://stackoverflow.com/questions/37599561/drawing-a-circle-with-the-radius-in-miles-meters-with-mapbox-gl-js"
+          ],
+          "host_port": [],
+          "ips": [],
+          "key_lines": [
+            "- Inatews : https://inatews.bmkg.go.id/wrs/index.html"
+          ]
+        },
+        "components.json": {
+          "urls": [
+            "https://ui.shadcn.com/schema.json"
+          ],
+          "host_port": [],
+          "ips": [],
+          "key_lines": []
+        },
+        "public/ds_digital/DIGITAL.TXT": {
+          "urls": [
+            "http://ds-font.hypermart.net"
+          ],
+          "host_port": [],
+          "ips": [],
+          "key_lines": []
+        }
+      },
+      "hosts": {
+        "pixabay.com": 6,
+        "github.com": 2,
+        "ds-font.hypermart.net": 1,
+        "codepen.io": 1,
+        "inatews.bmkg.go.id": 1,
+        "stackoverflow.com": 1,
+        "ui.shadcn.com": 1
+      },
+      "private_ips": []
+    }
+  }
+}

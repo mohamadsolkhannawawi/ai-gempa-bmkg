@@ -1,0 +1,918 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-10-07T01:22:50+00:00",
+    "public_ip": "118.99.73.114",
+    "python": "3.11.16",
+    "experiments": [
+      "e1",
+      "e2",
+      "e3"
+    ]
+  },
+  "e1_registry": {
+    "centers": {
+      "AusPass": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://auspass.edu.au/fdsnws/station/1/"
+        ]
+      },
+      "BGR": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://eida.bgr.de/fdsnws/station/1/"
+        ]
+      },
+      "BGS": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://eida.bgs.ac.uk/fdsnws/station/1/"
+        ]
+      },
+      "CATAC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": []
+      },
+      "EMSC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": []
+      },
+      "EPOSFR": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://seisdata.epos-france.fr/fdsnws/station/1/"
+        ]
+      },
+      "ETH": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://eida.ethz.ch/fdsnws/station/1/"
+        ]
+      },
+      "EarthScope": {
+        "http": 200,
+        "seedlink": [
+          "rtserve.earthscope.org:18000"
+        ],
+        "fdsnws_station": [
+          "http://service.earthscope.org/fdsnws/station/1"
+        ]
+      },
+      "GEOFON": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://geofon.gfz.de/fdsnws/station/1/"
+        ]
+      },
+      "GEOSHAKE": {
+        "http": 200,
+        "seedlink": [
+          "seedlink.geoshake.org:18000"
+        ],
+        "fdsnws_station": [
+          "https://api.geoshake.org/fdsnws/station/1/"
+        ]
+      },
+      "GeoNet": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://service.geonet.org.nz/fdsnws/station/1/"
+        ]
+      },
+      "ICGC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://ws.icgc.cat/fdsnws/station/1/"
+        ]
+      },
+      "IESDMC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "http://batsws.earth.sinica.edu.tw/fdsnws/station/1/"
+        ]
+      },
+      "IGN": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": []
+      },
+      "INGV": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://webservices.ingv.it/fdsnws/station/1/"
+        ]
+      },
+      "IPGP": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "http://ws.ipgp.fr/fdsnws/station/1/"
+        ]
+      },
+      "ISC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": []
+      },
+      "KAGSR": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "http://sdis.emsd.ru/fdsnws/station/1/"
+        ]
+      },
+      "KIT": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "http://ws.gpi.kit.edu/fdsnws/station/1"
+        ]
+      },
+      "KOERI": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://eida.koeri.boun.edu.tr/fdsnws/station/1/"
+        ]
+      },
+      "LMU": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://erde.geophysik.uni-muenchen.de/fdsnws/station/1/"
+        ]
+      },
+      "NCEDC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://service.ncedc.org/fdsnws/station/1"
+        ]
+      },
+      "NIEP": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://eida-sc3.infp.ro/fdsnws/station/1/"
+        ]
+      },
+      "NOA": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://eida.gein.noa.gr/fdsnws/station/1/"
+        ]
+      },
+      "NRCAN": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://earthquakescanada.nrcan.gc.ca/fdsnws/station/1/"
+        ]
+      },
+      "ODC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://www.orfeus-eu.org/fdsnws/station/1/"
+        ]
+      },
+      "OSDC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "http://osdc.obslab.cn/fdsnws/station/1/"
+        ]
+      },
+      "RASPISHAKE": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://data.raspberryshake.org/fdsnws/station/1/"
+        ]
+      },
+      "RSBR": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "http://rsbr.iag.usp.br/fdsnws/station/1/"
+        ]
+      },
+      "SCEDC": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://service.scedc.caltech.edu/fdsnws/station/1/"
+        ]
+      },
+      "UIB-NORSAR": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "https://eida.geo.uib.no/fdsnws/station/1/"
+        ]
+      },
+      "USGS": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": []
+      },
+      "USP": {
+        "http": 200,
+        "seedlink": [],
+        "fdsnws_station": [
+          "http://seisrequest.iag.usp.br/fdsnws/station/1"
+        ]
+      }
+    },
+    "seedlink_servers": [
+      "rtserve.earthscope.org:18000",
+      "seedlink.geoshake.org:18000"
+    ],
+    "fdsn_station": {
+      "AusPass": "https://auspass.edu.au/fdsnws/station/1/query",
+      "BGR": "https://eida.bgr.de/fdsnws/station/1/query",
+      "BGS": "https://eida.bgs.ac.uk/fdsnws/station/1/query",
+      "EPOSFR": "https://seisdata.epos-france.fr/fdsnws/station/1/query",
+      "ETH": "https://eida.ethz.ch/fdsnws/station/1/query",
+      "EarthScope": "http://service.earthscope.org/fdsnws/station/1/query",
+      "GEOFON": "https://geofon.gfz.de/fdsnws/station/1/query",
+      "GEOSHAKE": "https://api.geoshake.org/fdsnws/station/1/query",
+      "GeoNet": "https://service.geonet.org.nz/fdsnws/station/1/query",
+      "ICGC": "https://ws.icgc.cat/fdsnws/station/1/query",
+      "IESDMC": "http://batsws.earth.sinica.edu.tw/fdsnws/station/1/query",
+      "INGV": "https://webservices.ingv.it/fdsnws/station/1/query",
+      "IPGP": "http://ws.ipgp.fr/fdsnws/station/1/query",
+      "KAGSR": "http://sdis.emsd.ru/fdsnws/station/1/query",
+      "KIT": "http://ws.gpi.kit.edu/fdsnws/station/1/query",
+      "KOERI": "https://eida.koeri.boun.edu.tr/fdsnws/station/1/query",
+      "LMU": "https://erde.geophysik.uni-muenchen.de/fdsnws/station/1/query",
+      "NCEDC": "https://service.ncedc.org/fdsnws/station/1/query",
+      "NIEP": "https://eida-sc3.infp.ro/fdsnws/station/1/query",
+      "NOA": "https://eida.gein.noa.gr/fdsnws/station/1/query",
+      "NRCAN": "https://earthquakescanada.nrcan.gc.ca/fdsnws/station/1/query",
+      "ODC": "https://www.orfeus-eu.org/fdsnws/station/1/query",
+      "OSDC": "http://osdc.obslab.cn/fdsnws/station/1/query",
+      "RASPISHAKE": "https://data.raspberryshake.org/fdsnws/station/1/query",
+      "RSBR": "http://rsbr.iag.usp.br/fdsnws/station/1/query",
+      "SCEDC": "https://service.scedc.caltech.edu/fdsnws/station/1/query",
+      "UIB-NORSAR": "https://eida.geo.uib.no/fdsnws/station/1/query",
+      "USP": "http://seisrequest.iag.usp.br/fdsnws/station/1/query"
+    }
+  },
+  "e2_survey": {
+    "fdsn": {
+      "EARTHSCOPE": {
+        "http": 200,
+        "stations": 76,
+        "networks": {
+          "SY": 33,
+          "GE": 17,
+          "MY": 13,
+          "MS": 7,
+          "PS": 3,
+          "AU": 2,
+          "II": 1
+        },
+        "url": "https://service.earthscope.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "GFZ": {
+        "http": 200,
+        "stations": 21,
+        "networks": {
+          "GE": 21
+        },
+        "url": "https://geofon.gfz.de/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "GEOSHAKE": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://api.geoshake.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "AUSPASS": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://auspass.edu.au/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "BGR_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://eida.bgr.de/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "BGS_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://eida.bgs.ac.uk/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "EPOSFR_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://seisdata.epos-france.fr/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "ETH_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://eida.ethz.ch/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "EARTHSCOPE_REG": {
+        "http": 200,
+        "stations": 76,
+        "networks": {
+          "SY": 33,
+          "GE": 17,
+          "MY": 13,
+          "MS": 7,
+          "PS": 3,
+          "AU": 2,
+          "II": 1
+        },
+        "url": "http://service.earthscope.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "GEONET_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://service.geonet.org.nz/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "ICGC_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://ws.icgc.cat/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "IESDMC_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "http://batsws.earth.sinica.edu.tw/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "INGV_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://webservices.ingv.it/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "IPGP_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "http://ws.ipgp.fr/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "KAGSR_REG": {
+        "http": 200,
+        "stations": 0,
+        "networks": {},
+        "url": "http://sdis.emsd.ru/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "KIT_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "http://ws.gpi.kit.edu/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "KOERI_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://eida.koeri.boun.edu.tr/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "LMU_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://erde.geophysik.uni-muenchen.de/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "NCEDC_REG": {
+        "http": 400,
+        "stations": 0,
+        "networks": {},
+        "url": "https://service.ncedc.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "NIEP_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://eida-sc3.infp.ro/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "NOA_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://eida.gein.noa.gr/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "NRCAN_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://earthquakescanada.nrcan.gc.ca/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "ODC_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://www.orfeus-eu.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "OSDC_REG": {
+        "http": null,
+        "stations": 0,
+        "networks": {},
+        "url": "http://osdc.obslab.cn/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "RASPISHAKE_REG": {
+        "http": 200,
+        "stations": 125,
+        "networks": {
+          "AM": 125
+        },
+        "url": "https://data.raspberryshake.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "RSBR_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "http://rsbr.iag.usp.br/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "SCEDC_REG": {
+        "http": 400,
+        "stations": 0,
+        "networks": {},
+        "url": "https://service.scedc.caltech.edu/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "UIB-NORSAR_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "https://eida.geo.uib.no/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      },
+      "USP_REG": {
+        "http": 204,
+        "stations": 0,
+        "networks": {},
+        "url": "http://seisrequest.iag.usp.br/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-23&level=station&format=text"
+      }
+    },
+    "servers": {
+      "rtserve.earthscope.org:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+          "EarthScope Ring Server"
+        ],
+        "stations": 4302,
+        "bbox_live_stations": [
+          {
+            "net": "AU",
+            "sta": "XMI",
+            "lat": -10.4501,
+            "lon": 105.6884,
+            "age_s": null,
+            "channels": [
+              "00.BHE",
+              "00.BHN",
+              "00.BHZ",
+              "D0.LCQ"
+            ],
+            "country": "AU"
+          },
+          {
+            "net": "II",
+            "sta": "KAPI",
+            "lat": -5.0142,
+            "lon": 119.7517,
+            "age_s": null,
+            "channels": [
+              "00.BH1",
+              "00.BH2",
+              "00.BHZ",
+              "00.EN1",
+              "00.EN2",
+              "00.ENZ",
+              "00.LCE",
+              "00.LCQ"
+            ],
+            "country": "ID"
+          },
+          {
+            "net": "MS",
+            "sta": "BESC",
+            "lat": 1.3421,
+            "lon": 103.8513,
+            "age_s": null,
+            "channels": [
+              ".ACE",
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".BLE",
+              ".BLN",
+              ".BLZ",
+              ".EHE"
+            ],
+            "country": "SG"
+          },
+          {
+            "net": "MS",
+            "sta": "KAPK",
+            "lat": 1.2967,
+            "lon": 103.888298,
+            "age_s": null,
+            "channels": [
+              ".ACE",
+              ".EHE",
+              ".EHN",
+              ".EHZ",
+              ".HNE",
+              ".HNN",
+              ".HNZ",
+              ".LCE"
+            ],
+            "country": "SG"
+          },
+          {
+            "net": "MS",
+            "sta": "NTU",
+            "lat": 1.3537,
+            "lon": 103.685097,
+            "age_s": null,
+            "channels": [
+              ".ACE",
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".BLE",
+              ".BLN",
+              ".BLZ",
+              ".EHE"
+            ],
+            "country": "SG"
+          },
+          {
+            "net": "MS",
+            "sta": "UBIN",
+            "lat": 1.4179,
+            "lon": 103.953796,
+            "age_s": null,
+            "channels": [
+              ".ACE",
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".BLE",
+              ".BLN",
+              ".BLZ",
+              ".HHE"
+            ],
+            "country": "SG"
+          },
+          {
+            "net": "MY",
+            "sta": "IPM",
+            "lat": 4.4795,
+            "lon": 101.025497,
+            "age_s": null,
+            "channels": [
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".LHE",
+              ".LHN",
+              ".LHZ"
+            ],
+            "country": "MY"
+          },
+          {
+            "net": "MY",
+            "sta": "KOM",
+            "lat": 1.7922,
+            "lon": 103.846703,
+            "age_s": null,
+            "channels": [
+              ".BHE",
+              ".BHN",
+              ".BHZ"
+            ],
+            "country": "MY"
+          },
+          {
+            "net": "MY",
+            "sta": "KSM",
+            "lat": 1.4733,
+            "lon": 110.308296,
+            "age_s": null,
+            "channels": [
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".LHE",
+              ".LHN",
+              ".LHZ"
+            ],
+            "country": "MY"
+          },
+          {
+            "net": "MY",
+            "sta": "KUM",
+            "lat": 5.2902,
+            "lon": 100.6492,
+            "age_s": null,
+            "channels": [
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".LHE",
+              ".LHN",
+              ".LHZ"
+            ],
+            "country": "MY"
+          },
+          {
+            "net": "MY",
+            "sta": "SBM",
+            "lat": 2.4529,
+            "lon": 112.213997,
+            "age_s": null,
+            "channels": [
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".LHE",
+              ".LHN",
+              ".LHZ"
+            ],
+            "country": "MY"
+          },
+          {
+            "net": "PS",
+            "sta": "JAY",
+            "lat": -2.5147,
+            "lon": 140.703,
+            "age_s": null,
+            "channels": [
+              ".BHE",
+              ".BHN",
+              ".BHZ",
+              ".LCE",
+              ".LCQ",
+              ".LHE",
+              ".LHN",
+              ".LHZ"
+            ],
+            "country": "ID"
+          }
+        ],
+        "networks_shared_with_bbox": [
+          "AM",
+          "AU",
+          "GE",
+          "II",
+          "MS",
+          "MY",
+          "PS"
+        ],
+        "has_IA": false
+      },
+      "seedlink.geoshake.org:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v4.0 (RingServer/4.5.4) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+          "GeoShake SeedLink"
+        ],
+        "stations": 59,
+        "bbox_live_stations": [],
+        "networks_shared_with_bbox": [],
+        "has_IA": false
+      },
+      "geofon.gfz.de:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v4.0 [HMB SeedLink v0.2 (2026.110)] :: SLPROTO:4.0",
+          "GEOFON"
+        ],
+        "stations": 387,
+        "bbox_live_stations": [],
+        "networks_shared_with_bbox": [
+          "GE"
+        ],
+        "has_IA": false
+      },
+      "auspass.edu.au:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v3.3 (2024.020)",
+          "ANU"
+        ],
+        "stations": 84,
+        "bbox_live_stations": [],
+        "networks_shared_with_bbox": [],
+        "has_IA": false
+      },
+      "rtserve.resif.fr:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v3.1 (2020.075 RingServer) :: SLPROTO:3.1 CAP EXTREPLY NSWILDCARD BATCH WS:13",
+          "Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr"
+        ],
+        "stations": 472,
+        "bbox_live_stations": [],
+        "networks_shared_with_bbox": [],
+        "has_IA": false
+      },
+      "eida.bgr.de:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v3.3 (2020.203)",
+          "SZGRF"
+        ],
+        "stations": 200,
+        "bbox_live_stations": [],
+        "networks_shared_with_bbox": [
+          "AM",
+          "GE"
+        ],
+        "has_IA": false
+      },
+      "rtserver.ipgp.fr:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v3.3 (2022.096)",
+          "IPGP Data Center"
+        ],
+        "stations": 147,
+        "bbox_live_stations": [],
+        "networks_shared_with_bbox": [
+          "AM"
+        ],
+        "has_IA": false
+      },
+      "eida.orfeus-eu.org:18000": {
+        "dns": "OK",
+        "tcp": "OPEN",
+        "hello": [
+          "SeedLink v3.3 (2024.020)",
+          "ODC"
+        ],
+        "stations": 161,
+        "bbox_live_stations": [],
+        "networks_shared_with_bbox": [],
+        "has_IA": false
+      }
+    },
+    "n_coords": 200
+  },
+  "e3_httpprobe": {
+    "rtserve.earthscope.org:18000": {
+      "/id": {
+        "http": 200,
+        "error": null,
+        "bytes": 165,
+        "lines": 5,
+        "content_type": "text/plain",
+        "head": [
+          "ringserver/4.5.6",
+          "Organization: EarthScope Ring Server",
+          "Server start: 2026-09-15T05:45:03Z",
+          "DataLink protocols: DLPROTO:1.1",
+          "SeedLink protocols: SLPROTO:4.0,SLPROTO:3.1"
+        ]
+      },
+      "/streams": {
+        "http": 200,
+        "error": null,
+        "bytes": 3000000,
+        "lines": 36251,
+        "content_type": "text/plain",
+        "watch_matches": {
+          "KAPI": [
+            "FDSN:II_KAPI_00_B_H_1/MSEED 2026-10-06T23:45:31.219538Z 2026-10-07T01:25:43.844538Z",
+            "FDSN:II_KAPI_00_B_H_2/MSEED 2026-10-06T23:45:24.194538Z 2026-10-07T01:25:43.969538Z",
+            "FDSN:II_KAPI_00_B_H_Z/MSEED 2026-10-06T23:45:29.794538Z 2026-10-07T01:25:39.194538Z",
+            "FDSN:II_KAPI_00_E_N_1/MSEED 2026-10-06T23:45:36.738393Z 2026-10-07T01:25:50.308393Z",
+            "FDSN:II_KAPI_00_E_N_2/MSEED 2026-10-06T23:45:34.308393Z 2026-10-07T01:25:47.808393Z"
+          ],
+          "JAY": [
+            "FDSN:PS_JAY_10_B_N_E/MSEED 2026-10-06T23:45:08.861303Z 2026-10-07T01:25:29.161303Z",
+            "FDSN:PS_JAY_10_B_N_N/MSEED 2026-10-06T23:45:09.161303Z 2026-10-07T01:25:29.461303Z",
+            "FDSN:PS_JAY_10_B_N_Z/MSEED 2026-10-06T23:45:23.461303Z 2026-10-07T01:25:07.711303Z",
+            "FDSN:PS_JAY_10_L_N_E/MSEED 2026-10-06T23:40:29.511303Z 2026-10-07T01:16:36.511304Z",
+            "FDSN:PS_JAY_10_L_N_N/MSEED 2026-10-06T23:40:30.511303Z 2026-10-07T01:16:37.511304Z"
+          ]
+        }
+      }
+    },
+    "seedlink.geoshake.org:18000": {
+      "/id": {
+        "http": 200,
+        "error": null,
+        "bytes": 160,
+        "lines": 5,
+        "content_type": "text/plain",
+        "head": [
+          "ringserver/4.5.4",
+          "Organization: GeoShake SeedLink",
+          "Server start: 2026-09-19T14:07:50Z",
+          "DataLink protocols: DLPROTO:1.1",
+          "SeedLink protocols: SLPROTO:4.0,SLPROTO:3.1"
+        ]
+      },
+      "/streams": {
+        "http": 200,
+        "error": null,
+        "bytes": 9095,
+        "lines": 107,
+        "content_type": "text/plain",
+        "watch_matches": {
+          "KAPI": [],
+          "JAY": []
+        }
+      }
+    },
+    "rtserve.resif.fr:18000": {
+      "/id": {
+        "http": 200,
+        "error": null,
+        "bytes": 115,
+        "lines": 2,
+        "content_type": "text/plain",
+        "head": [
+          "ringserver/2020.075",
+          "Organization: Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr"
+        ]
+      },
+      "/streams": {
+        "http": 200,
+        "error": null,
+        "bytes": 202502,
+        "lines": 2572,
+        "content_type": "text/plain",
+        "watch_matches": {
+          "KAPI": [],
+          "JAY": []
+        }
+      }
+    },
+    "rtserve.earthscope.org:18500 TLS": {
+      "/id": {
+        "http": 200,
+        "error": null,
+        "bytes": 165,
+        "lines": 5,
+        "content_type": "text/plain",
+        "head": [
+          "ringserver/4.5.6",
+          "Organization: EarthScope Ring Server",
+          "Server start: 2026-09-15T09:06:16Z",
+          "DataLink protocols: DLPROTO:1.1",
+          "SeedLink protocols: SLPROTO:4.0,SLPROTO:3.1"
+        ]
+      },
+      "/streams": {
+        "http": 200,
+        "error": null,
+        "bytes": 3000000,
+        "lines": 36252,
+        "content_type": "text/plain",
+        "watch_matches": {
+          "KAPI": [
+            "FDSN:II_KAPI_00_B_H_1/MSEED 2026-10-06T23:45:31.219538Z 2026-10-07T01:25:54.244538Z",
+            "FDSN:II_KAPI_00_B_H_2/MSEED 2026-10-06T23:45:34.619538Z 2026-10-07T01:25:54.119538Z",
+            "FDSN:II_KAPI_00_B_H_Z/MSEED 2026-10-06T23:45:29.794538Z 2026-10-07T01:25:48.719538Z",
+            "FDSN:II_KAPI_00_E_N_1/MSEED 2026-10-06T23:45:49.148393Z 2026-10-07T01:25:59.828393Z",
+            "FDSN:II_KAPI_00_E_N_2/MSEED 2026-10-06T23:45:47.278393Z 2026-10-07T01:26:01.778393Z"
+          ],
+          "JAY": [
+            "FDSN:PS_JAY_10_B_N_E/MSEED 2026-10-06T23:45:08.861303Z 2026-10-07T01:25:29.161303Z",
+            "FDSN:PS_JAY_10_B_N_N/MSEED 2026-10-06T23:45:09.161303Z 2026-10-07T01:25:29.461303Z",
+            "FDSN:PS_JAY_10_B_N_Z/MSEED 2026-10-06T23:45:23.461303Z 2026-10-07T01:25:43.761304Z",
+            "FDSN:PS_JAY_10_L_N_E/MSEED 2026-10-06T23:40:29.511303Z 2026-10-07T01:16:36.511304Z",
+            "FDSN:PS_JAY_10_L_N_N/MSEED 2026-10-06T23:40:30.511303Z 2026-10-07T01:16:37.511304Z"
+          ]
+        }
+      }
+    }
+  }
+}

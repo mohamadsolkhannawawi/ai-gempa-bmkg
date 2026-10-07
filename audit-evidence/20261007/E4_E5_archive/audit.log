@@ -1,0 +1,24 @@
+Output: C:\Users\HP/seedlink_audit/exp_20261007_012911
+Meta: {'timestamp_utc': '2026-10-07T01:29:11+00:00', 'public_ip': '118.99.73.114', 'python': '3.11.16', 'experiments': ['e6']}
+
+======================================================================
+E6: PETUNJUK DARI REPO PUBLIK (hanya ekstraksi teks, TIDAK menguji host apa pun)
+======================================================================
+
+luhtfiimanal/seedlink-rs: 69 berkas, 46 kandidat teks; dibaca maks 25
+  host unik: {'github.com': 7, 'crates.io': 3, 'img.shields.io': 3, 'docs.rs': 2, 'docs.fdsn.org': 1, 'docs.obspy.org': 1, 'ds.iris.edu': 1, 'www.rust-lang.org': 1}
+  host terkait BMKG/WebSocket/SeedLink: []
+  PERHATIAN IP privat di repo (JANGAN diuji): ['0.0.0.0:18000', '127.0.0.1', '127.0.0.1:54321', '127.0.0.1:54322', '192.0.2.1:18000']
+  [CLAUDE.md] ['# CLAUDE.md — seedlink-rs', 'Pure Rust SeedLink client and server. Zero unsafe, zero C dependency. Apache 2.0.', '**SeedLink v3** real-time seismic data streaming protocol:']
+  [PROMPT.md] ['# seedlink-rs — Agent Bootstrap Prompt', '`seedlink-rs` is a pure Rust workspace for SeedLink real-time seismic data streaming. It provides a protocol parser, async client, and async server — all built on tokio and using `miniseed-rs` for min', '### Phase 1: Protocol Foundation (`seedlink-protocol`)']
+  [README.md] ['# seedlink-rs', 'Pure Rust SeedLink client and server. Zero `unsafe`, zero C dependency.', '[![Crates.io](https://img.shields.io/crates/v/seedlink-rs-protocol.svg)](https://crates.io/crates/seedlink-rs-protocol)']
+  [docs/ARCHITECTURE.md] ['# seedlink-rs Architecture', 'seedlink-rs is a pure Rust workspace for SeedLink real-time seismic data streaming.', 'Three crates: `seedlink-protocol` (shared types), `seedlink-client` (async client),']
+  [docs/FEATURES.md] ['# seedlink-rs — Feature Documentation', 'Pure Rust SeedLink client and server. Zero `unsafe`, zero C dependency. Apache-2.0.', '- [seedlink-rs-protocol](#seedlink-rs-protocol)']
+  [Cargo.toml] ['"seedlink-protocol",', '"seedlink-client",', '"seedlink-server",']
+
+bagusindrayana/ews-concept: 107 berkas, 12 kandidat teks; dibaca maks 25
+  host unik: {'pixabay.com': 6, 'github.com': 2, 'ds-font.hypermart.net': 1, 'codepen.io': 1, 'inatews.bmkg.go.id': 1, 'stackoverflow.com': 1, 'ui.shadcn.com': 1}
+  host terkait BMKG/WebSocket/SeedLink: ['inatews.bmkg.go.id']
+  [README.md] ['- Inatews : https://inatews.bmkg.go.id/wrs/index.html']
+
+SELESAI. Bukti mentah + experiments_results.json ada di C:\Users\HP/seedlink_audit/exp_20261007_012911

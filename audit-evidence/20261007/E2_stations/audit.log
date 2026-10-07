@@ -1,0 +1,42 @@
+Output: C:\Users\HP/seedlink_audit/exp_20261007_012638
+Meta: {'timestamp_utc': '2026-10-07T01:26:38+00:00', 'public_ip': '118.99.73.114', 'python': '3.11.16', 'experiments': ['e4', 'e5']}
+
+======================================================================
+E4: ARSIP FDSN (availability + dataselect) DAN LATENSI
+======================================================================
+
+EARTHSCOPE II.KAPI/BH? availability: HTTP=404 baris=1 latest=None
+  [pra_28Agu] HTTP=502 bytes=122 rec=None ch=None akhir=None lag_vs_now=Nones 
+  [pasca_28Agu] HTTP=200 bytes=69632 rec=17 ch=['00.BH1', '00.BH2', '00.BHZ', '10.BH1', '10.BH2', '10.BHZ'] akhir=2026-09-10T00:02:00.019500+00:00 lag_vs_now=2337884.6s 
+  [terbaru] HTTP=None bytes=0 rec=None ch=None akhir=None lag_vs_now=Nones TimeoutError: The read operation timed out
+
+EARTHSCOPE PS.JAY/BH? availability: HTTP=404 baris=1 latest=None
+  [pra_28Agu] HTTP=200 bytes=8192 rec=16 ch=['.BHE', '.BHN', '.BHZ'] akhir=2026-08-20T00:02:00.011300+00:00 lag_vs_now=4152358.1s 
+  [pasca_28Agu] HTTP=200 bytes=8192 rec=16 ch=['.BHE', '.BHN', '.BHZ'] akhir=2026-09-10T00:02:00.011300+00:00 lag_vs_now=2337960.6s 
+  [terbaru] HTTP=200 bytes=44544 rec=87 ch=['.BHE', '.BHN', '.BHZ'] akhir=2026-10-07T01:25:38.011300+00:00 lag_vs_now=145.0s 
+
+GFZ GE.TOLI/?HZ availability: HTTP=204 baris=0 latest=None
+  [pra_28Agu] HTTP=204 bytes=0 rec=None ch=None akhir=None lag_vs_now=Nones 
+  [pasca_28Agu] HTTP=204 bytes=0 rec=None ch=None akhir=None lag_vs_now=Nones 
+
+GFZ GE.YOGI/?HZ availability: HTTP=204 baris=0 latest=None
+  [pra_28Agu] HTTP=204 bytes=0 rec=None ch=None akhir=None lag_vs_now=Nones 
+  [pasca_28Agu] HTTP=204 bytes=0 rec=None ch=None akhir=None lag_vs_now=Nones 
+
+GFZ GE.BKB/?HZ availability: HTTP=200 baris=3 latest=None
+  [pra_28Agu] HTTP=200 bytes=14848 rec=29 ch=['.BHZ', '.SHZ'] akhir=2026-08-20T00:02:08.321800+00:00 lag_vs_now=4152374.5s 
+  [pasca_28Agu] HTTP=403 bytes=279 rec=None ch=None akhir=None lag_vs_now=Nones 
+
+EARTHSCOPE GE.TOLI/?HZ availability: HTTP=404 baris=1 latest=None
+  [pra_28Agu] HTTP=204 bytes=0 rec=None ch=None akhir=None lag_vs_now=Nones 
+  [pasca_28Agu] HTTP=204 bytes=0 rec=None ch=None akhir=None lag_vs_now=Nones 
+
+======================================================================
+E5: KATALOG TERBUKA BMKG
+======================================================================
+autogempa.json: HTTP=200 application/json events=1 terbaru=2026-10-06T21:56:46+00:00 (umur 3.5 jam) Last-Modified=None Cache-Control=max-age=60 
+gempaterkini.json: HTTP=200 application/json events=15 terbaru=2026-10-06T20:15:26+00:00 (umur 5.2 jam) Last-Modified=None Cache-Control=max-age=60 
+gempadirasakan.json: HTTP=200 application/json events=15 terbaru=2026-10-06T21:56:46+00:00 (umur 3.5 jam) Last-Modified=None Cache-Control=max-age=60 
+autogempa.xml: HTTP=200 text/xml events=None terbaru=None (umur None jam) Last-Modified=None Cache-Control=max-age=60 
+
+SELESAI. Bukti mentah + experiments_results.json ada di C:\Users\HP/seedlink_audit/exp_20261007_012638

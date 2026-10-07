@@ -1,0 +1,11 @@
+# Exclude large XML files (>1MB) dari git
+*.xml
+
+# Keep JSON results (small, structured)
+!*.json
+
+# Keep logs
+!*.log
+
+# Keep markdown reports
+!*.md
