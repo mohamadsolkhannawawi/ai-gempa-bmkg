@@ -1,0 +1,353 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-10-05T12:09:03+00:00",
+    "public_ip": "118.99.73.114",
+    "python": "3.12.10",
+    "outdir": "C:\\Users\\HP/seedlink_audit/20261005_120903",
+    "bbox": {
+      "minlatitude": -11.5,
+      "maxlatitude": 6.5,
+      "minlongitude": 94.5,
+      "maxlongitude": 141.5
+    },
+    "obspy": "1.5.1"
+  },
+  "phase1_web": {
+    "gfz_forum": {
+      "url": "https://geofon.gfz.de/forum/t/no-data-for-geofon-stations-in-indonesia/43807",
+      "http": 200,
+      "chars": 1742,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_120903\\web_gfz_forum.txt",
+      "hits": {
+        "BMKG": 3,
+        "Indonesia": 3,
+        "28 Aug": 0,
+        "04:55": 1,
+        "internal": 0,
+        "redistribut": 2,
+        "restor": 1,
+        "SeedLink": 2,
+        "FDSNWS": 1
+      },
+      "post_dates": [
+        "2026-09-03T08:51:02.074Z",
+        "2026-09-15T11:17:40.124Z",
+        "2026-09-15T15:57:09.155Z",
+        "2026-09-24T09:57:59.302Z"
+      ]
+    },
+    "earthscope_news": {
+      "url": "https://www.earthscope.org/news/seedlink-service-is-moving-as-part-of-our-cloud-transition/",
+      "http": 200,
+      "chars": 7791,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_120903\\web_earthscope_news.txt",
+      "hits": {
+        "rtserve.earthscope.org": 3,
+        "18500": 1,
+        "TLS": 1,
+        "version 4": 0,
+        "v4": 2,
+        "18000": 1,
+        "iris.washington.edu": 3,
+        "May": 1
+      }
+    },
+    "geoshake_api": {
+      "url": "https://api.geoshake.org/",
+      "http": 200,
+      "chars": 23065,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_120903\\web_geoshake_api.txt",
+      "hits": {
+        "seedlink": 3,
+        "18000": 3,
+        "GW": 3,
+        "anonym": 3,
+        "fdsnws": 3,
+        "station": 3,
+        "_LNZ": 1,
+        "_ENZ": 1
+      }
+    },
+    "fdsn_geoshake": {
+      "url": "https://www.fdsn.org/datacenters/detail/GEOSHAKE/",
+      "http": 200,
+      "chars": 2102,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_120903\\web_fdsn_geoshake.txt",
+      "hits": {
+        "seedlink": 2,
+        "18000": 2,
+        "GW": 1,
+        "GEOSHAKE": 3,
+        "2026": 1
+      }
+    },
+    "fdsn_auspass": {
+      "url": "https://www.fdsn.org/datacenters/detail/AusPass/",
+      "http": 200,
+      "chars": 1254,
+      "file": "C:\\Users\\HP/seedlink_audit/20261005_120903\\web_fdsn_auspass.txt",
+      "hits": {
+        "seedlink": 0,
+        "18000": 0,
+        "fdsnws": 3,
+        "AusPass": 3
+      }
+    }
+  },
+  "phase2_connectivity": [
+    {
+      "host": "seedlink.geoshake.org",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "52.57.227.137"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 177,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.4) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "GeoShake SeedLink"
+      ],
+      "tls_info": null,
+      "error": null
+    },
+    {
+      "host": "rtserve.earthscope.org",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "18.190.248.70",
+        "3.146.240.204"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 250,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "EarthScope Ring Server"
+      ],
+      "tls_info": null,
+      "error": null
+    },
+    {
+      "host": "rtserve.earthscope.org",
+      "port": 18500,
+      "tls": true,
+      "dns": "OK",
+      "ips": [
+        "18.190.248.70",
+        "3.146.240.204"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 256,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "EarthScope Ring Server"
+      ],
+      "tls_info": {
+        "version": "TLSv1.2",
+        "subject_cn": "*.earthscope.org",
+        "not_after": "Mar  1 23:59:59 2027 GMT"
+      },
+      "error": null
+    },
+    {
+      "host": "rtserve.iris.washington.edu",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "18.190.248.70",
+        "3.146.240.204"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 240,
+      "hello": [
+        "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+        "EarthScope Ring Server"
+      ],
+      "tls_info": null,
+      "error": null
+    },
+    {
+      "host": "geofon.gfz.de",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "139.17.228.65"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 1228,
+      "hello": [
+        "SeedLink v4.0 [HMB SeedLink v0.2 (2026.110)] :: SLPROTO:4.0",
+        "GEOFON"
+      ],
+      "tls_info": null,
+      "error": null
+    },
+    {
+      "host": "auspass.edu.au",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "150.203.69.61"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 344,
+      "hello": [
+        "SeedLink v3.3 (2024.020)",
+        "ANU"
+      ],
+      "tls_info": null,
+      "error": null
+    },
+    {
+      "host": "seedlink.resif.fr",
+      "port": 18000,
+      "tls": false,
+      "dns": "NXDOMAIN/ERR",
+      "ips": [],
+      "tcp": null,
+      "connect_ms": null,
+      "hello": null,
+      "tls_info": null,
+      "error": "[Errno 11001] getaddrinfo failed"
+    },
+    {
+      "host": "rtserve.resif.fr",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "129.88.201.40"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 181,
+      "hello": [
+        "SeedLink v3.1 (2020.075 RingServer) :: SLPROTO:3.1 CAP EXTREPLY NSWILDCARD BATCH WS:13",
+        "Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr"
+      ],
+      "tls_info": null,
+      "error": null
+    },
+    {
+      "host": "eida.bgr.de",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "193.174.161.29"
+      ],
+      "tcp": "OPEN",
+      "connect_ms": 213,
+      "hello": [
+        "SeedLink v3.3 (2020.203)",
+        "SZGRF"
+      ],
+      "tls_info": null,
+      "error": null
+    },
+    {
+      "host": "geof.bmkg.go.id",
+      "port": 18000,
+      "tls": false,
+      "dns": "OK",
+      "ips": [
+        "104.20.20.136",
+        "172.66.159.70",
+        "2606:4700:10::6814:1488",
+        "2606:4700:10::ac42:9f46"
+      ],
+      "tcp": "TIMEOUT",
+      "connect_ms": null,
+      "hello": null,
+      "tls_info": null,
+      "error": null
+    }
+  ],
+  "phase3_inventory": {
+    "seedlink.geoshake.org:18000": {
+      "error": "SeedLinkException: \"cannot connect to SeedLink server: '<' not supported between instances of 'float' and 'NoneType'\""
+    },
+    "rtserve.earthscope.org:18000": {
+      "error": "SeedLinkException: \"cannot connect to SeedLink server: '<' not supported between instances of 'float' and 'NoneType'\""
+    },
+    "auspass.edu.au:18000": {
+      "error": "SeedLinkException: \"cannot connect to SeedLink server: '<' not supported between instances of 'float' and 'NoneType'\""
+    },
+    "rtserve.resif.fr:18000": {
+      "error": "SeedLinkException: \"cannot connect to SeedLink server: '<' not supported between instances of 'float' and 'NoneType'\""
+    },
+    "eida.bgr.de:18000": {
+      "error": "SeedLinkException: \"cannot connect to SeedLink server: '<' not supported between instances of 'float' and 'NoneType'\""
+    },
+    "geofon.gfz.de:18000": {
+      "error": "SeedLinkException: \"cannot connect to SeedLink server: '<' not supported between instances of 'float' and 'NoneType'\""
+    }
+  },
+  "phase4_fdsn": {
+    "EARTHSCOPE": {
+      "http": 200,
+      "url": "https://service.earthscope.org/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-21&level=station&format=text",
+      "stations": 76,
+      "networks": {
+        "SY": 33,
+        "GE": 17,
+        "MY": 13,
+        "MS": 7,
+        "PS": 3,
+        "AU": 2,
+        "II": 1
+      }
+    },
+    "GFZ": {
+      "http": 200,
+      "url": "https://geofon.gfz.de/fdsnws/station/1/query?minlatitude=-11.5&maxlatitude=6.5&minlongitude=94.5&maxlongitude=141.5&endafter=2026-08-21&level=station&format=text",
+      "stations": 21,
+      "networks": {
+        "GE": 21
+      }
+    }
+  },
+  "phase4_intersection": {},
+  "phase4_watchlist": {
+    "BBJI": [],
+    "BKB": [],
+    "BKNI": [],
+    "BNDI": [],
+    "CISI": [],
+    "FAKI": [],
+    "GENI": [],
+    "GSI": [],
+    "JAGI": [],
+    "KAPI": [],
+    "LHMI": [],
+    "LUWI": [],
+    "MMRI": [],
+    "MNAI": [],
+    "PLAI": [],
+    "PMBI": [],
+    "PMBT": [],
+    "SANI": [],
+    "SAUI": [],
+    "SMRI": [],
+    "SOEI": [],
+    "TNTI": [],
+    "TOLI": [],
+    "TOLI2": [],
+    "UGM": [],
+    "WRAB": [],
+    "YOGI": []
+  },
+  "phase4_geoshake": {
+    "http": 200,
+    "url": "https://api.geoshake.org/fdsnws/station/1/query?network=GW&level=station&format=text",
+    "with_metadata": 57,
+    "in_bbox": [],
+    "live": 0,
+    "live_without_metadata": 0
+  }
+}

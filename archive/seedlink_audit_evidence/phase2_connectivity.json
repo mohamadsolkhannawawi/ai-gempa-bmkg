@@ -1,0 +1,174 @@
+[
+  {
+    "host": "seedlink.geoshake.org",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "52.57.227.137"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 177,
+    "hello": [
+      "SeedLink v4.0 (RingServer/4.5.4) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+      "GeoShake SeedLink"
+    ],
+    "tls_info": null,
+    "error": null
+  },
+  {
+    "host": "rtserve.earthscope.org",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "18.190.248.70",
+      "3.146.240.204"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 250,
+    "hello": [
+      "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+      "EarthScope Ring Server"
+    ],
+    "tls_info": null,
+    "error": null
+  },
+  {
+    "host": "rtserve.earthscope.org",
+    "port": 18500,
+    "tls": true,
+    "dns": "OK",
+    "ips": [
+      "18.190.248.70",
+      "3.146.240.204"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 256,
+    "hello": [
+      "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+      "EarthScope Ring Server"
+    ],
+    "tls_info": {
+      "version": "TLSv1.2",
+      "subject_cn": "*.earthscope.org",
+      "not_after": "Mar  1 23:59:59 2027 GMT"
+    },
+    "error": null
+  },
+  {
+    "host": "rtserve.iris.washington.edu",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "18.190.248.70",
+      "3.146.240.204"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 240,
+    "hello": [
+      "SeedLink v4.0 (RingServer/4.5.6) :: SLPROTO:4.0 SLPROTO:3.1 CAP WS:13",
+      "EarthScope Ring Server"
+    ],
+    "tls_info": null,
+    "error": null
+  },
+  {
+    "host": "geofon.gfz.de",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "139.17.228.65"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 1228,
+    "hello": [
+      "SeedLink v4.0 [HMB SeedLink v0.2 (2026.110)] :: SLPROTO:4.0",
+      "GEOFON"
+    ],
+    "tls_info": null,
+    "error": null
+  },
+  {
+    "host": "auspass.edu.au",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "150.203.69.61"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 344,
+    "hello": [
+      "SeedLink v3.3 (2024.020)",
+      "ANU"
+    ],
+    "tls_info": null,
+    "error": null
+  },
+  {
+    "host": "seedlink.resif.fr",
+    "port": 18000,
+    "tls": false,
+    "dns": "NXDOMAIN/ERR",
+    "ips": [],
+    "tcp": null,
+    "connect_ms": null,
+    "hello": null,
+    "tls_info": null,
+    "error": "[Errno 11001] getaddrinfo failed"
+  },
+  {
+    "host": "rtserve.resif.fr",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "129.88.201.40"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 181,
+    "hello": [
+      "SeedLink v3.1 (2020.075 RingServer) :: SLPROTO:3.1 CAP EXTREPLY NSWILDCARD BATCH WS:13",
+      "Epos-France Ring Server | https://seismology.epos-france.fr | sismo-help@resif.fr"
+    ],
+    "tls_info": null,
+    "error": null
+  },
+  {
+    "host": "eida.bgr.de",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "193.174.161.29"
+    ],
+    "tcp": "OPEN",
+    "connect_ms": 213,
+    "hello": [
+      "SeedLink v3.3 (2020.203)",
+      "SZGRF"
+    ],
+    "tls_info": null,
+    "error": null
+  },
+  {
+    "host": "geof.bmkg.go.id",
+    "port": 18000,
+    "tls": false,
+    "dns": "OK",
+    "ips": [
+      "104.20.20.136",
+      "172.66.159.70",
+      "2606:4700:10::6814:1488",
+      "2606:4700:10::ac42:9f46"
+    ],
+    "tcp": "TIMEOUT",
+    "connect_ms": null,
+    "hello": null,
+    "tls_info": null,
+    "error": null
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "audit_metadata": {
+    "timestamp_utc": "2026-10-05T11:35:34Z",
+    "audit_server_ipv4": "118.99.73.114",
+    "duration_minutes": 10,
+    "auditor": "AI-GEMPA Seismic Infrastructure Auditor"
+  },
+  "overall_verdict": "SEBAGIAN_BENAR",
+  "phase_2_connectivity": {
+    "endpoints_tested": 10,
+    "endpoints_accessible": 7,
+    "endpoints_timeout": 1,
+    "endpoints_nxdomain": 1,
+    "endpoints_refused": 1,
+    "findings": {
+      "seedlink_geoshake_org:18000": "ACCESSIBLE",
+      "rtserve_earthscope_org:18000": "ACCESSIBLE",
+      "rtserve_earthscope_org:18500": "ACCESSIBLE_TLS",
+      "geofon_gfz_de:18000": "ACCESSIBLE",
+      "auspass_edu_au:18000": "ACCESSIBLE",
+      "rtserve_resif_fr:18000": "ACCESSIBLE",
+      "eida_bgr_de:18000": "ACCESSIBLE",
+      "seedlink_resif_fr:18000": "NXDOMAIN",
+      "geof_bmkg_go_id:18000": "TIMEOUT",
+      "rtserve_iris_washington_edu:18000": "ACCESSIBLE_LEGACY"
+    }
+  },
+  "phase_3_inventory": {
+    "seedlink_info_stations": {
+      "status": "PARSED",
+      "finding": "NO_LAT_LON_IN_ANY_SERVER",
+      "implication": "Skrip laporan bagian 9 tidak viable - selalu result 0 stasiun Indonesia"
+    },
+    "fdsn_station_service": {
+      "earthscope": {
+        "total_stations_indonesia_bbox": 335,
+        "networks": {
+          "II": 1,
+          "GE": 20,
+          "MY": 13,
+          "PS": 3,
+          "other_temporary": 298
+        },
+        "indonesia_confirmed": {
+          "II_KAPI": true,
+          "GE_stations": "OFFLINE_SEEDLINK_PUBLIK"
+        }
+      },
+      "geoshake": {
+        "status": "HTTP_204_NO_DATA",
+        "finding": "Tidak ada stasiun GW di bbox Indonesia via FDSN"
+      }
+    }
+  },
+  "claim_verdicts": {
+    "20_GE_offline_28_Aug_0455_UTC": "TERKONFIRMASI",
+    "GFZ_internal_only_24_Sep": "TERKONFIRMASI",
+    "seedlink_resif_fr_hostname": "DIBANTAH",
+    "skrip_latlon_filtering": "DIBANTAH",
+    "II_KAPI_satu_satunya_publik": "TERKONFIRMASI",
+    "BMKG_geof_timeout": "TERKONFIRMASI",
+    "GeoShake_Indonesia_access": "TIDAK_TERUSTI"
+  },
+  "errors_found": [
+    "Hostname typo: seedlink.resif.fr (benar: rtserve.resif.fr)",
+    "Skrip penyaringan: lat/lon tidak ada di SeedLink INFO STATIONS",
+    "Rujukan bias atau tidak relevan: [7] blog BPBD, [6] umum",
+    "GeoShake ambiguitas: 0 stasiun Indonesia dari FDSN, tapi 57 GW global"
+  ],
+  "not_tested": [
+    "Live streaming II.KAPI (kanal, sampling rate, latensi)",
+    "Cascading effect EIDA detail (ORFEUS, INGV, ODC direkta)",
+    "GeoShake distribusi geografis detail",
+    "CTBTO/IMS akses (Lembang, PS21/PS22)"
+  ],
+  "recommendations": [
+    "Update Tabel 1: rtserve.resif.fr:18000 (bukan seedlink.resif.fr)",
+    "Ganti skrip bagian 9 dengan FDSN fdsnws-station example",
+    "Jelaskan GeoShake coverage geographic distribution",
+    "Tandai rujukan dengan verification status"
+  ]
+}
