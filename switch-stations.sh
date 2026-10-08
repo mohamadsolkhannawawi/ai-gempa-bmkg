@@ -38,16 +38,30 @@ esac
 echo "=== Switching to $DESC ==="
 echo ""
 
+# Helper: set or update STATION_CSV in a .env file
+_set_env() {
+    local file="$1" val="$2"
+    if grep -qE '^STATION_CSV=' "$file" 2>/dev/null; then
+        sed -i.bak "s/^STATION_CSV=.*/STATION_CSV=$val/" "$file"
+    else
+        echo "STATION_CSV=$val" >> "$file"
+    fi
+}
+
 # Update .env in wrapper (for next wrapper rebuild)
 echo "[1/5] Updating sispro-tews/.env..."
-sed -i.bak "s/^STATION_CSV=.*/STATION_CSV=$CSV/" sispro-tews/.env
+_set_env sispro-tews/.env "$CSV"
 echo "      ✓ STATION_CSV=$CSV"
 
 # Update .env inside running wrapper (root dir)
 echo "[2/5] Updating wrapper /app/sispro-tews/.env..."
 docker exec gempa-dind-wrapper bash -c "
   cd /app/sispro-tews
-  sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
+  if grep -qE '^STATION_CSV=' .env 2>/dev/null; then
+    sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
+  else
+    echo 'STATION_CSV=$CSV' >> .env
+  fi
 " 2>/dev/null || echo "      ⚠ Wrapper not running"
 
 # Update controller_module/.env in wrapper
@@ -55,13 +69,18 @@ echo "[3/5] Updating wrapper /app/sispro-tews/controller_module/.env..."
 docker exec gempa-dind-wrapper bash -c "
   export DOCKER_API_VERSION=1.41
   cd /app/sispro-tews/controller_module
-  sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
+  if grep -qE '^STATION_CSV=' .env 2>/dev/null; then
+    sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
+  else
+    echo 'STATION_CSV=$CSV' >> .env
+  fi
 " 2>/dev/null || echo "      ⚠ Wrapper not running"
 
 # Recreate controller container so env vars are reloaded
 echo "[3b/5] Recreating controller_module to reload env vars..."
 docker exec gempa-dind-wrapper bash -c "
   export DOCKER_API_VERSION=1.41
+  export STATION_CSV=$CSV
   cd /app/sispro-tews
   docker-compose up -d --force-recreate controller_module
   sleep 20
