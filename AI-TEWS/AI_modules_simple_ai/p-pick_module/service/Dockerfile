@@ -2,6 +2,8 @@
 FROM python:3.10-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
+# Unbuffered Python stdout so print() appears immediately in docker logs
+ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Disable OpenBLAS threading to avoid pthread_create failures in nested containers
@@ -22,4 +24,4 @@ RUN echo 'backend: Agg' > /app/matplotlibrc
 COPY . /app
 
 # Run terminal
-CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:8000", "--timeout", "120", "--preload", "--log-level", "warning", "pick_service:app"]
+CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:8000", "--timeout", "120", "--preload", "--log-level", "info", "--access-logfile", "-", "pick_service:app"]
