@@ -44,6 +44,8 @@ _set_env() {
     if grep -qE '^STATION_CSV=' "$file" 2>/dev/null; then
         sed -i.bak "s/^STATION_CSV=.*/STATION_CSV=$val/" "$file"
     else
+        # Ensure file ends with a newline before appending
+        [ -s "$file" ] && [ -z "$(tail -c1 "$file")" ] || echo "" >> "$file"
         echo "STATION_CSV=$val" >> "$file"
     fi
 }
@@ -60,6 +62,7 @@ docker exec gempa-dind-wrapper bash -c "
   if grep -qE '^STATION_CSV=' .env 2>/dev/null; then
     sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
   else
+    [ -s .env ] && [ -z "$(tail -c1 .env)" ] || echo "" >> .env
     echo 'STATION_CSV=$CSV' >> .env
   fi
 " 2>/dev/null || echo "      ⚠ Wrapper not running"
@@ -72,6 +75,7 @@ docker exec gempa-dind-wrapper bash -c "
   if grep -qE '^STATION_CSV=' .env 2>/dev/null; then
     sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
   else
+    [ -s .env ] && [ -z "$(tail -c1 .env)" ] || echo "" >> .env
     echo 'STATION_CSV=$CSV' >> .env
   fi
 " 2>/dev/null || echo "      ⚠ Wrapper not running"

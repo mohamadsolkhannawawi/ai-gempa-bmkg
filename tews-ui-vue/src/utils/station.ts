@@ -17,5 +17,7 @@ export const getStationByChannel = (stations: Station[], channels: string[]) => 
 }
 
 export const getChannelFullName = (station: Station, channelName: string) => {
-  return `${station.network}.${station.code}.${station.location}.${channelName}`
+  // Normalize null/undefined location to empty string (matches backend behavior)
+  const loc = station.location ?? ''
+  return `${station.network}.${station.code}.${loc}.${channelName}`
 }
