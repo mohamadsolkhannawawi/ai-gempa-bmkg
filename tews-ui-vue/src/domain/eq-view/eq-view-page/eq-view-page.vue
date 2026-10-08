@@ -48,6 +48,7 @@ const fetchEventList = (newParams: GetAllEventListQuery) => {
   closeEventDetailDrawer()
   getAllEventListAPI(newParams)
     .then((response) => {
+      console.log('[EQView] events fetched:', response.data.length, 'total:', response.total)
       data.value = response.data
       totalEvents.value = response.total
 
