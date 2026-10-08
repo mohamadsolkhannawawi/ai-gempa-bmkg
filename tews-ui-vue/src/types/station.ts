@@ -19,6 +19,10 @@ export interface StationWaveformStatus extends Station {
   displacement: number
   velocity: number
   acceleration: number
+  rms?: number
+  spikes_count?: number
+  spikes_interval?: number
+  timing_quality?: number
 }
 
 export interface UpdateStationPayload extends Omit<Station, '_id'> {

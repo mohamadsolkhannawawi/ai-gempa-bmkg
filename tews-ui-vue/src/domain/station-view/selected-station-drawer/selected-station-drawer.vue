@@ -23,11 +23,11 @@ const fmt = (v: number | null | undefined, unit: string) => {
 
 const qualityParameters = computed(() => [
   { label: 'delay', value: fmt(stationStatus.value?.delay_second, 's') },
-  { label: 'rms', value: '- -' },
+  { label: 'rms', value: fmt(stationStatus.value?.rms, '') },
   { label: 'spikes amplitude', value: fmt(stationStatus.value?.spike_amplitude, '') },
-  { label: 'spikes count', value: '- -' },
-  { label: 'spikes interval', value: '- -' },
-  { label: 'timing quality', value: '- -' }
+  { label: 'spikes count', value: fmt(stationStatus.value?.spikes_count, '') },
+  { label: 'spikes interval', value: fmt(stationStatus.value?.spikes_interval, 'ms') },
+  { label: 'timing quality', value: fmt(stationStatus.value?.timing_quality, '%') }
 ])
 
 const groundMotions = computed(() => [

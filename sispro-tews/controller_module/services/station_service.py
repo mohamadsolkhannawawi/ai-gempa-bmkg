@@ -242,12 +242,39 @@ async def station_get_waveform_stats_service(db, station_id):
             valid_df.iloc[0]["sampling_rate"],
         )
 
+        # RMS (Root Mean Square)
+        rms = float(np.sqrt(np.mean(np.square(waveform_values))))
+
+        # Spike detection using MAD (Median Absolute Deviation)
+        median = np.median(waveform_values)
+        mad = np.median(np.abs(waveform_values - median))
+        # Avoid division by zero; threshold = 5 * MAD
+        threshold = 5.0 * mad if mad > 1e-12 else 1e-12
+        spike_mask = np.abs(waveform_values - median) > threshold
+        spikes_count = int(np.sum(spike_mask))
+        spikes_interval = 0.0
+        if spikes_count > 1:
+            spike_indices = np.where(spike_mask)[0]
+            # Convert index diff to milliseconds using delta
+            delta_ms = float(valid_df.iloc[0]["delta"]) * 1000.0
+            intervals = np.diff(spike_indices) * delta_ms
+            spikes_interval = float(np.mean(intervals))
+
+        # Timing quality: percentage of valid (non-expired) data points
+        total_points = len(df)
+        valid_points = len(valid_df)
+        timing_quality = round((valid_points / total_points) * 100, 1) if total_points > 0 else 0.0
+
         waveform_stats_dict = {
             "delay_second": delay_second,
             "spike_amplitude": spike_amplitude,
             "displacement": displacement,
             "velocity": velocity,
             "acceleration": acceleration,
+            "rms": rms,
+            "spikes_count": spikes_count,
+            "spikes_interval": spikes_interval,
+            "timing_quality": timing_quality,
         }
 
         return get_response(
