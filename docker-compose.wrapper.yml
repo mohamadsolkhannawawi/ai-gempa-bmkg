@@ -65,6 +65,8 @@ services:
       nofile:
         soft: 65535
         hard: 65535
+    # Raise PID/thread limit so inner containers can spawn threads (matplotlib, pymongo, TF)
+    pids_limit: -1
 
 volumes:
   gempa-docker-data:
