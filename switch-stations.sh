@@ -56,8 +56,15 @@ docker exec gempa-dind-wrapper bash -c "
   export DOCKER_API_VERSION=1.41
   cd /app/sispro-tews/controller_module
   sed -i.bak 's/^STATION_CSV=.*/STATION_CSV=$CSV/' .env
-  docker-compose restart controller_module
-  sleep 15
+" 2>/dev/null || echo "      ⚠ Wrapper not running"
+
+# Recreate controller container so env vars are reloaded
+echo "[3b/5] Recreating controller_module to reload env vars..."
+docker exec gempa-dind-wrapper bash -c "
+  export DOCKER_API_VERSION=1.41
+  cd /app/sispro-tews
+  docker-compose up -d --force-recreate controller_module
+  sleep 20
 " 2>/dev/null || echo "      ⚠ Wrapper not running"
 
 # Verify seed

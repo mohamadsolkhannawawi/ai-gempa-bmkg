@@ -28,7 +28,17 @@ stations_collection = db['station']
 
 # CSV source: default to internal BMKG IA stations
 CSV_NAME = os.getenv("STATION_CSV", "station.csv")
-CSV_PATH = f"./data/{CSV_NAME}"
+
+# Resolve CSV path robustly: try several candidate locations so the seed
+# works regardless of the working directory (image build vs bind mount).
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_CSV_CANDIDATES = [
+    os.path.join(SCRIPT_DIR, "data", CSV_NAME),                 # alongside script (image)
+    os.path.join(os.getcwd(), "data", CSV_NAME),                # CWD/data
+    os.path.join("/app", "data", CSV_NAME),                     # image WORKDIR
+    os.path.join("/app/sispro-tews/controller_module/data", CSV_NAME),  # bind mount
+]
+CSV_PATH = next((p for p in _CSV_CANDIDATES if os.path.isfile(p)), _CSV_CANDIDATES[0])
 
 
 def parse_channel_string(channel_str):
