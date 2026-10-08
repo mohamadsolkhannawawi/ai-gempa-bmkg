@@ -13,6 +13,11 @@ ENV MPLBACKEND=Agg
 COPY ./requirements.txt /app/requirements.txt
 RUN pip install --progress-bar off --no-cache-dir -r requirements.txt
 
+# Pre-generate matplotlib font cache to avoid thread creation on first import
+RUN python -c "import matplotlib; matplotlib.use('Agg'); _ = matplotlib.font_manager.FontManager(); print('Font cache generated')"
+ENV MATPLOTLIBRC=/app/matplotlibrc
+RUN echo 'backend: Agg' > /app/matplotlibrc
+
 # Copy the current directory contents into the container at /app
 COPY . /app
 

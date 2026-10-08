@@ -58,7 +58,7 @@ arrival_waveform_consumer = KafkaConsumer(
 print(f"[PhaseArrival] Kafka consumer connected successfully!")
 producer = KafkaProducer(bootstrap_servers=f"{KAFKA_HOST}:{KAFKA_PORT}")
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
-mongodb_client = pymongo.MongoClient(host=MONGO_HOST, port=int(MONGO_PORT))
+mongodb_client = pymongo.MongoClient(host=MONGO_HOST, port=int(MONGO_PORT), directConnection=True)
 db = mongodb_client[DB_NAME]
 arrival_col = db['arrival']
 

@@ -23,17 +23,23 @@ WAVEFORM_TOPIC = os.getenv("waveform_topic")
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
 os.environ['OMP_NUM_THREADS'] = '1'
-import threading
-threading.stack_size(256 * 1024)  # 256KB per thread (default ~8MB)
 
-print(f"{KAFKA_HOST}:{KAFKA_PORT}")
+print(f"[PickConsumer] Kafka: {KAFKA_HOST}:{KAFKA_PORT}, MongoDB: {MONGO_HOST}:{MONGO_PORT}")
+print(f"[PickConsumer] nginx: {NGINX_HOST}:{NGINX_PORT}, topic: {WAVEFORM_TOPIC}")
+# Use directConnection to avoid SDAM background monitor threads
 mongodb_client = pymongo.MongoClient(
     host=MONGO_HOST,
     port=int(MONGO_PORT),
     serverSelectionTimeoutMS=5000,
     connectTimeoutMS=5000,
+    directConnection=True,
 )
-waveform_consumer = KafkaConsumer(WAVEFORM_TOPIC, bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
+waveform_consumer = KafkaConsumer(
+    WAVEFORM_TOPIC,
+    bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"],
+    request_timeout_ms=30000,
+    api_version_auto_timeout_ms=30000,
+)
 db = mongodb_client[DB_NAME]
 pick_col = db['pick']
 station_col = db['station']

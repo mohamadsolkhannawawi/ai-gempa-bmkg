@@ -46,7 +46,7 @@ MAX_WORKERS = 5
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
 pick_consumer = KafkaConsumer(PICK_TOPIC, bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
 producer = KafkaProducer(bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
-mongodb_client = pymongo.MongoClient(host=MONGO_HOST, port=int(MONGO_PORT))
+mongodb_client = pymongo.MongoClient(host=MONGO_HOST, port=int(MONGO_PORT), directConnection=True)
 db = mongodb_client[DB_NAME]
 cluster_col = db['cluster']
 

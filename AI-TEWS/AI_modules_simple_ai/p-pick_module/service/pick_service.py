@@ -31,7 +31,11 @@ gc_counter = 0
 # Instantiate some clients
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
 producer = KafkaProducer(bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
-mongodb_client = pymongo.MongoClient(host=MONGO_HOST, port=int(MONGO_PORT))
+mongodb_client = pymongo.MongoClient(
+    host=MONGO_HOST,
+    port=int(MONGO_PORT),
+    directConnection=True,
+)
 db = mongodb_client[DB_NAME]
 pick_col = db['pick']
 station_col = db['station']
