@@ -13,7 +13,7 @@ COPY ./requirements.txt /app/requirements.txt
 RUN pip install --progress-bar off --no-cache-dir -r requirements.txt
 
 # Pre-generate matplotlib font cache to avoid thread creation on first import
-RUN python -c "import matplotlib; matplotlib.use('Agg'); matplotlib.rcParams.update({'font.family':'sans-serif'}); _ = matplotlib.font_manager.FontManager(); print('Font cache generated')"
+RUN python -c "import matplotlib; matplotlib.use('Agg'); from matplotlib import font_manager; font_manager._load_fontmanager(try_read_cache=False); print('Font cache generated')"
 # Ensure matplotlib does not try to rebuild cache at runtime
 ENV MATPLOTLIBRC=/app/matplotlibrc
 RUN echo 'backend: Agg' > /app/matplotlibrc
