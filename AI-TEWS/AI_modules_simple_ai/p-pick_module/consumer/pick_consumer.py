@@ -46,7 +46,7 @@ station_col = db['station']
 
 def send_to_service(url, data):
     try:
-        resp = requests.post(url, json=data, timeout=5)
+        resp = requests.post(url, json=data, timeout=120)
         if resp.status_code == 200:
             print(f"  → Predict OK: {resp.status_code}")
         else:
