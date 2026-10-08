@@ -28,17 +28,34 @@ app = Flask(__name__)
 
 gc_counter = 0
 
-# Instantiate some clients
-redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
-producer = KafkaProducer(bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
-mongodb_client = pymongo.MongoClient(
-    host=MONGO_HOST,
-    port=int(MONGO_PORT),
-    directConnection=True,
-)
-db = mongodb_client[DB_NAME]
-pick_col = db['pick']
-station_col = db['station']
+# Clients are instantiated lazily to survive gunicorn fork.
+# Module-level instantiation breaks ThreadPool after fork (threads don't survive fork).
+redis_client = None
+producer = None
+mongodb_client = None
+db = None
+pick_col = None
+station_col = None
+pool = None
+
+def _init_clients():
+    """Initialize clients inside the worker process, AFTER fork."""
+    global redis_client, producer, mongodb_client, db, pick_col, station_col, pool
+    if redis_client is not None:
+        return
+    print("[pick_service] Initializing clients in worker process...")
+    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
+    producer = KafkaProducer(bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
+    mongodb_client = pymongo.MongoClient(
+        host=MONGO_HOST,
+        port=int(MONGO_PORT),
+        directConnection=True,
+    )
+    db = mongodb_client[DB_NAME]
+    pick_col = db['pick']
+    station_col = db['station']
+    pool = ThreadPool(min(MAX_WORKERS, 10))
+    print("[pick_service] Clients initialized.")
 
 model : tf.keras.models.Model = None
 def _load_model():
@@ -50,8 +67,6 @@ def _load_model():
         model = tf.keras.models.load_model("./models/cnnset_8s_20hz_0.h5", compile=False)
         print("TF model loaded.")
     return model
-
-pool = ThreadPool(min(MAX_WORKERS, 10))
 
 def task(message):
     try:
@@ -131,6 +146,7 @@ def hello():
 def process_waveform():
     if request.method == 'POST':
         try:
+            _init_clients()
             message = request.get_json()
             result = pool.apply_async(task, (message,))
             # Wait for result with timeout to catch errors
