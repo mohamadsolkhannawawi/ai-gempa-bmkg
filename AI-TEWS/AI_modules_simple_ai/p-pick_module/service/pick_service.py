@@ -132,30 +132,31 @@ def process_waveform():
     if request.method == 'POST':
         try:
             message = request.get_json()
-            pool.imap_unordered(task, [message])
+            result = pool.apply_async(task, (message,))
+            # Wait for result with timeout to catch errors
+            try:
+                ret = result.get(timeout=30)
+                print(f"Task result: {ret}")
+            except Exception as e:
+                print(f"Task failed: {e}")
             
             if gc_counter > MAX_WORKERS:
                 gc.collect()
                 gc_counter = 0
-                # pprint.pprint(gc.garbage)
             gc_counter += 1
 
-            # Create a response
-            print("Message consumed successfully!")
             response = {
                 "success": True,
                 "code": 200,
                 "message": "Message consumed successfully!",
             }
         except Exception as e:
-            # Create a response
             response = {
                 "success": False,
                 "code": 500,
                 "message": str(e),
             }
         finally:
-            # Return a JSON response
             return jsonify(response)
 
 if __name__ == "__main__":
