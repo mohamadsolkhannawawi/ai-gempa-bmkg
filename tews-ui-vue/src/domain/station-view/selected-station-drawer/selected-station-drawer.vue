@@ -15,19 +15,25 @@ const { station } = defineProps<{
 const { data } = useGetStationWaveformStatus(station._id)
 const stationStatus = computed(() => data.value?.data)
 
+// Helper to safely format numeric values with fallback
+const fmt = (v: number | null | undefined, unit: string) => {
+  if (v === undefined || v === null || Number.isNaN(v)) return `- ${unit}`
+  return `${v.toFixed(2)} ${unit}`
+}
+
 const qualityParameters = computed(() => [
-  { label: 'delay', value: `${stationStatus.value?.delay_second} s` },
-  { label: 'rms', value: '.x' },
-  { label: 'spikes amplitude', value: stationStatus.value?.spike_amplitude },
-  { label: 'spikes count', value: 'x' },
-  { label: 'spikes interval', value: 'x' },
-  { label: 'timing quality', value: 'xx' }
+  { label: 'delay', value: fmt(stationStatus.value?.delay_second, 's') },
+  { label: 'rms', value: '- -' },
+  { label: 'spikes amplitude', value: fmt(stationStatus.value?.spike_amplitude, '') },
+  { label: 'spikes count', value: '- -' },
+  { label: 'spikes interval', value: '- -' },
+  { label: 'timing quality', value: '- -' }
 ])
 
 const groundMotions = computed(() => [
-  { label: 'acc', value: `${stationStatus.value?.acceleration} µm/s2` },
-  { label: 'vel', value: `${stationStatus.value?.velocity} µm/s` },
-  { label: 'disp', value: `${stationStatus.value?.displacement} µm/s` }
+  { label: 'acc', value: fmt(stationStatus.value?.acceleration, 'µm/s²') },
+  { label: 'vel', value: fmt(stationStatus.value?.velocity, 'µm/s') },
+  { label: 'disp', value: fmt(stationStatus.value?.displacement, 'µm') }
 ])
 
 const emit = defineEmits<{
