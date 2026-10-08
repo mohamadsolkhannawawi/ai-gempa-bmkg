@@ -1,6 +1,9 @@
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+# Pin Docker API version to match DinD daemon (v1.41).
+# Host docker CLI may be newer (v1.52) and would reject calls otherwise.
+ENV DOCKER_API_VERSION=1.41
 
 RUN apt-get update 2>/dev/null || true && \
     apt-get install -y --no-install-recommends \
