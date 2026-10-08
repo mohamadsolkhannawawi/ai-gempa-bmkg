@@ -22,7 +22,7 @@ services:
           memory: 2G
       replicas: 2  # Reduced from 5 to avoid DinD thread limits
     networks:
-      - ai_network
+      - sispro-tews_req
 
   p-pick_nginx:
     restart: always
@@ -35,7 +35,7 @@ services:
     depends_on:
       - p-pick_service
     networks:
-      - ai_network
+      - sispro-tews_req
     
   p-pick_consumer:
     restart: always
@@ -50,7 +50,7 @@ services:
     depends_on:
       - p-pick_nginx
     networks:
-      - ai_network
+      - sispro-tews_req
     
   association_module:
     build:
@@ -66,7 +66,7 @@ services:
     ulimits:
       nproc: 65535
     networks:
-      - ai_network
+      - sispro-tews_req
     
   phase-arrival_module:
     build:
@@ -82,7 +82,7 @@ services:
     ulimits:
       nproc: 65535
     networks:
-      - ai_network
+      - sispro-tews_req
     
   locmag_module:
     build:
@@ -98,10 +98,10 @@ services:
     ulimits:
       nproc: 65535
     networks:
-      - ai_network
+      - sispro-tews_req
 
 networks:
-  ai_network:
+  sispro-tews_req:
     name: sispro-tews_req
     external: true
     
