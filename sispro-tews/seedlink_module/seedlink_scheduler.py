@@ -171,17 +171,19 @@ class MySeedLinkClient(EasySeedLinkClient):
             import time
             station_data = station_find_by_code_and_network_repository(db,trace.stats.station, trace.stats.network,)
 
+            _loc_db = station_data.get("location") or ""
+            _loc_trace = str(trace.stats.location) if trace.stats.location else ""
+
             json_string = {
                 "date":str(today),
                 "starttime":str(trace.stats.starttime),
                 "endtime":str(trace.stats.endtime),
                 "sampling_rate": trace.stats.sampling_rate,
-                # "record_length": trace.stats.number_of_records,
                 "delta": trace.stats.delta,
-                "location": trace.stats.location,
-                "location_database":station_data["location"],
-                "longitude":station_data["longitude"],
-                "latitude":station_data["latitude"],
+                "location": _loc_trace,
+                "location_database":_loc_db,
+                "longitude":station_data.get("longitude"),
+                "latitude":station_data.get("latitude"),
                 "npts": trace.stats.npts,
                 "station":trace.stats.station,
                 "network":trace.stats.network,
@@ -193,7 +195,7 @@ class MySeedLinkClient(EasySeedLinkClient):
 
             print(f"Data for station {trace.stats.station,} written to {filename}")
 
-            channel = trace.stats.network+"."+trace.stats.station+"." + trace.stats.location + "."+ trace.stats.channel
+            channel = f"{trace.stats.network}.{trace.stats.station}.{_loc_db}.{trace.stats.channel}"
             
             # asyncio.run(publish_redis_message(channel, json.dumps (json_string)))
 

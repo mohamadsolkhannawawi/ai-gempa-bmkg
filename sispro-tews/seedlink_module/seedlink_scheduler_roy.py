@@ -164,18 +164,20 @@ class MySeedLinkClient(EasySeedLinkClient):
             else:
                 station_data = station_find_by_code_and_network_repository(db,trace.stats.station, trace.stats.network,)
         
-            # trace.interpolate(sampling_rate=5) 
+            # Safe location: use trace location as fallback when DB has None/empty
+            _loc_db = station_data.get("location") or ""
+            _loc_trace = str(trace.stats.location) if trace.stats.location else ""
+
             json_string = {
                 "date":str(today),
                 "starttime":str(trace.stats.starttime),
                 "endtime":str(trace.stats.endtime),
                 "sampling_rate": trace.stats.sampling_rate,
-                # "record_length": trace.stats.number_of_records,
                 "delta": trace.stats.delta,
-                "location": trace.stats.location,
-                "location_database":station_data["location"],
-                "longitude":station_data["longitude"],
-                "latitude":station_data["latitude"],
+                "location": _loc_trace,
+                "location_database":_loc_db,
+                "longitude":station_data.get("longitude"),
+                "latitude":station_data.get("latitude"),
                 "npts": trace.stats.npts,
                 "station":trace.stats.station,
                 "network":trace.stats.network,
@@ -190,11 +192,7 @@ class MySeedLinkClient(EasySeedLinkClient):
             # Ensure all messages are sent and then close the producer
             producer.flush()
 
-            # channel = trace.stats.network+"."+trace.stats.station+"." + trace.stats.location + "."+ trace.stats.channel
-            # publish_redis_message_general(WAVEFORM_TOPIC, json.dumps(json_string))
-            
-            # TODO: reshape location to use proper trace location
-            channel = trace.stats.network+"."+trace.stats.station+"." + station_data["location"] + "."+ trace.stats.channel
+            channel = f"{trace.stats.network}.{trace.stats.station}.{_loc_db}.{trace.stats.channel}"
             store_redis_message("ori_"+channel, json.dumps(json_string))
             
             trace = trace.interpolate(sampling_rate=5) 
@@ -204,12 +202,11 @@ class MySeedLinkClient(EasySeedLinkClient):
                 "starttime":str(trace.stats.starttime),
                 "endtime":str(trace.stats.endtime),
                 "sampling_rate": trace.stats.sampling_rate,
-                # "record_length": trace.stats.number_of_records,
                 "delta": trace.stats.delta,
-                "location": trace.stats.location,
-                "location_database":station_data["location"],
-                "longitude":station_data["longitude"],
-                "latitude":station_data["latitude"],
+                "location": _loc_trace,
+                "location_database":_loc_db,
+                "longitude":station_data.get("longitude"),
+                "latitude":station_data.get("latitude"),
                 "npts": trace.stats.npts,
                 "station":trace.stats.station,
                 "network":trace.stats.network,
@@ -218,7 +215,7 @@ class MySeedLinkClient(EasySeedLinkClient):
                 "waveform":waveform3.tolist()
             }
            
-            channel = trace.stats.network+"."+trace.stats.station+"." + station_data["location"] + "."+ trace.stats.channel
+            channel = f"{trace.stats.network}.{trace.stats.station}.{_loc_db}.{trace.stats.channel}"
             publish_redis_message(channel, json.dumps(json_string))
         except Exception as e:
             print(str(e))
