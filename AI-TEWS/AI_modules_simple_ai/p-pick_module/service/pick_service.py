@@ -135,10 +135,14 @@ def process_waveform():
             result = pool.apply_async(task, (message,))
             # Wait for result with timeout to catch errors
             try:
-                ret = result.get(timeout=30)
+                ret = result.get(timeout=300)  # 5 min for TF model load + heavy processing
                 print(f"Task result: {ret}")
+            except TimeoutError:
+                print("Task timed out after 300s")
             except Exception as e:
-                print(f"Task failed: {e}")
+                print(f"Task failed: {type(e).__name__}: {e}")
+                import traceback
+                traceback.print_exc()
             
             if gc_counter > MAX_WORKERS:
                 gc.collect()
