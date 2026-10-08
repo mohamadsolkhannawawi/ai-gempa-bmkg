@@ -92,6 +92,7 @@ WEB_SOURCES = [
      ["seedlink", "18000", "fdsnws", "AusPass"]),
 ]
 
+# Rentang IP Cloudflare yang dikenal (tidak lengkap) - untuk mendeteksi host yang hanya berupa proxy web
 CLOUDFLARE_NETS = [ipaddress.ip_network(n) for n in (
     "104.16.0.0/13", "104.24.0.0/14", "172.64.0.0/13", "162.158.0.0/15", "141.101.64.0/18",
     "108.162.192.0/18", "173.245.48.0/20", "103.21.244.0/22", "103.22.200.0/22", "103.31.4.0/22",
@@ -99,9 +100,10 @@ CLOUDFLARE_NETS = [ipaddress.ip_network(n) for n in (
     "2606:4700::/32", "2803:f800::/32", "2405:b500::/32", "2405:8100::/32", "2a06:98c0::/29", "2c0f:f248::/32")]
 
 OUT = None
-R = {}
+R = {}  # hasil terstruktur -> results.json
 
 
+# --------------------------------------------------------------------------- util
 def log(msg=""):
     line = str(msg)
     print(line, flush=True)
@@ -124,7 +126,7 @@ def http_get(url, timeout=30):
             return r.status, r.read().decode("utf-8", "replace")
     except urllib.error.HTTPError as e:
         return e.code, ""
-    except Exception as e:
+    except Exception as e:  # DNS, TLS, timeout
         return None, f"{type(e).__name__}: {e}"
 
 
@@ -145,6 +147,7 @@ def snippets(text, kw, width=140, maxn=3):
     return out
 
 
+# --------------------------------------------------------------------------- fase 1
 def phase1_web():
     log("\n" + "=" * 70 + "\nFASE 1: BUKTI SUMBER PRIMER (WEB)\n" + "=" * 70)
     res = {}
@@ -152,6 +155,7 @@ def phase1_web():
         posts = []
         status, body = http_get(url)
         text = strip_html(body) if status == 200 else ""
+        # Discourse (forum GFZ): ambil juga JSON agar tanggal posting jelas
         if name == "gfz_forum":
             s2, j = http_get(url + ".json")
             if s2 == 200:
@@ -180,6 +184,7 @@ def phase1_web():
     R["phase1_web"] = res
 
 
+# --------------------------------------------------------------------------- fase 2
 def check_endpoint(host, port, tls):
     r = {"host": host, "port": port, "tls": tls, "dns": None, "ips": [], "tcp": None,
          "connect_ms": None, "hello": None, "tls_info": None, "error": None}
@@ -253,10 +258,16 @@ def phase2_connectivity():
         except ValueError:
             r["cloudflare_ips"] = []
         if r["cloudflare_ips"]:
-            log(f"   >>> {r['host']}: {len(r['cloudflare_ips'])}/{len(r['ips'])} IP di rentang Cloudflare")
+            log(f"   >>> {r['host']}: {len(r['cloudflare_ips'])}/{len(r['ips'])} IP berada di rentang Cloudflare "
+                f"(host ini kemungkinan proxy WEB; port {r['port']} memang tidak diteruskan, "
+                f"jadi TIMEOUT di sini BUKAN bukti pemblokiran SeedLink)")
     save("phase2_connectivity.json", json.dumps(rows, indent=2))
     R["phase2_connectivity"] = rows
 
+
+# --------------------------------------------------------------------------- SeedLink v3 mentah
+# Mengapa tanpa obspy: obspy 1.5.1 gagal connect (TypeError '<' float vs None di is_connected_impl
+# karena SeedLinkConnection() dibuat dengan timeout=None). Protokol v3 sederhana, jadi diimplementasi langsung.
 
 def _readline(sock, deadline):
     buf = b""
@@ -301,7 +312,7 @@ def sl_open(host, port, timeout=TIMEOUT, tls=False):
 
 
 def ms_header(rec):
-    """Parse header miniSEED v2 (512 byte)."""
+    """Parse header miniSEED v2 (512 byte). Mengembalikan dict atau None bila bukan miniSEED v2."""
     if len(rec) < 48 or rec[6:7] not in (b"D", b"R", b"Q", b"M"):
         return None
     end = ">"
@@ -339,7 +350,7 @@ def ms_header(rec):
 
 
 def sl_info(host, port, level="STREAMS", timeout=40, tls=False):
-    """INFO <level> via SeedLink v3."""
+    """INFO <level> via SeedLink v3. Mengembalikan (xml_text, hello_lines)."""
     s, hello = sl_open(host, port, min(timeout, TIMEOUT), tls)
     try:
         deadline = time.time() + timeout
@@ -347,7 +358,7 @@ def sl_info(host, port, level="STREAMS", timeout=40, tls=False):
         parts = []
         while True:
             pkt = _recv_exact(s, 8, deadline)
-            if pkt[:2] != b"SL":
+            if pkt[:2] != b"SL":  # kemungkinan baris ERROR
                 rest = b""
                 try:
                     rest = s.recv(200)
@@ -359,7 +370,7 @@ def sl_info(host, port, level="STREAMS", timeout=40, tls=False):
             if h is None:
                 raise RuntimeError("rekaman INFO bukan miniSEED v2")
             parts.append(rec[h["offset"]: h["offset"] + h["nsamp"]])
-            if pkt[:8] == b"SLINFO  ":
+            if pkt[:8] == b"SLINFO  ":  # paket terakhir ("SLINFO *" = masih ada lanjutan)
                 break
         text = b"".join(parts).replace(b"\x00", b"").decode("utf-8", "replace").strip()
         return text, hello
@@ -371,9 +382,12 @@ def sl_info(host, port, level="STREAMS", timeout=40, tls=False):
 
 
 def parse_sl_time(t):
-    """'2026/10/05 12:30:01.00' -> datetime UTC."""
+    """'2026/10/05 12:30:01.00' atau '2026-10-05T12:30:01.00Z' -> datetime UTC (atau None)."""
     try:
-        t = t.strip().replace("-", "/")
+        t = t.strip()
+        # Normalisasi: ISO 8601 dengan T/Z -> format slash lama
+        t = t.replace("T", " ").replace("Z", "")
+        t = t.replace("-", "/")
         main, _, frac = t.partition(".")
         d = datetime.strptime(main, "%Y/%m/%d %H:%M:%S").replace(tzinfo=UTC)
         return d + timedelta(seconds=float("0." + frac)) if frac else d
@@ -401,7 +415,7 @@ def age_s(dt):
     return None if dt is None else round((datetime.now(UTC) - dt).total_seconds(), 1)
 
 
-INV = {}
+INV = {}  # server -> {(net,sta): {"channels": [...], "newest_end": datetime}}
 
 
 def phase3_inventory():
@@ -430,7 +444,8 @@ def phase3_inventory():
         log(f"  atribut <station>: {st_attrs}")
         log(f"  atribut <stream> : {sm_attrs}")
         log(f"  jaringan terbesar: {nets.most_common(8)}")
-        log(f"  stasiun dengan data < 10 menit: {res[server]['stations_fresh_lt_600s']}/{len(ages)}")
+        log(f"  stasiun dengan data < 10 menit: {res[server]['stations_fresh_lt_600s']}/{len(ages)} "
+            f"(berdasarkan end_time di INFO)")
         if "IA" in nets:
             log(f"  >>> JARINGAN IA ADA: {nets['IA']} stasiun")
         if server.startswith("seedlink.geoshake.org"):
@@ -442,6 +457,7 @@ def phase3_inventory():
     R["phase3_inventory"] = res
 
 
+# --------------------------------------------------------------------------- fase 4
 def fdsn_stations(base, params):
     url = f"{base}?{urllib.parse.urlencode({**params, 'level': 'station', 'format': 'text'})}"
     code, body = http_get(url)
@@ -469,7 +485,7 @@ def country_of(lat, lon):
     url = ("https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=3"
            f"&lat={lat}&lon={lon}")
     code, body = http_get(url, timeout=20)
-    time.sleep(1.1)
+    time.sleep(1.1)  # patuhi batas 1 req/detik
     try:
         return json.loads(body).get("address", {}).get("country_code", "?").upper()
     except Exception:
@@ -491,6 +507,7 @@ def phase4_fdsn_intersection(args):
     R["phase4_fdsn"] = fdsn_log
     log(f"Total stasiun unik (net,sta) di bbox: {len(coords)}")
 
+    # irisan per server
     hits_all, inter = {}, {}
     for server, inv in INV.items():
         hits = sorted(set(inv) & set(coords))
@@ -516,31 +533,34 @@ def phase4_fdsn_intersection(args):
             log(f"  {server}: " + str(Counter(h.get("country", "?") for h in lst)))
     R["phase4_intersection"] = inter
 
+    # watchlist: kode stasiun penting di server mana, jaringan apa
     where = defaultdict(list)
     for server, inv in INV.items():
         for (n, s) in inv:
             if s in WATCH_CODES:
                 where[s].append(f"{server} -> {n}.{s} (umur_data={age_s(inv[(n, s)]['newest_end'])}s)")
     if not INV:
-        log("\nPERHATIAN: tidak ada inventaris SeedLink (fase 3 gagal semua).")
+        log("\nPERHATIAN: tidak ada inventaris SeedLink (fase 3 gagal semua). Watchlist & irisan KOSONG karena itu, "
+            "BUKAN karena stasiunnya tidak ada.")
     log("\nWatchlist (KAPI/WRAB/BKNI + 25 kode GE Indonesia) - ditemukan di server mana:")
     for code in sorted(WATCH_CODES):
         if not INV:
             log(f"   {code:<6}: TIDAK TERUJI (inventaris SeedLink gagal)")
         else:
-            log(f"   {code:<6}: {where.get(code, 'TIDAK ADA di server mana pun')}")
+            log(f"   {code:<6}: {where.get(code, 'TIDAK ADA di server yang inventarisnya berhasil diambil')}")
     R["phase4_watchlist"] = ("TIDAK_TERUJI_inventaris_gagal" if not INV
                              else {k: where.get(k, []) for k in sorted(WATCH_CODES)})
 
+    # GeoShake: lokasi seluruh stasiun GW dari FDSN (tanpa bbox)
     log("\nGeoShake: lokasi semua stasiun GW lewat FDSN (tanpa filter bbox)")
     if not args.geoshake_fdsn:
-        log("   dilewati: beri --geoshake-fdsn <URL fdsnws-station GeoShake>")
+        log("   dilewati: beri --geoshake-fdsn <URL fdsnws-station GeoShake> (lihat api.geoshake.org)")
         R["phase4_geoshake"] = {"skipped": True}
         return
     code, url, rows = fdsn_stations(args.geoshake_fdsn, {"network": "GW"})
     gw_in = [r for r in rows if in_bbox(r["lat"], r["lon"])]
     if "seedlink.geoshake.org:18000" not in INV:
-        log("   PERHATIAN: inventaris SeedLink GeoShake tidak tersedia (fase 3 gagal)")
+        log("   PERHATIAN: inventaris SeedLink GeoShake tidak tersedia (fase 3 gagal): 'live' di bawah TIDAK bermakna")
     live_gw = {k for k in INV.get("seedlink.geoshake.org:18000", {}) if k[0] == "GW"}
     meta_gw = {(r["net"], r["sta"]) for r in rows}
     log(f"   HTTP={code}  stasiun GW dengan metadata={len(rows)}  di dalam bbox Indonesia={len(gw_in)}  "
@@ -552,6 +572,7 @@ def phase4_fdsn_intersection(args):
                             "live_without_metadata": len(live_gw - meta_gw)}
 
 
+# --------------------------------------------------------------------------- fase 5
 def live_test(server, net, sta, selectors, seconds, outdir):
     host, port = server.split(":")
     res = {"server": server, "station": f"{net}.{sta}", "selectors": selectors, "seconds": seconds}
@@ -628,14 +649,14 @@ def live_test(server, net, sta, selectors, seconds, outdir):
     if raw:
         fn = os.path.join(outdir, f"live_{net}_{sta}_{host}.mseed")
         with open(fn, "wb") as f:
-            f.write(b"".join(raw))
+            f.write(b"".join(raw))  # rekaman miniSEED 512 byte apa adanya
         res["mseed"] = fn
     return res
 
 
 def phase5_live(args):
     log("\n" + "=" * 70 + f"\nFASE 5: UJI STREAMING LIVE ({args.live_seconds}s per stasiun)\n" + "=" * 70)
-    targets = defaultdict(list)
+    targets = defaultdict(list)  # (server, net, sta) -> selectors
     for spec in args.live:
         server, net, sta, sels = spec.split("|")
         targets[(server, net, sta)] += sels.split(",")
@@ -653,6 +674,7 @@ def phase5_live(args):
     R["phase5_live"] = out
 
 
+# --------------------------------------------------------------------------- main
 def public_ip():
     code, body = http_get("https://api.ipify.org", timeout=10)
     return body.strip() if code == 200 else None
