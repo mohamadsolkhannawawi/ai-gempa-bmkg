@@ -7,10 +7,11 @@ set -e
 MODE="${1:-}"
 
 if [ -z "$MODE" ]; then
-    echo "Usage: $0 [geofon|ia]"
+    echo "Usage: $0 [geofon|ia|public20]"
     echo ""
-    echo "  geofon - Switch to GEOFON (156 public broadband stations)"
-    echo "  ia     - Switch to internal BMKG IA (203 stations, 172.19.3.87:18000)"
+    echo "  geofon   - Switch to GEOFON (156 public broadband stations)"
+    echo "  ia       - Switch to internal BMKG IA (203 stations, 172.19.3.87:18000)"
+    echo "  public20 - Switch to audit-2026-10-08 (20 publik SeedLink, 6 negara)"
     exit 1
 fi
 
@@ -22,6 +23,10 @@ case "$MODE" in
     ia)
         CSV="station.csv"
         DESC="Internal BMKG IA (203 stations)"
+        ;;
+    public20)
+        CSV="station_public20.csv"
+        DESC="Audit 2026-10-08 (20 publik SeedLink, 6 negara)"
         ;;
     *)
         echo "Invalid mode: $MODE"

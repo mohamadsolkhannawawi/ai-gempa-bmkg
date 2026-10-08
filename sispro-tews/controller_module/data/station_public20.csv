@@ -1,0 +1,21 @@
+_id,name,code,network,channel,location,longitude,latitude,elevation,server_seedlink,server_fdsn
+pub20_01,"PS.JAY (Indonesia, dist=0.02°)",JAY,PS,"['BHE', 'BHN', 'BHZ', 'BNE', 'BNN', 'BNZ']",,140.703,-2.5147,0,rtserve.earthscope.org:18000,IRIS
+pub20_02,"MS.KAPK (Singapore, dist=0.28°)",KAPK,MS,"['EHE', 'EHN', 'EHZ', 'HNE', 'HNN', 'HNZ']",,103.888298,1.2967,0,rtserve.earthscope.org:18000,IRIS
+pub20_03,"MS.BESC (Singapore, dist=0.34°)",BESC,MS,"['BHE', 'BHN', 'BHZ', 'EHE', 'EHN', 'EHZ', 'HHE', 'HHN', 'HHZ', 'HNE', 'HNN', 'HNZ']",,103.8513,1.3421,0,rtserve.earthscope.org:18000,IRIS
+pub20_04,"II.KAPI (Indonesia, dist=0.35°)",KAPI,II,"['BH1', 'BH2', 'BHZ', 'EN1', 'EN2', 'ENZ']",,119.7517,-5.0142,0,rtserve.earthscope.org:18000,IRIS
+pub20_05,"MS.UBIN (Singapore, dist=0.38°)",UBIN,MS,"['BHE', 'BHN', 'BHZ', 'HHE', 'HHN', 'HHZ']",,103.953796,1.4179,0,rtserve.earthscope.org:18000,IRIS
+pub20_06,"MS.NTU (Singapore, dist=0.46°)",NTU,MS,"['BHE', 'BHN', 'BHZ', 'EHE', 'EHN', 'EHZ', 'HHE', 'HHN', 'HHZ', 'HNE', 'HNN', 'HNZ']",,103.685097,1.3537,0,rtserve.earthscope.org:18000,IRIS
+pub20_07,"IU.DAV (Philippines, dist=1.79°)",DAV,IU,"['BH1', 'BH2', 'BHZ']",,125.5791,7.0697,0,rtserve.earthscope.org:18000,IRIS
+pub20_08,"AU.XMI (Australia, dist=4.02°)",XMI,AU,"['BHE', 'BHN', 'BHZ']",,105.6884,-10.4501,0,rtserve.earthscope.org:18000,IRIS
+pub20_09,"TM.SKLT (Thailand, dist=4.08°)",SKLT,TM,"['HHE', 'HHN', 'HHZ']",,100.615686,7.175815,0,rtserve.earthscope.org:18000,IRIS
+pub20_10,"AU.DRS (Australia, dist=4.47°)",DRS,AU,"['BHE', 'BHN', 'BHZ', 'BNZ']",,130.899307,-12.4313,0,rtserve.earthscope.org:18000,IRIS
+pub20_11,"S1.AUDHS (Australia, dist=4.48°)",AUDHS,S1,"['BHE', 'BHN', 'BHZ', 'HHE', 'HHN', 'HHZ']",,130.833,-12.44,0,auspass.edu.au:18000,AusPass
+pub20_12,"AU.DPH (Australia, dist=4.51°)",DPH,AU,"['BHE', 'BHN', 'BHZ', 'BNZ']",,130.8423,-12.4667,0,rtserve.earthscope.org:18000,IRIS
+pub20_13,"AU.KDU (Australia, dist=4.85°)",KDU,AU,"['BHE', 'BHN', 'BHZ']",,132.472702,-12.6869,0,rtserve.earthscope.org:18000,IRIS
+pub20_14,"AU.MTN (Australia, dist=4.87°)",MTN,AU,"['BHE', 'BHN', 'BHZ']",,131.132706,-12.8436,0,rtserve.earthscope.org:18000,IRIS
+pub20_15,"TM.SRIT (Thailand, dist=5.04°)",SRIT,TM,"['HHE', 'HHN', 'HHZ']",,99.601994,8.59549,0,rtserve.earthscope.org:18000,IRIS
+pub20_16,"S1.AUNHS (Australia, dist=5.13°)",AUNHS,S1,"['BHE', 'BHN', 'BHZ', 'HHE', 'HHN', 'HHZ']",,136.7832,-12.1874,0,rtserve.earthscope.org:18000,IRIS
+pub20_17,"TM.SURA (Thailand, dist=5.38°)",SURA,TM,"['HHE', 'HHN', 'HHZ']",,99.629509,9.16634,0,rtserve.earthscope.org:18000,IRIS
+pub20_18,"AU.COEN (Australia, dist=6.11°)",COEN,AU,"['BHE', 'BHN', 'BHZ', 'BNZ']",,143.174896,-13.9574,0,rtserve.earthscope.org:18000,IRIS
+pub20_19,"IN.PBA (India, dist=6.30°)",PBA,IN,"['HHE', 'HHN', 'HHZ']",,92.743919,11.655733,0,rtserve.earthscope.org:18000,IRIS
+pub20_20,"AU.DERBY (Australia, dist=6.41°)",DERBY,AU,"['HHE', 'HHN', 'HHZ']",,123.648882,-17.314443,0,rtserve.earthscope.org:18000,IRIS

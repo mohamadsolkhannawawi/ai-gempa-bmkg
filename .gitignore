@@ -47,3 +47,6 @@ backup/
 # Temporary
 tmp/
 temp/
+
+# Audit run output (generated)
+audit-run/

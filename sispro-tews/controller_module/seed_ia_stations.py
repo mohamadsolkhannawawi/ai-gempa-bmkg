@@ -3,8 +3,9 @@
 Seed seismic stations from CSV into MongoDB.
 
 CSV source selected via STATION_CSV env var:
-  - unset / "station.csv"  -> internal BMKG IA stations (data/station.csv)
-  - "station_geofon.csv"   -> GEOFON public broadband stations (data/station_geofon.csv)
+  - unset / "station.csv"          -> internal BMKG IA stations (data/station.csv)
+  - "station_geofon.csv"           -> GEOFON public broadband stations
+  - "station_public20.csv"         -> audit 2026-10-08 (20 publik SeedLink, 6 negara)
 
 Both CSVs share the same schema; switch is a one-line env change so the
 internal BMKG stations can be re-enabled later without touching the file.
