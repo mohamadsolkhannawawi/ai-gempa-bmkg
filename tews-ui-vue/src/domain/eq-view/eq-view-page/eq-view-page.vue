@@ -46,14 +46,20 @@ const [isListOpen, toggleListOpen] = useToggle()
 
 const fetchEventList = (newParams: GetAllEventListQuery) => {
   closeEventDetailDrawer()
-  getAllEventListAPI(newParams).then((response) => {
-    data.value = response.data
-    totalEvents.value = response.total
+  getAllEventListAPI(newParams)
+    .then((response) => {
+      data.value = response.data
+      totalEvents.value = response.total
 
-    if (!latestEvent.value && response.data[0]) {
-      latestEvent.value = response.data[0]
-    }
-  })
+      if (!latestEvent.value && response.data[0]) {
+        latestEvent.value = response.data[0]
+      }
+    })
+    .catch((err) => {
+      console.error('[EQView] Failed to fetch events:', err)
+      data.value = []
+      totalEvents.value = 0
+    })
 }
 
 const params = computed(() => ({
@@ -107,11 +113,10 @@ watch([map, eventList], ([newMap, newEventList], [, oldEventList]) => {
   eventSource.clear(true)
 
   if (newEventList !== oldEventList) {
-    const filteredEvents = newEventList.filter((event) =>
-      event.magnitudes.some((info) => info.type.toLowerCase() === 'mw')
-    )
-    filteredEvents.forEach((event) => {
+    newEventList.forEach((event) => {
+      // Prefer Mw, fallback to first available magnitude
       const magnitude = event.magnitudes.find((info) => info.type.toLowerCase() === 'mw')
+        ?? event.magnitudes[0]
       if (magnitude) {
         const feature = createMagnitudeFeature(event, magnitude)
         feature.setProperties({ event })

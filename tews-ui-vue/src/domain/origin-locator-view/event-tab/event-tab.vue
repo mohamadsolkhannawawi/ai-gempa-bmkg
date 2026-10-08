@@ -26,9 +26,14 @@ const params = computed(() => ({
 const eventList = computed(() => data.value ?? [])
 
 const fetchEventList = (newParams: GetAllEventListQuery) => {
-  getAllEventListAPI(newParams).then((response) => {
-    data.value = response.data
-  })
+  getAllEventListAPI(newParams)
+    .then((response) => {
+      data.value = response.data
+    })
+    .catch((err) => {
+      console.error('[EventTab] Failed to fetch events:', err)
+      data.value = []
+    })
 }
 
 watch(

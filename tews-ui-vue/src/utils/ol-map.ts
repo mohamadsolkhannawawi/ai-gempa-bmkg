@@ -307,10 +307,11 @@ export const createMagnitudeFeature = (event: EarthQuakeEvent, magnitude: Magnit
   feature.setStyle(
     new Style({
       image: new CircleStyle({
-        radius: width / 2,
-        stroke: new Stroke({ color, width: 1 }),
-        fill: new Fill({ color: hexToRGB(color, 0.5) })
-      })
+        radius: Math.max(width / 2, 8), // Minimum radius 8px for easier clicking
+        stroke: new Stroke({ color, width: 2 }),
+        fill: new Fill({ color: hexToRGB(color, 0.6) })
+      }),
+      zIndex: 100 // Ensure markers are above other layers
     })
   )
 
