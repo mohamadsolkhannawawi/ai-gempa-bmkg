@@ -51,10 +51,11 @@ print(f"[PhaseArrival] Starting at {datetime.now()}")
 arrival_waveform_consumer = KafkaConsumer(
     ARRIVAL_WAVEFORM_TOPIC, 
     bootstrap_servers=f"{KAFKA_HOST}:{KAFKA_PORT}",
-    api_version=(2, 5, 0),
-    request_timeout_ms=10000,
-    api_version_auto_timeout_ms=10000,
+    request_timeout_ms=30000,
+    api_version_auto_timeout_ms=30000,
+    consumer_timeout_ms=-1,
 )
+print(f"[PhaseArrival] Kafka consumer connected successfully!")
 producer = KafkaProducer(bootstrap_servers=f"{KAFKA_HOST}:{KAFKA_PORT}")
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
 mongodb_client = pymongo.MongoClient(host=MONGO_HOST, port=int(MONGO_PORT))
