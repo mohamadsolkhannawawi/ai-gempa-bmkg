@@ -1,6 +1,10 @@
 import os
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 os.environ['MPLBACKEND'] = 'Agg'
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "3")
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")
+os.environ.setdefault("TF_FORCE_GPU_ALLOW_GROWTH", "false")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
 
 import numpy as np
 import pandas as pd
@@ -43,13 +47,23 @@ MODEL_PATH = "./models/cnnset_locmag_new.h5"
 SCALER_PATH = "./models/minmax_scaler_new.joblib"
 THMAG_PATH = "./models/th_mag.joblib"
 DEGRE_CONVERSION = 111.139
-MAX_WORKERS = 100
+MAX_WORKERS = 5
 
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
 mongodb_client = pymongo.MongoClient(host=MONGO_HOST, port=int(MONGO_PORT))
 db = mongodb_client[DB_NAME]
 event_col = db['event']
 magnitude_col = db['magnitude']
+
+# Lazy-load TF model to avoid GPU detection during startup
+tf_model = None
+def _load_tf_model():
+    global tf_model
+    if tf_model is None:
+        print("[LocMag] Loading TF model...")
+        tf_model = tf.keras.models.load_model(MODEL_PATH, compile=False)
+        print("[LocMag] TF model loaded.")
+    return tf_model
 
 producer = KafkaProducer(bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
 cluster_consumer = KafkaConsumer(CLUSTER_TOPIC, 
@@ -96,34 +110,9 @@ def modeling(cluster, arrivals):
     waveform = np.expand_dims(waveform, axis=0)
     print("waveform shape:", waveform.shape)
     
-    model = tf.keras.models.load_model(MODEL_PATH)
+    # Lazy-load TF model on first use
+    model = _load_tf_model()
     
-    """
-    prediction = model.predict(waveform)[0]
-    denorm = lambda x, min_val, max_val: x * (max_val - min_val) + min_val
-
-    # Define the minimum and maximum values as dictionaries
-    min_values = {
-        'longitude': 111.5,
-        'latitude': -11.76,
-        'depth': 10,
-        'magnitude': 3
-    }
-
-    max_values = {
-        'longitude': 115,
-        'latitude': -5.5,
-        'depth': 11,
-        'magnitude': 6.5
-    }
-
-    # Convert dictionaries to arrays
-    min_values = np.array([min_values['longitude'], min_values['latitude'], min_values['depth'], min_values['magnitude']])
-    max_values = np.array([max_values['longitude'], max_values['latitude'], max_values['depth'], max_values['magnitude']])
-
-    denorm_value = denorm(prediction, min_values, max_values)
-    """
-
     # Scaler load
     scaler = load(SCALER_PATH)
     prediction = model.predict(waveform)

@@ -1,5 +1,11 @@
 import os, redis, pymongo, time, json, gc
 import numpy as np
+# Force CPU-only + quiet logs for lightweight Docker-in-Docker environment
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "3")
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")
+os.environ.setdefault("TF_FORCE_GPU_ALLOW_GROWTH", "false")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
 import tensorflow as tf
 from obspy import UTCDateTime, Trace
 from dotenv import load_dotenv
@@ -30,9 +36,18 @@ db = mongodb_client[DB_NAME]
 pick_col = db['pick']
 station_col = db['station']
 
-model : tf.keras.models.Model = tf.keras.models.load_model("./models/cnnset_8s_20hz_0.h5", compile=False)
+model : tf.keras.models.Model = None
+def _load_model():
+    """Lazy-load TF model only when first prediction request arrives.
+    This allows the service to boot faster and avoid GPU detection during startup."""
+    global model
+    if model is None:
+        print("Loading TF model...")
+        model = tf.keras.models.load_model("./models/cnnset_8s_20hz_0.h5", compile=False)
+        print("TF model loaded.")
+    return model
 
-pool = ThreadPool(MAX_WORKERS)
+pool = ThreadPool(min(MAX_WORKERS, 10))
 
 def task(message):
     try:

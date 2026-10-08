@@ -1,4 +1,4 @@
-# Compose for AI
+# Compose for AI (Docker-in-Docker optimized)
 version: '3.8'
 
 services:
@@ -13,11 +13,16 @@ services:
       - ./.env
     environment:
       - CUDA_VISIBLE_DEVICES=-1
+      - TF_CPP_MIN_LOG_LEVEL=3
+      - OPENBLAS_NUM_THREADS=1
+      - OMP_NUM_THREADS=1
     deploy:
       resources:
         limits:
-          memory: 5G
-      replicas: 5  # Scale the service to 3 instances
+          memory: 2G
+      replicas: 2  # Reduced from 5 to avoid DinD thread limits
+    networks:
+      - ai_network
 
   p-pick_nginx:
     restart: always
@@ -29,6 +34,8 @@ services:
       - ${nginx_port}:80
     depends_on:
       - p-pick_service
+    networks:
+      - ai_network
     
   p-pick_consumer:
     restart: always
@@ -39,39 +46,62 @@ services:
     environment:
       - nginx_host=p-pick_nginx
       - nginx_port=80
+      - OPENBLAS_NUM_THREADS=1
     depends_on:
       - p-pick_nginx
+    networks:
+      - ai_network
     
   association_module:
     build:
       context: ./association_module
     env_file:
       - ./.env
+    environment:
+      - OPENBLAS_NUM_THREADS=1
+      - OMP_NUM_THREADS=1
     security_opt:
       - seccomp=unconfined
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    networks:
+      - ai_network
     
   phase-arrival_module:
     build:
       context: ./phase-arrival_module
     env_file:
       - ./.env
+    environment:
+      - OPENBLAS_NUM_THREADS=1
+      - OMP_NUM_THREADS=1
     security_opt:
       - seccomp=unconfined
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    networks:
+      - ai_network
     
   locmag_module:
     build:
       context: ./locmag_module
     env_file:
       - ./.env
+    environment:
+      - OPENBLAS_NUM_THREADS=1
+      - OMP_NUM_THREADS=1
     security_opt:
       - seccomp=unconfined
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    networks:
+      - ai_network
+
+networks:
+  ai_network:
+    name: sispro-tews_req
+    external: true
     

@@ -1,17 +1,13 @@
-# Use the official ROCm image
-FROM rocm/dev-ubuntu-22.04
+# Lightweight image for Docker-in-Docker (replaces rocm/dev-ubuntu-22.04)
+FROM python:3.10-slim
 
-# Set the working directory in the container
+ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
 # Disable OpenBLAS threading to avoid pthread_create failures in nested containers
 ENV OPENBLAS_NUM_THREADS=1
 # Use non-interactive matplotlib backend to avoid thread creation in FontManager
 ENV MPLBACKEND=Agg
-
-# Install python
-RUN apt-get update 2>/dev/null || true && \
-    apt-get install -y python3 python3-pip 2>/dev/null || true
 
 # Copy and install requirements (separated from dir copy to prevent multiple install on code changes)
 COPY ./requirements.txt /app/requirements.txt
@@ -21,4 +17,4 @@ RUN pip install --progress-bar off --no-cache-dir -r requirements.txt
 COPY . /app
 
 # Run terminal
-CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "pick_service:app"]
+CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:8000", "--timeout", "120", "pick_service:app"]

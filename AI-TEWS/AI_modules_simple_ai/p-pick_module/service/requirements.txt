@@ -4,6 +4,7 @@ pymongo==4.6.2
 python-dotenv==1.0.1
 redis==3.5.3
 tensorflow==2.10
+numpy<1.24
 pandas==1.4.4
 tqdm==4.66.4
 flask

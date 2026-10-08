@@ -40,7 +40,7 @@ MIN_PICKS = 1
 SAMPLE_RATE = 20
 BUFFER_SIZE_SEC = 10
 BUFFER_SIZE = BUFFER_SIZE_SEC * SAMPLE_RATE # 100 second
-MAX_WORKERS = 10
+MAX_WORKERS = 5
 
 # Instantiate some clients
 redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
