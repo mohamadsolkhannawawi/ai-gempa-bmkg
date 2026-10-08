@@ -10,3 +10,5 @@ lightgbm==4.3.0
 joblib==1.3.2
 scikit_learn==1.0.2
 numpy<1.24
+# Pin matplotlib to version without background timer thread (DinD fix)
+matplotlib<3.7

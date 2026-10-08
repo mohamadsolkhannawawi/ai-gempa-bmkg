@@ -3,3 +3,6 @@ obspy==1.4.0
 pymongo==4.6.2
 python-dotenv==1.0.1
 redis==3.5.3
+
+# Pin matplotlib to version without background timer thread (DinD fix)
+matplotlib<3.7

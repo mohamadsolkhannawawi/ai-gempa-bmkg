@@ -9,3 +9,7 @@ pandas==1.4.4
 tqdm==4.66.4
 flask
 gunicorn
+# Pin matplotlib to version that does NOT spawn background timer thread
+# matplotlib>=3.7 added a Timer in FontManager.__init__ that causes
+# "RuntimeError: can't start new thread" in Docker-in-Docker environment
+matplotlib<3.7
