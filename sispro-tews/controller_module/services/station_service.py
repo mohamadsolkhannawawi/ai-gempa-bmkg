@@ -201,7 +201,9 @@ async def station_get_waveform_stats_service(db, station_id):
         # == Redis data fetching
         # Fetch data from redis
         valid_channel = valid_channel[0]
-        station_key = f"{station_data['network']}.{station_data['code']}.{station_data['location']}.{valid_channel}"
+        # Normalize location: None/empty -> "" so it matches Redis key format
+        _loc = station_data.get("location") or ""
+        station_key = f"{station_data['network']}.{station_data['code']}.{_loc}.{valid_channel}"
         current_timestamp = int(time.time())
         messages = await redis_client.lrange(
             f"{station_key}_history", 0, 6000
