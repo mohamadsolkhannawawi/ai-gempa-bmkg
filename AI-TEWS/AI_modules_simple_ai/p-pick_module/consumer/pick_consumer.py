@@ -46,9 +46,13 @@ station_col = db['station']
 
 def send_to_service(url, data):
     try:
-        requests.post(url, json=data, timeout=5)
+        resp = requests.post(url, json=data, timeout=5)
+        if resp.status_code == 200:
+            print(f"  → Predict OK: {resp.status_code}")
+        else:
+            print(f"  → Predict FAILED: {resp.status_code} - {resp.text[:200]}")
     except Exception as e:
-        print(f"Failed to send to {url}: {e}")
+        print(f"  → Predict ERROR: {e}")
 
 if __name__ == "__main__":
     for message in waveform_consumer:
