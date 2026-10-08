@@ -21,6 +21,11 @@ services:
         limits:
           memory: 2G
       replicas: 2  # Reduced from 5 to avoid DinD thread limits
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    ulimits:
+      nproc: 65535
     networks:
       - sispro-tews_req
 
@@ -49,6 +54,11 @@ services:
       - OPENBLAS_NUM_THREADS=1
     depends_on:
       - p-pick_nginx
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    ulimits:
+      nproc: 65535
     networks:
       - sispro-tews_req
     

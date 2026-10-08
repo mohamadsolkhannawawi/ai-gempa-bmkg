@@ -22,4 +22,4 @@ RUN echo 'backend: Agg' > /app/matplotlibrc
 COPY . /app
 
 # Run terminal
-CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:8000", "--timeout", "120", "pick_service:app"]
+CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:8000", "--timeout", "120", "--preload", "--log-level", "warning", "pick_service:app"]
