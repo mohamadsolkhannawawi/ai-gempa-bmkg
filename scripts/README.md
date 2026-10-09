@@ -1,6 +1,26 @@
-# SeedLink Audit Scripts
+# SeedLink Audit Scripts & Station Configuration
 
 Skrip Python untuk audit infrastruktur SeedLink Indonesia. Semua script standalone, hanya butuh stdlib Python 3.11+.
+
+## Current Station Configuration
+
+**Active Deployment:** 20 seismic stations dari `rtserve.earthscope.org:18000` (IRIS EarthScope - single endpoint)
+
+**Station List** (sispro-tews/seedlink_module/data/station_public20.csv):
+- PS.JAY (Indonesia)
+- MS.KAPK, MS.BESC, MS.UBIN, MS.NTU (Singapore)
+- II.KAPI (Indonesia)
+- IU.DAV (Philippines)
+- AU.XMI, AU.DRS, AU.DPH, AU.KDU, AU.MTN, AU.COEN, AU.DERBY, AU.ARMA (Australia)
+- TM.SKLT, TM.SRIT, TM.SURA (Thailand)
+- S1.AUNHS (Australia)
+- IN.PBA (India)
+
+**Coverage:** Indonesia + SE Asia + Australia + India region. All channels BH*/HH* (broadband seismic).
+
+**Data Flow:** SeedLink → seedlink_module → Kafka `waveform_seedlink` → p-pick_module → association → locmag → MongoDB events
+
+---
 
 ## Core Scripts
 
