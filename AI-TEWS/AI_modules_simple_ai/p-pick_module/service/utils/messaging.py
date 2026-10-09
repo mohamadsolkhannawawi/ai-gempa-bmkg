@@ -12,10 +12,8 @@ def json_serializer(message):
 
 
 def send_picks_to_kafka(db_station, picks, pick_ids, producer):
-    kafka_data = {}
-    # Produce pick
     kafka_data = {
-        'station_id': db_station['_id'],
+        'station_id': str(db_station['_id']),
         'network': db_station['network'],
         'station': db_station['code'],
         'picks': [
@@ -26,8 +24,11 @@ def send_picks_to_kafka(db_station, picks, pick_ids, producer):
             for i, pick in enumerate(picks)
         ]
     }
-
-    producer.send(PICK_TOPIC, json.dumps(kafka_data).encode())
+    producer.send(PICK_TOPIC, json.dumps(kafka_data, default=str).encode()).add_errback(
+        lambda exc: print(f"[pick] kafka send failed: {exc}")
+    )
+    producer.flush(timeout=10)
+    print(f"[pick] sent {len(picks)} pick(s) to topic {PICK_TOPIC}")
 
 def send_picks_to_db(db_station, pick_col, picks):
     # Define DB data
@@ -71,4 +72,5 @@ def send_arrival_waveform_to_kafka(db_station, full_waveform, delta, picks, pick
             'waveform': offset_waveform,
         }
 
-        producer.send(ARRIVAL_WAVEFORM_TOPIC, json.dumps(arrival_waveform).encode())
+        producer.send(ARRIVAL_WAVEFORM_TOPIC, json.dumps(arrival_waveform, default=str).encode())
+    producer.flush(timeout=10)

@@ -44,8 +44,14 @@ def _init_clients():
     if redis_client is not None:
         return
     print("[pick_service] Initializing clients in worker process...")
+    print(f"[pick_service] Kafka {KAFKA_HOST}:{KAFKA_PORT} pick_topic={PICK_TOPIC!r}")
     redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
-    producer = KafkaProducer(bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"])
+    producer = KafkaProducer(
+        bootstrap_servers=[f"{KAFKA_HOST}:{KAFKA_PORT}"],
+        acks=1,
+        retries=3,
+        request_timeout_ms=30000,
+    )
     mongodb_client = pymongo.MongoClient(
         host=MONGO_HOST,
         port=int(MONGO_PORT),
@@ -98,7 +104,7 @@ def task(message):
                 'delta': data['delta'],
                 'waveform': data['waveform']
             }
-            producer.send(ARRIVAL_WAVEFORM_TOPIC, json.dumps(arrival_waveform_data).encode())
+            producer.send(ARRIVAL_WAVEFORM_TOPIC, json.dumps(arrival_waveform_data, default=str).encode())
         
         trace = trace_processing(data, SAMPLE_RATE)
         # station_channels = [trace.stats.channel[:-1]+ch for ch in ['E','N','Z']]
