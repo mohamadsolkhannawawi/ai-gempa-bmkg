@@ -5,6 +5,7 @@
 #   ./rebuild.sh controller       # controller_module only
 #   ./rebuild.sh frontend         # frontend (tews-ui-vue) only
 #   ./rebuild.sh seedlink         # seedlink_module only
+#   ./rebuild.sh wrapper          # rebuild wrapper (down + up --no-cache)
 #   ./rebuild.sh controller frontend   # multiple at once
 set -e
 
@@ -19,6 +20,13 @@ fi
 
 for T in $TARGETS; do
     case "$T" in
+        wrapper)
+            echo "=== Rebuilding gempa-dind-wrapper (full down+up) ==="
+            docker-compose -f docker-compose.wrapper.yml down $WRAP
+            docker-compose -f docker-compose.wrapper.yml up -d --build --no-cache $WRAP
+            echo "Waiting 60s for wrapper startup..."
+            sleep 60
+            ;;
         controller)
             echo "=== Rebuilding controller_module ==="
             docker exec $WRAP bash -c "cd /app/sispro-tews && docker-compose up -d --build controller_module"
@@ -37,7 +45,7 @@ for T in $TARGETS; do
             ;;
         *)
             echo "Unknown service: $T"
-            echo "Available: controller frontend seedlink websocket"
+            echo "Available: wrapper controller frontend seedlink websocket"
             exit 1
             ;;
     esac
