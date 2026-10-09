@@ -22,8 +22,8 @@ for T in $TARGETS; do
     case "$T" in
         wrapper)
             echo "=== Rebuilding gempa-dind-wrapper (full down+up) ==="
-            docker-compose -f docker-compose.wrapper.yml down $WRAP
-            docker-compose -f docker-compose.wrapper.yml up -d --build --no-cache $WRAP
+            docker-compose -f docker-compose.wrapper.yml down
+            docker-compose -f docker-compose.wrapper.yml up -d --build --no-cache
             echo "Waiting 60s for wrapper startup..."
             sleep 60
             ;;
