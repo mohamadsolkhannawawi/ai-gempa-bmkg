@@ -126,7 +126,7 @@ Catatan: stasiun, sumber data, dan tujuan sink (misalnya URL webhook) adalah dat
 
 ## 4. Arsitektur Target
 
-### 4.1 Control plane dan data plane
+### 4.1 Control plane, data plane, dan metering plane
 
 ```
 ┌────────────────────────── CONTROL PLANE ───────────────────────────┐
@@ -137,6 +137,7 @@ Catatan: stasiun, sumber data, dan tujuan sink (misalnya URL webhook) adalah dat
 │  ├─ Profile Service    : draft, revisi, aktivasi, rollback          │
 │  ├─ Validator/Compiler : inti domain (tanpa I/O)                    │
 │  ├─ Entitlement        : paket dan kuota                            │
+│  ├─ Pricing Calculator : real-time estimate di UI (IDR)             │
 │  └─ Audit + Metering                                                │
 │ MongoDB: workspaces, profiles, catalog, plans, audit, usage         │
 │    │ keadaan yang diinginkan                                        │
@@ -148,6 +149,21 @@ Catatan: stasiun, sumber data, dan tujuan sink (misalnya URL webhook) adalah dat
 │  Antar tahap lewat Kafka, satu topic per artifact                   │
 │  Model Registry (/models + checksum) · Redis · MongoDB              │
 └─────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────── METERING PLANE ─────────────────────────┐
+│ Usage Event Emitter (di setiap stage runtime)                       │
+│   → emit ke Kafka `usage_events` (compacted hourly)                 │
+│     {workspace_id, stage, provider, count, timestamp}               │
+│                                                                      │
+│ Metering Aggregator (consumer)                                      │
+│   → aggregate per workspace+stage+provider per hari                 │
+│   → write to MongoDB `usage_daily`                                  │
+│                                                                      │
+│ Billing Calculator (cron end-of-month)                              │
+│   → sum usage_daily for month                                       │
+│   → apply free quota per model                                      │
+│   → calculate total (IDR) using pricing_model                       │
+│   → generate invoice → send to workspace_admin                      │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ### 4.2 Komponen
@@ -158,25 +174,172 @@ Catatan: stasiun, sumber data, dan tujuan sink (misalnya URL webhook) adalah dat
 | Profile Service | Draft, revisi immutable, pointer aktif, last-known-good | Baru (di `controller_module`) |
 | Validator/Compiler | Validasi dan kompilasi profil; fungsi murni tanpa I/O | Prototipe tersedia |
 | Entitlement | Aturan paket dan kuota, ditegakkan di backend | Baru |
+| **Pricing Calculator** | **Real-time cost estimate (IDR) berdasarkan profile + usage projection** | **Baru** |
 | Orchestrator | Membandingkan keadaan diinginkan vs nyata, menerbitkan snapshot | Baru (`orchestrator_module`) |
 | Stage SDK | Paket Python bersama: klien config, hot reload, envelope, metrik, health | Baru (`stage_sdk`) |
 | Model Registry | Bobot model berversi dengan checksum dan model card | Baru |
 | Audit dan Metering | Jejak perubahan dan catatan pemakaian | Baru |
+| **Metering Aggregator** | **Consume usage_events dari Kafka → aggregate daily → MongoDB** | **Baru** |
+| **Billing Calculator** | **Monthly invoice generation berdasarkan actual usage** | **Baru** |
 | Modul tahap | Dibungkus SDK; logika model dipindah menjadi provider | Ada, direfaktor |
 
 ### 4.3 Cara kerja aplikasi: alur aktivasi profil
 
 1. Pengguna memilih mode dan menyusun profil di wizard; draft tersimpan.
 2. UI memanggil `POST /api/v2/profiles/{id}/validate`; validator mengembalikan daftar isu (galat dan peringatan).
-3. Opsional: uji-coba memakai rekaman replay; hasilnya jumlah pick dan event serta latensi.
-4. `POST .../activate`: Entitlement memeriksa paket, Compiler menghasilkan rencana (topic, consumer group, parameter terisi) dan `rev`; revisi disimpan immutable.
-5. Orchestrator membandingkan revisi baru dengan keadaan nyata (heartbeat tiap tahap).
-6. Orchestrator menerbitkan snapshot ke `config_events` (topic compacted, key `{workspace}.{stage}`).
-7. Stage runtime menerima snapshot, memuat provider baru di latar belakang, lalu menukarnya secara atomik di antara dua jendela data. Bila `enabled=false`, consumer di-pause.
-8. Tahap melapor `applied(rev)`. Bila gagal atau tidak sehat dalam batas waktu, sistem rollback ke last-known-good dan mengirim alert.
-9. Setiap pesan keluaran membawa `profile_rev` dan `provider` sebagai jejak audit.
+3. **UI memanggil `POST /api/v2/pricing/estimate` → real-time harga (IDR) di sidebar** (lihat bagian 4.4).
+4. Opsional: uji-coba memakai rekaman replay; hasilnya jumlah pick dan event serta latensi.
+5. `POST .../activate`: Entitlement memeriksa paket, Compiler menghasilkan rencana (topic, consumer group, parameter terisi) dan `rev`; revisi disimpan immutable.
+6. Orchestrator membandingkan revisi baru dengan keadaan nyata (heartbeat tiap tahap).
+7. Orchestrator menerbitkan snapshot ke `config_events` (topic compacted, key `{workspace}.{stage}`).
+8. Stage runtime menerima snapshot, memuat provider baru di latar belakang, lalu menukarnya secara atomik di antara dua jendela data. Bila `enabled=false`, consumer di-pause.
+9. Tahap melapor `applied(rev)`. Bila gagal atau tidak sehat dalam batas waktu, sistem rollback ke last-known-good dan mengirim alert.
+10. Setiap pesan keluaran membawa `profile_rev` dan `provider` sebagai jejak audit.
 
-### 4.4 Cara menonaktifkan tahap di runtime
+### 4.4 UI Wizard: Pipeline Builder dengan Live Pricing Calculator
+
+**Flow 4 Langkah + Sidebar Real-Time Price (IDR):**
+
+```
+┌─────────────────────────────────────────────────┬──────────────────────┐
+│ STEP 1: Pilih Mode                              │ ESTIMATE BIAYA       │
+│ ○ Default (Full Pipeline)                       │                      │
+│ ● Custom (Pilih Tahapan)                        │ Base: Rp 0           │
+│                                                 │ Stages:              │
+│ STEP 2: Pilih Tahapan yang Aktif [✓]          │  +Ingest: Rp 100/1K  │
+│ ✓ Ingest (SeedLink)                             │  +P-Pick: Rp 3.5K/1K │
+│ ✓ P-Pick                                        │  +Assoc: Rp 300/1K   │
+│ ✗ Association                                   │ ─────────────────    │
+│ ✗ LocMag                                        │ Harga Model:         │
+│                                                 │  Rp 3,900/1K picks   │
+│ STEP 3: Pilih AI Model per Tahap                │                      │
+│ P-Pick Model:                                   │ Free Quota/Bulan:    │
+│ ○ STA/LTA (CPU) - Rp 500/1K picks               │  1,000 picks         │
+│ ● PhaseNet (GPU) - Rp 3,500/1K picks            │                      │
+│ ○ EQTransformer (GPU) - Rp 7,500/1K picks       │ Sumber Data:         │
+│                                                 │ • seedlink_v3        │
+│ Ingest Model:                                   │ • rtserve.earthscope │
+│ ● seedlink_v3 - Rp 100/1K waveforms             │                      │
+│ ○ file_replay - Rp 50/1K waveforms (demo)       │ Estimasi Bulanan:    │
+│                                                 │ (asumsi 10K picks)   │
+│ STEP 4: Sink & Review                           │                      │
+│ Sink Output:                                    │ Di atas quota:       │
+│ ✓ WebSocket UI (included)                       │ (10K - 1K) × Rp 3.5K│
+│ ✓ Archive (included)                            │ = Rp 31.5 Juta       │
+│ ○ Webhook - Rp 200/1K deliveries                │ ─────────────────    │
+│                                                 │ **TOTAL: Rp 31.5M**  │
+│ [Validate] [Dry-Run] [Activate]                 │ (per bulan asumsi)   │
+│                                                 │                      │
+│ Pricing Breakdown [View Detail]                 │                      │
+└─────────────────────────────────────────────────┴──────────────────────┘
+```
+
+**API `/api/v2/pricing/estimate` (Real-time Calculate):**
+
+```json
+POST /api/v2/pricing/estimate
+{
+  "workspace_id": "default",
+  "mode": "custom",
+  "stages": {
+    "ingest": {"provider": "seedlink_v3"},
+    "p_pick": {"provider": "phasenet"}
+  },
+  "sinks": ["ws_ui", "archive"],
+  "estimated_monthly_picks": 10000
+}
+
+Response:
+{
+  "breakdown": {
+    "ingest": {
+      "provider": "seedlink_v3",
+      "unit_price_idr": 100,
+      "unit_name": "per 1K waveforms",
+      "price_per_1k": 100000
+    },
+    "p_pick": {
+      "provider": "phasenet",
+      "unit_price_idr": 3500,
+      "unit_name": "per 1K picks",
+      "free_quota_monthly": 1000,
+      "price_per_1k": 3500000
+    },
+    "used_above_quota": {
+      "picks": 9000,
+      "cost_idr": 31500000
+    }
+  },
+  "total_monthly_estimate_idr": 31500000,
+  "currency": "IDR",
+  "plan": "Basic (FREE)",
+  "access_level": "default_only"
+}
+```
+
+**Frontend Component: PriceBreakdown.vue**
+
+```vue
+<template>
+  <div class="price-sidebar">
+    <h3>Estimasi Biaya (IDR)</h3>
+    
+    <div v-for="stage in breakdown.stages" :key="stage" class="cost-item">
+      <span>{{ stage.name }}: {{ stage.provider }}</span>
+      <span class="price">Rp {{ stage.price_per_1k.toLocaleString('id-ID') }}/1K</span>
+    </div>
+
+    <div v-if="breakdown.free_quota > 0" class="quota-info">
+      <strong>Kuota Gratis:</strong>
+      {{ breakdown.free_quota.toLocaleString('id-ID') }} unit/bulan
+    </div>
+
+    <div v-if="breakdown.used_above_quota > 0" class="overage">
+      <strong>Biaya Overage:</strong>
+      Rp {{ breakdown.overage_cost.toLocaleString('id-ID') }}
+    </div>
+
+    <hr />
+    
+    <div class="total">
+      <strong>Total Estimasi/Bulan:</strong>
+      <span class="amount">
+        Rp {{ breakdown.total_monthly.toLocaleString('id-ID') }}
+      </span>
+    </div>
+
+    <button @click="toggleDetail" class="link">
+      {{ showDetail ? '▼ Tutup Detail' : '▶ Lihat Detail' }}
+    </button>
+
+    <div v-if="showDetail" class="detail">
+      <table>
+        <tr>
+          <th>Stage</th>
+          <th>Unit</th>
+          <th>Harga/1K (Rp)</th>
+          <th>Est. Bulanan</th>
+        </tr>
+        <tr v-for="item in breakdown.detail_rows">
+          <td>{{ item.stage }}</td>
+          <td>{{ item.unit_name }}</td>
+          <td>{{ item.price_per_1k }}</td>
+          <td>Rp {{ item.estimated_cost }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>
+```
+
+**Realtime Update Mechanism (UI):**
+
+- Saat user mengubah **pilihan tahap/model**, debounce 500ms → call `/api/v2/pricing/estimate`
+- Sidebar price update secara real-time
+- User bisa lihat breakdown per model dan kuota gratis
+- Saat klik **"Activate"** → backend validasi ulang, charge based on actual usage end-of-month
+
+### 4.5 Cara menonaktifkan tahap di runtime
 
 | Opsi | Cara | Kelebihan | Kekurangan |
 | --- | --- | --- | --- |
@@ -186,11 +349,11 @@ Catatan: stasiun, sumber data, dan tujuan sink (misalnya URL webhook) adalah dat
 
 Rekomendasi: Opsi A pada Fase 2 dan 3, Opsi B atau C pada Fase 5.
 
-### 4.5 Tenancy
+### 4.6 Tenancy
 
 Workspace adalah unit konfigurasi, stasiun, dan data. Pada fase awal hanya ada workspace `default` yang memakai nama topic lama (kompatibel). Workspace lain memakai topic `{ws}.{artifact}` dan consumer group `{ws}.{stage}`. Semua pesan membawa `workspace_id` sejak awal, sehingga migrasi ke multi-tenant tidak butuh perubahan kontrak. Dua model penjualan: (a) satu deployment per pelanggan (sederhana, isolasi kuat), (b) multi-tenant dengan pekerja tahap yang berbagi (hemat biaya, rumit). Rekomendasi: mulai dari (a) dengan skema yang sudah siap untuk (b).
 
-### 4.6 Observability
+### 4.7 Observability
 
 Setiap metrik tahap diberi label `workspace`, `stage`, `provider`, `profile_rev`: latensi per tahap, laju pick, rasio lolos asosiasi, lag consumer, galat model. Dengan begitu dampak memilih provider dapat diukur langsung. Data yang sama bisa dipakai sebagai bahan eksperimen observability di skripsi Anda.
 
@@ -314,19 +477,49 @@ Promosi status: experimental → beta → stable berdasarkan ambang yang disepak
 | BR-14 | Setiap keluaran mencatat `profile_rev`, versi provider, dan hash bobot agar dapat direproduksi | Stage SDK |
 | BR-15 | Reset ke default tidak menghapus riwayat custom; custom lama dapat dipulihkan | Profile Service |
 
-### 6.2 Paket (contoh, A)
+### 6.2 Model Harga: Pay-Per-Use (IDR, Bukan Langganan)
 
-| Aspek | Basic | Pro | Enterprise |
+**Prinsip:**
+- **Bayar sesuai pemakaian (pay-per-use)**: User hanya membayar untuk inference/processing yang benar-benar terjadi.
+- **UI-driven configuration**: Semua pilihan pipeline stage + model AI dilakukan via UI, bukan file config backend.
+- **Dynamic pricing calculator**: Harga dihitung real-time di UI berdasarkan pilihan user (stage aktif + model yang dipilih).
+- **Free quota per model**: Setiap model punya kuota gratis bulanan untuk trial/testing.
+- **Currency: IDR (Rupiah)**.
+
+**Unit Pricing (contoh tarif, sesuaikan dengan biaya GPU/infra):**
+
+| Stage | Provider | Tier | Unit | Harga per 1K Unit (IDR) | Kuota Gratis/Bulan | Resource |
+| --- | --- | --- | --- | --- | --- | --- |
+| ingest | seedlink_v3 | stable | 1K waveforms | 100 | 10,000 | CPU |
+| ingest | file_replay | stable | 1K waveforms | 50 | unlimited (demo) | CPU |
+| p_pick | sta_lta | stable (CPU) | 1K picks | 500 | 5,000 | CPU |
+| p_pick | phasenet | stable (GPU) | 1K picks | 3,500 | 1,000 | GPU optional |
+| p_pick | eqtransformer | beta (GPU) | 1K picks | 7,500 | 500 | GPU required |
+| association | dbscan_simple | stable (CPU) | 1K associations | 300 | 5,000 | CPU |
+| association | gamma | beta | 1K associations | 1,500 | 1,000 | CPU |
+| locmag | geiger_ml | stable | 1K events | 1,000 | 2,000 | CPU |
+| locmag | nonlinloc | beta | 1K events | 2,500 | 500 | CPU+Mem |
+| sink | webhook | stable | 1K deliveries | 200 | 10,000 | - |
+| sink | kafka_export | stable | 1K messages | 150 | 20,000 | - |
+
+**Paket Akses (menentukan fitur yang bisa diakses, BUKAN harga bulanan):**
+
+| Aspek | Basic (FREE) | Pro | Enterprise |
 | --- | --- | --- | --- |
 | Mode | Default saja | Default dan custom | Default dan custom |
-| Status provider | stable | stable dan beta | stable, beta, experimental |
-| Stasiun | 20 | 100 | 1000 |
-| Profil custom | - | 5 | Tidak dibatasi |
-| Sink | ws\_ui, archive | Ditambah webhook, kafka\_export | Ditambah notifier, CAP/QuakeML |
-| Persetujuan dua orang | - | - | Opsional |
-| Dukungan | Komunitas | Email | Kontrak SLA |
+| Status provider | stable only | stable dan beta | stable, beta, experimental |
+| Max stasiun | 20 | 100 | 1000 |
+| Profil custom | - | 5 aktif | Tidak dibatasi |
+| Sink | ws_ui, archive | + webhook, kafka_export | + notifier, CAP/QuakeML |
+| Free quota | 1x (baseline) | 2x (double baseline) | 5x (enterprise quota) |
+| Dukungan | Komunitas | Email 24 jam | SLA + dedicated support |
+| **Biaya paket** | **GRATIS** | **Rp 500K/bulan** | **Custom pricing** |
 
-Angka di atas contoh dari prototipe. Tentukan nilai sebenarnya dari biaya GPU dan infrastruktur serta strategi harga Anda.
+**Catatan:**
+- **Basic (FREE)**: Gratis akses platform, bayar hanya untuk usage di atas quota.
+- **Pro**: Rp 500K/bulan untuk akses custom mode + double free quota + support.
+- **Enterprise**: Harga custom (negotiated), quota 5x, unlimited profiles, SLA.
+- **Usage billing**: Dihitung per akhir bulan berdasarkan actual usage (inference count) di atas free quota.
 
 ### 6.3 Kepatuhan dan risiko hukum (perlu ditinjau konsultan hukum)
 
