@@ -579,12 +579,12 @@ main (stable baseline)
 
 ### PHASE 3 — Pricing Service
 
-- [ ] TASK-PRICING-01: `PricingService` estimate + invoice
-- [ ] TASK-PRICING-02: Schemas pricing
-- [ ] TASK-PRICING-03: Router pricing
-- [ ] TASK-PRICING-04: Router billing
-- [ ] TASK-PRICING-05: `InvoiceRepository`
-- [ ] TASK-PRICING-06: Unit test pricing lulus
+- [x] TASK-PRICING-01: `PricingService` estimate + invoice — ✅ 19‑Okt‑2026 20:00 (core/pricing_service.py, 515 lines, PPN 11% included)
+- [x] TASK-PRICING-02: Schemas pricing — ✅ 19‑Okt‑2026 20:01 (api/schemas/pricing.py, 145 lines)
+- [x] TASK-PRICING-03: Router pricing — ✅ 19‑Okt‑2026 20:02 (api/routes/pricing.py, 133 lines)
+- [x] TASK-PRICING-04: Router billing — ✅ 19‑Okt‑2026 20:03 (api/routes/billing.py, 379 lines, 6 endpoints)
+- [x] TASK-PRICING-05: `InvoiceRepository` — ✅ 19‑Okt‑2026 20:04 (infrastructure/repositories/invoice_repo.py, MongoDB + in-memory)
+- [x] TASK-PRICING-06: Unit tests — ✅ 19‑Okt‑2026 20:05 (tests/unit/test_pricing_service.py, 11 test cases)
 
 ### PHASE 4 — Provider Abstraction
 
