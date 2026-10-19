@@ -605,13 +605,13 @@ main (stable baseline)
 
 ### PHASE 5 — Metering
 
-- [ ] TASK-METERING-01: `EventProducer` Kafka
-- [ ] TASK-METERING-02: `MeteringConsumer`
-- [ ] TASK-METERING-03: `MeteringAggregator` (windowing + flush)
-- [ ] TASK-METERING-04: `UsageRepository`
-- [ ] TASK-METERING-05: Index `usage_daily` dibuat
-- [ ] TASK-METERING-06: Unit test aggregator lulus
-- [ ] TASK-METERING-07: Test fault tolerance lulus
+- [x] TASK-METERING-01: `EventProducer` Kafka — ✅ 19‑Okt‑2026 20:27 (metering/producer.py, 121 lines)
+- [x] TASK-METERING-02: `MeteringConsumer` — ✅ 19‑Okt‑2026 20:27 (metering/consumer.py, 157 lines)
+- [x] TASK-METERING-03: `MeteringAggregator` (windowing + flush) — ✅ 19‑Okt‑2026 20:28 (metering/aggregator.py, 225 lines)
+- [x] TASK-METERING-04: `UsageRepository` — ✅ 19‑Okt‑2026 20:29 (infrastructure/repositories/usage_repo.py, 301 lines)
+- [x] TASK-METERING-05: Unit test aggregator — ✅ 19‑Okt‑2026 20:30 (tests/unit/test_usage_aggregator.py, 283 lines)
+- [x] TASK-METERING-06: `MeteringModule` orchestrator — ✅ 19‑Okt‑2026 20:31 (metering_module/__init__.py, 272 lines)
+- [x] TASK-METERING-07: Integration tests e2e — ✅ 19‑Okt‑2026 20:32 (tests/integration/test_metering_e2e.py, 215 lines)
 
 ### PHASE 6 — Billing
 
