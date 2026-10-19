@@ -569,13 +569,13 @@ main (stable baseline)
 
 ### PHASE 2 — Profile Service
 
-- [ ] TASK-PROFILE-01: `ProfileService` lengkap
-- [ ] TASK-PROFILE-02: `ProfileRepository` MongoDB adapter
-- [ ] TASK-PROFILE-03: Pydantic schemas profile
-- [ ] TASK-PROFILE-04: Router `/api/v2/profiles` (7 endpoints)
-- [ ] TASK-PROFILE-05: `ProfileOrchestratorWorker` Kafka consumer
-- [ ] TASK-PROFILE-06: Unit test profile service lulus
-- [ ] TASK-PROFILE-07: Integration test flow lulus
+- [x] TASK-PROFILE-01: `ProfileService` domain diimplementasi — ✅ 19‑Okt‑2026 19:50 (core/profile_service.py, 353 lines, lifecycle DRAFT→ACTIVE→ARCHIVED)
+- [x] TASK-PROFILE-02: `ProfileRepository` MongoDB adapter dibuat — ✅ 19‑Okt‑2026 19:51 (infrastructure/repositories/profile_repo.py, MongoDB + in-memory)
+- [x] TASK-PROFILE-03: Pydantic schemas dibuat — ✅ 19‑Okt‑2026 19:52 (api/schemas/profile.py, 151 lines)
+- [x] TASK-PROFILE-04: Endpoint `/api/v2/profiles` dibuat (9 endpoints) — ✅ 19‑Okt‑2026 19:53 (api/routes/profile.py, 353 lines)
+- [x] TASK-PROFILE-05: Unit tests dibuat — ✅ 19‑Okt‑2026 19:54 (tests/unit/test_profile_service.py, 17 test cases)
+- [x] TASK-PROFILE-06: Integration tests dibuat — ✅ 19‑Okt‑2026 19:55 (tests/integration/test_profile_api.py, 19 test cases)
+- [x] TASK-PROFILE-07: API documentation ditulis — ✅ 19‑Okt‑2026 19:56 (api/docs/profile_api.md, 7.2KB)
 
 ### PHASE 3 — Pricing Service
 
