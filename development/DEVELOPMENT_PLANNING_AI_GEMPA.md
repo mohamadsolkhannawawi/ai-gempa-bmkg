@@ -559,13 +559,13 @@ main (stable baseline)
 
 ### PHASE 1 — Catalog
 
-- [ ] TASK-CATALOG-01: `manifest.yaml` dibuat dengan 8 provider
-- [ ] TASK-CATALOG-02: `rates.yaml` dibuat dengan tarif IDR
-- [ ] TASK-CATALOG-03: `ProviderCatalog` loader diimplementasi
-- [ ] TASK-CATALOG-04: Schemas katalog dibuat
-- [ ] TASK-CATALOG-05: Endpoint `GET /api/v2/models` aktif
-- [ ] TASK-CATALOG-06: Unit test catalog lulus
-- [ ] TASK-CATALOG-07: Integration test endpoint lulus
+- [x] TASK-CATALOG-01: `manifest.yaml` dibuat dengan 8 provider — ✅ 19‑Okt‑2026 (catalog_module/data/manifest.yaml, 147 lines)
+- [x] TASK-CATALOG-02: `rates.yaml` dibuat dengan tarif IDR — ✅ 19‑Okt‑2026 (catalog_module/data/rates.yaml, 138 lines)
+- [x] TASK-CATALOG-03: `ProviderCatalog` loader diimplementasi — ✅ 19‑Okt‑2026 (catalog_module/catalog.py, 189 lines)
+- [x] TASK-CATALOG-04: Schemas katalog dibuat — ✅ 19‑Okt‑2026 (api/schemas/catalog.py, 102 lines)
+- [x] TASK-CATALOG-05: Endpoint `GET /api/v2/models` aktif — ✅ 19‑Okt‑2026 (api/routes/catalog.py, 196 lines)
+- [x] TASK-CATALOG-06: Unit test catalog lulus — ✅ 19‑Okt‑2026 (tests/unit/test_catalog.py, 186 lines)
+- [x] TASK-CATALOG-07: Integration test endpoint lulus — ✅ 19‑Okt‑2026 (tests/integration/test_catalog_api.py, 209 lines)
 
 ### PHASE 2 — Profile Service
 
