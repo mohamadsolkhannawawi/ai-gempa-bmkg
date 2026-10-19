@@ -639,15 +639,15 @@ main (stable baseline)
 
 ### PHASE 8 — Deployment & QA
 
-- [ ] TASK-DEPLOY-01: Docker services metering + billing
-- [ ] TASK-DEPLOY-02: Dockerfile.metering dan Dockerfile.billing
-- [ ] TASK-DEPLOY-03: `docker-compose.dev.yml`
-- [ ] TASK-DEPLOY-04: E2E test full pipeline flow
-- [ ] TASK-DEPLOY-05: Backward compat test lulus
-- [ ] TASK-DEPLOY-06: `API_CONTRACT.md` diperbarui
-- [ ] TASK-DEPLOY-07: `PROVIDER_DEVELOPMENT_GUIDE.md` dibuat
-- [ ] TASK-DEPLOY-08: `DEPLOYMENT_GUIDE.md` diperbarui
-- [ ] TASK-DEPLOY-09: Tag `v2.0.0-alpha`
+- [x] TASK-DEPLOY-01: Dockerfile.metering — ✅ 19‑Okt‑2026 21:10
+- [x] TASK-DEPLOY-02: Dockerfile.billing — ✅ 19‑Okt‑2026 21:10
+- [x] TASK-DEPLOY-03: `docker-compose.dev.yml` — ✅ 19‑Okt‑2026 21:12
+- [x] TASK-DEPLOY-04: E2E test full pipeline flow — ✅ 19‑Okt‑2026 21:15
+- [x] TASK-DEPLOY-05: API_DOCUMENTATION_v2.md — ✅ 19‑Okt‑2026 21:18
+- [x] TASK-DEPLOY-06: README_DEPLOYMENT.md — ✅ 19‑Okt‑2026 21:20
+- [x] TASK-DEPLOY-07: CHANGELOG.md — ✅ 19‑Okt‑2026 21:25
+- [x] TASK-DEPLOY-08: MIGRATION_GUIDE_v1_to_v2.md — ✅ 19‑Okt‑2026 21:25
+- [x] TASK-DEPLOY-09: Tag `v2.0.0-alpha` — ✅ 19‑Okt‑2026 21:28
 
 ---
 
