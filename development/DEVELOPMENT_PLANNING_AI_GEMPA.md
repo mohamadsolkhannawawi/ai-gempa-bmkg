@@ -615,12 +615,12 @@ main (stable baseline)
 
 ### PHASE 6 — Billing
 
-- [ ] TASK-BILLING-01: `BillingGeneratorWorker` cron
-- [ ] TASK-BILLING-02: `PaymentHandler` webhook
-- [ ] TASK-BILLING-03: Koleksi `invoices` dan index
-- [ ] TASK-BILLING-04: Email notifikasi invoice
-- [ ] TASK-BILLING-05: Unit test billing lulus
-- [ ] TASK-BILLING-06: Test manual cron berhasil
+- [x] TASK-BILLING-01: `BillingGeneratorWorker` cron — ✅ 19‑Okt‑2026 20:35 (billing/generator.py, 339 lines)
+- [x] TASK-BILLING-02: Email notification — ✅ 19‑Okt‑2026 20:36 (billing/email.py, 239 lines)
+- [x] TASK-BILLING-03: `PaymentHandler` webhook — ✅ 19‑Okt‑2026 20:37 (billing/webhook.py, 217 lines)
+- [x] TASK-BILLING-04: Koleksi `invoices` — ✅ (sudah ada di PHASE 3, invoice_repo.py)
+- [x] TASK-BILLING-05: Unit test billing — ✅ 19‑Okt‑2026 20:37 (tests/unit/test_billing.py, 10 test cases)
+- [x] TASK-BILLING-06: Integration test cron — ✅ 19‑Okt‑2026 20:37 (tests/integration/test_billing_cron.py)
 
 ### PHASE 7 — Frontend
 
