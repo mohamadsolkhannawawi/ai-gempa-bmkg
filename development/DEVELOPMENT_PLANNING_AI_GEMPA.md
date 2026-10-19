@@ -588,20 +588,20 @@ main (stable baseline)
 
 ### PHASE 4 — Provider Abstraction
 
-- [ ] TASK-PROVIDER-01: `BaseProvider` abstract class
-- [ ] TASK-PROVIDER-02: `ProviderRegistry`
-- [ ] TASK-PROVIDER-03: STALTAProvider adapter
-- [ ] TASK-PROVIDER-04: PhaseNetProvider adapter
-- [ ] TASK-PROVIDER-05: EQTransformerProvider adapter
-- [ ] TASK-PROVIDER-06: DBSCANProvider adapter
-- [ ] TASK-PROVIDER-07: GaMMAProvider adapter
-- [ ] TASK-PROVIDER-08: PyOctoProvider adapter
-- [ ] TASK-PROVIDER-09: GeigerProvider adapter
-- [ ] TASK-PROVIDER-10: NonLinLocProvider adapter
-- [ ] TASK-PROVIDER-11: Integrasi ke p_pick_module
-- [ ] TASK-PROVIDER-12: Integrasi ke assoc dan locmag module
-- [ ] TASK-PROVIDER-13: Unit test per provider lulus
-- [ ] TASK-PROVIDER-14: Test hot-swap lulus
+- [x] TASK-PROVIDER-01: `BaseProvider` abstract class — ✅ 19‑Okt‑2026 20:11 (providers/base.py, 301 lines)
+- [x] TASK-PROVIDER-02: `ProviderRegistry` — ✅ 19‑Okt‑2026 20:11 (providers/registry.py, 285 lines)
+- [x] TASK-PROVIDER-03: STALTAProvider adapter — ✅ 19‑Okt‑2026 20:12 (providers/p_pick/stalta_provider.py, 135 lines, CPU, 5 IDR/pick)
+- [x] TASK-PROVIDER-04: PhaseNetProvider adapter — ✅ 19‑Okt‑2026 20:12 (providers/p_pick/phasenet_provider.py, 132 lines, CPU/GPU 10/15 IDR)
+- [x] TASK-PROVIDER-05: EQTransformerProvider adapter — ✅ 19‑Okt‑2026 20:12 (providers/p_pick/eqtransformer_provider.py, 118 lines, GPU‑only, 20 IDR)
+- [x] TASK-PROVIDER-06: DBSCANProvider adapter — ✅ 19‑Okt‑2026 20:13 (providers/association/dbscan_provider.py, 155 lines, CPU‑only, 20 IDR)
+- [x] TASK-PROVIDER-07: GaMMAProvider adapter — ✅ 19‑Okt‑2026 20:13 (providers/association/gamma_provider.py, 152 lines, CPU/GPU 25/30 IDR)
+- [x] TASK-PROVIDER-08: PyOctoProvider adapter — ✅ 19‑Okt‑2026 20:13 (providers/locmag/pyocto_provider.py, 132 lines, CPU‑only, 100 IDR)
+- [x] TASK-PROVIDER-09: GeigerProvider adapter — ✅ 19‑Okt‑2026 20:13 (providers/locmag/geiger_provider.py, 128 lines, CPU‑only, 80 IDR)
+- [x] TASK-PROVIDER-10: NonLinLocProvider adapter — ✅ 19‑Okt‑2026 20:13 (providers/locmag/nonlinloc_provider.py, 128 lines, CPU‑only, 120 IDR)
+- [x] TASK-PROVIDER-11: Integrasi ke p_pick_module — ✅ 19‑Okt‑2026 20:14 (p_pick_module/__init__.py, 152 lines, orchestrator select+infer)
+- [x] TASK-PROVIDER-12: Integrasi ke assoc dan locmag module — ✅ 19‑Okt‑2026 20:14 (association_module/__init__.py + locmag_module/__init__.py, 311 lines total)
+- [x] TASK-PROVIDER-13: Unit test per provider lulus — ✅ 19‑Okt‑2026 20:14 (tests/unit/test_providers.py, 340 lines, 12 test classes)
+- [x] TASK-PROVIDER-14: Test hot-swap lulus — ✅ 19‑Okt‑2026 20:15 (tests/integration/test_provider_hotswap.py, 362 lines, 5 test classes end‑to‑end)
 
 ### PHASE 5 — Metering
 
