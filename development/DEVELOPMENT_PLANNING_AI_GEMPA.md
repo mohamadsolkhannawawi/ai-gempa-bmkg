@@ -624,18 +624,18 @@ main (stable baseline)
 
 ### PHASE 7 — Frontend
 
-- [ ] TASK-FRONTEND-01: Pinia stores (catalog, profile, pricing)
-- [ ] TASK-FRONTEND-02: API service clients
-- [ ] TASK-FRONTEND-03: `PipelineWizard.vue` (4 langkah)
-- [ ] TASK-FRONTEND-04: Komponen pendamping wizard
-- [ ] TASK-FRONTEND-05: `PriceCalculator.vue` sidebar live
-- [ ] TASK-FRONTEND-06: `useDebounce.ts` composable
-- [ ] TASK-FRONTEND-07: Halaman `PipelineBuilder.vue`
-- [ ] TASK-FRONTEND-08: Halaman `Billing.vue`
-- [ ] TASK-FRONTEND-09: Routing `/pipeline-builder` dan `/billing`
-- [ ] TASK-FRONTEND-10: Utilitas format IDR
-- [ ] TASK-FRONTEND-11: Unit test Pinia stores
-- [ ] TASK-FRONTEND-12: `npm run build` zero error
+- [x] TASK-FRONTEND-01: Pinia stores (catalog, profile, pricing) — ✅ 19‑Okt‑2026 20:45
+- [x] TASK-FRONTEND-02: API service clients — ✅ 19‑Okt‑2026 20:46
+- [x] TASK-FRONTEND-03: `PipelineWizard.vue` (4 langkah) — ✅ 19‑Okt‑2026 20:47
+- [x] TASK-FRONTEND-04: Komponen pendamping wizard — ✅ 19‑Okt‑2026 20:48
+- [x] TASK-FRONTEND-05: `PriceCalculator.vue` sidebar live — ✅ 19‑Okt‑2026 20:49
+- [x] TASK-FRONTEND-06: `useDebounce.ts` composable — ✅ 19‑Okt‑2026 20:49
+- [x] TASK-FRONTEND-07: Halaman `PipelineBuilder.vue` — ✅ 19‑Okt‑2026 20:51
+- [x] TASK-FRONTEND-08: Halaman `Billing.vue` — ✅ 19‑Okt‑2026 20:52
+- [x] TASK-FRONTEND-09: Routing `/pipeline-builder` dan `/billing` — ✅ 19‑Okt‑2026 20:54
+- [x] TASK-FRONTEND-10: Utilitas format IDR — ✅ 19‑Okt‑2026 20:55
+- [x] TASK-FRONTEND-11: Unit test Pinia stores — ✅ 19‑Okt‑2026 20:57
+- [x] TASK-FRONTEND-12: `npm run build` zero error — ✅ 19‑Okt‑2026 20:58
 
 ### PHASE 8 — Deployment & QA
 
