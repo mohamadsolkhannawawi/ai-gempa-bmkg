@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY sispro-tews/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY sispro-tews/ /app/
+
+ENV PYTHONUNBUFFERED=1
+ENV LOG_LEVEL=info
+
+CMD ["python", "-m", "metering_module.worker"]

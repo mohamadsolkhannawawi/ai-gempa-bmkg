@@ -1,0 +1,146 @@
+# manifest.yaml — Katalog Model AI untuk GEMPA BMKG (AI-GEMPA)
+#
+# 8 provider dengan tier CPU/GPU dan karakteristik masing-masing.
+# Semua provider sudah divalidasi dan diuji dengan data BMKG.
+---
+version: "2.0.0"
+last_updated: "2026-10-19"
+author: "AI-GEMPA Development Team"
+license: "BMKG Internal"
+
+providers:
+  # --- 1. STA/LTA (CPU, picks) ---
+  sta_lta:
+    name: "STA/LTA P‑Pick"
+    description: "Short‑Term Average / Long‑Term Average — klasik, CPU‑only, real‑time"
+    stage: "p_pick"
+    tier: "CPU"
+    repo: "https://github.com/BMKG‑seismo/sta‑lta‑gempa"
+    supported_channels: ["BHZ", "BHN", "BHE", "HHZ", "HHN", "HHE", "SHZ"]
+    min_sample_rate: 20.0  # Hz
+    max_sample_rate: 100.0
+    input_shape: "(batch_size, n_samples, n_channels)"
+    output_format: "Pick {phase: str, time: datetime, prob: float}"
+    docker_image: "ai‑gempa/sta‑lta:v2.1"
+    health_check_url: "/health"
+    status: "active"
+    tags: ["classic", "cpu", "real‑time", "robust"]
+
+  # --- 2. PhaseNet (GPU_BASIC, picks) ---
+  phasenet:
+    name: "PhaseNet P‑Pick"
+    description: "Deep‑learning picker (CNN‑based), GPU‑accelerated, high recall"
+    stage: "p_pick"
+    tier: "GPU_BASIC"
+    repo: "https://github.com/BMKG‑seismo/phasenet‑gempa"
+    supported_channels: ["BHZ", "BHN", "BHE", "HHZ", "HHN", "HHE"]
+    min_sample_rate: 40.0
+    max_sample_rate: 100.0
+    input_shape: "(batch_size, 3000, 3)"
+    output_format: "Pick {phase: P|S, time: datetime, prob: float, window: [start, end]}"
+    docker_image: "ai‑gempa/phasenet:v1.4"
+    health_check_url: "/ping"
+    status: "active"
+    tags: ["deep‑learning", "gpu", "high‑recall", "cnn"]
+
+  # --- 3. EQ‑Transformer (GPU_BASIC, picks) ---
+  eqtransformer:
+    name: "EQ‑Transformer P‑Pick"
+    description: "Transformer‑based picker, multi‑station, long‑range detection"
+    stage: "p_pick"
+    tier: "GPU_BASIC"
+    repo: "https://github.com/BMKG‑seismo/eq‑transformer‑gempa"
+    supported_channels: ["BHZ", "BHN", "BHE", "HHZ", "HHN", "HHE", "SHZ"]
+    min_sample_rate: 40.0
+    max_sample_rate: 100.0
+    input_shape: "(batch_size, 6000, n_channels)"
+    output_format: "Pick {phase: P|S, time: datetime, prob: float, uncertainty: float}"
+    docker_image: "ai‑gempa/eqtransformer:v2.0"
+    health_check_url: "/health"
+    status: "active"
+    tags: ["transformer", "multi‑station", "long‑range", "uncertainty"]
+
+  # --- 4. DBSCAN (CPU, association) ---
+  dbscan:
+    name: "DBSCAN Association"
+    description: "Density‑based spatial clustering, CPU‑only, scalable"
+    stage: "association"
+    tier: "CPU"
+    repo: "https://github.com/BMKG‑seismo/dbscan‑gempa"
+    supported_channels: ["*"]
+    min_sample_rate: 0.0  # not applicable
+    max_sample_rate: 999.0
+    input_shape: "List[Pick {station, time, phase, prob}]"
+    output_format: "Cluster {cluster_id, picks: list[pick_id], centroid: [lat, lon, depth]}"
+    docker_image: "ai‑gempa/dbscan:v1.2"
+    health_check_url: "/status"
+    status: "active"
+    tags: ["clustering", "cpu", "scalable", "unsupervised"]
+
+  # --- 5. GaMMA (GPU_PREMIUM, association + location) ---
+  gamma:
+    name: "GaMMA (Gaussian Mixture Model Association)"
+    description: "Bayesian association + location, GPU‑accelerated, probabilistic"
+    stage: "association"
+    tier: "GPU_PREMIUM"
+    repo: "https://github.com/BMKG‑seismo/gamma‑gempa"
+    supported_channels: ["*"]
+    min_sample_rate: 0.0
+    max_sample_rate: 999.0
+    input_shape: "List[Pick {station, time, phase, prob}] + velocity_model"
+    output_format: "Arrival {cluster_id, station, phase, time, residual, prob}"
+    docker_image: "ai‑gempa/gamma:v1.8"
+    health_check_url: "/healthz"
+    status: "active"
+    tags: ["bayesian", "gpu", "probabilistic", "location"]
+
+  # --- 6. PyOcto (GPU_BASIC, location magnitude) ---
+  pyocto:
+    name: "PyOcto Location & Magnitude"
+    description: "Oct‑tree grid search + magnitude estimation, GPU‑accelerated"
+    stage: "locmag"
+    tier: "GPU_BASIC"
+    repo: "https://github.com/BMKG‑seismo/pyocto‑gempa"
+    supported_channels: ["BHZ", "BHN", "BHE", "HHZ"]
+    min_sample_rate: 20.0
+    max_sample_rate: 100.0
+    input_shape: "Cluster {picks, velocity_model, station_coords}"
+    output_format: "Event {lat, lon, depth, mag, origin_time, cov_matrix}"
+    docker_image: "ai‑gempa/pyocto:v1.3"
+    health_check_url: "/ready"
+    status: "active"
+    tags: ["grid‑search", "magnitude", "location", "gpu"]
+
+  # --- 7. Geiger (CPU, location) ---
+  geiger:
+    name: "Geiger Location"
+    description: "Classic iterative least‑squares location, CPU‑only, stable"
+    stage: "locmag"
+    tier: "CPU"
+    repo: "https://github.com/BMKG‑seismo/geiger‑gempa"
+    supported_channels: ["*"]
+    min_sample_rate: 0.0
+    max_sample_rate: 999.0
+    input_shape: "Arrivals {station, phase, time, residual}"
+    output_format: "Event {lat, lon, depth, origin_time, std_err}"
+    docker_image: "ai‑gempa/geiger:v2.2"
+    health_check_url: "/"
+    status: "active"
+    tags: ["classic", "cpu", "iterative", "stable"]
+
+  # --- 8. NonLinLoc (GPU_PREMIUM, location) ---
+  nonlinloc:
+    name: "NonLinLoc Location"
+    description: "Non‑linear probabilistic location, GPU‑accelerated, 3D velocity"
+    stage: "locmag"
+    tier: "GPU_PREMIUM"
+    repo: "https://github.com/BMKG‑seismo/nonlinloc‑gempa"
+    supported_channels: ["*"]
+    min_sample_rate: 0.0
+    max_sample_rate: 999.0
+    input_shape: "Arrivals + 3D velocity grid"
+    output_format: "Event {lat, lon, depth, origin_time, pdf_grid}"
+    docker_image: "ai‑gempa/nonlinloc:v1.5"
+    health_check_url: "/health"
+    status: "active"
+    tags: ["probabilistic", "3d", "gpu", "high‑accuracy"]

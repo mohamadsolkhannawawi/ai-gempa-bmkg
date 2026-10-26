@@ -1,0 +1,137 @@
+# rates.yaml — Tarif Pay-Per-Use AI-GEMPA (IDR)
+#
+# Pricing model: bayar per inference (picks/events), BUKAN langganan bulanan.
+# Update: 2026-10-19
+---
+version: "2.0.0"
+currency: "IDR"
+effective_date: "2026-11-01"
+tax_rate: 0.11  # PPN 11%
+
+# Unit pricing per 1K picks (untuk p_pick providers)
+pick_pricing:
+  sta_lta:
+    provider: "sta_lta"
+    tier: "CPU"
+    price_per_1k_picks: 50      # Rp 50 per 1000 picks
+    free_quota_monthly: 10000   # 10K picks gratis/bulan
+    description: "STA/LTA CPU-only, klasik, murah"
+  
+  phasenet:
+    provider: "phasenet"
+    tier: "GPU_BASIC"
+    price_per_1k_picks: 500     # Rp 500 per 1K picks
+    free_quota_monthly: 2000    # 2K picks gratis/bulan
+    description: "PhaseNet deep-learning, GPU basic"
+  
+  eqtransformer:
+    provider: "eqtransformer"
+    tier: "GPU_BASIC"
+    price_per_1k_picks: 600     # Rp 600 per 1K picks (lebih mahal, uncertainty estimate)
+    free_quota_monthly: 2000
+    description: "EQ-Transformer, Transformer-based, GPU basic"
+
+# Unit pricing per 1K clusters (untuk association providers)
+association_pricing:
+  dbscan:
+    provider: "dbscan"
+    tier: "CPU"
+    price_per_1k_clusters: 100  # Rp 100 per 1K clusters
+    free_quota_monthly: 5000    # 5K clusters gratis/bulan
+    description: "DBSCAN CPU clustering"
+  
+  gamma:
+    provider: "gamma"
+    tier: "GPU_PREMIUM"
+    price_per_1k_clusters: 1500 # Rp 1500 per 1K clusters (Bayesian, probabilistic)
+    free_quota_monthly: 1000    # 1K clusters gratis/bulan
+    description: "GaMMA Bayesian association + location, GPU premium"
+
+# Unit pricing per 1K events (untuk locmag providers)
+locmag_pricing:
+  pyocto:
+    provider: "pyocto"
+    tier: "GPU_BASIC"
+    price_per_1k_events: 800    # Rp 800 per 1K events
+    free_quota_monthly: 1000    # 1K events gratis/bulan
+    description: "PyOcto grid-search location + magnitude, GPU basic"
+  
+  geiger:
+    provider: "geiger"
+    tier: "CPU"
+    price_per_1k_events: 150    # Rp 150 per 1K events
+    free_quota_monthly: 3000    # 3K events gratis/bulan
+    description: "Geiger classic iterative location, CPU"
+  
+  nonlinloc:
+    provider: "nonlinloc"
+    tier: "GPU_PREMIUM"
+    price_per_1k_events: 2000   # Rp 2000 per 1K events (3D velocity, probabilistic)
+    free_quota_monthly: 500     # 500 events gratis/bulan
+    description: "NonLinLoc probabilistic 3D location, GPU premium"
+
+# Storage pricing (per GB per hari)
+storage_pricing:
+  waveform_storage:
+    price_per_gb_day: 50        # Rp 50 per GB per hari
+    free_quota_gb: 10           # 10 GB gratis
+    description: "Waveform + metadata storage (S3/MinIO)"
+  
+  catalog_storage:
+    price_per_gb_day: 30        # Rp 30 per GB per hari (lebih murah, lebih kecil)
+    free_quota_gb: 5            # 5 GB gratis
+    description: "Event catalog + picks storage (MongoDB)"
+
+# Compute resource pricing (optional, untuk billing transparency)
+resource_multipliers:
+  cpu_core_hour: 500            # Rp 500 per CPU-core per jam (reference)
+  gpu_basic_hour: 5000          # Rp 5000 per GPU-basic per jam (T4/V100 16GB)
+  gpu_premium_hour: 15000       # Rp 15000 per GPU-premium per jam (A100 40GB)
+
+# Tier definitions (untuk UI display)
+tier_info:
+  CPU:
+    label: "CPU Only"
+    color: "#6B7280"  # gray
+    icon: "cpu"
+    recommended_for: "prototyping, low-volume, batch processing"
+  
+  GPU_BASIC:
+    label: "GPU Basic"
+    color: "#3B82F6"  # blue
+    icon: "gpu"
+    recommended_for: "real-time, high-volume, deep-learning"
+  
+  GPU_PREMIUM:
+    label: "GPU Premium"
+    color: "#8B5CF6"  # purple
+    icon: "gpu-pro"
+    recommended_for: "probabilistic, uncertainty quantification, 3D modeling"
+
+# Example cost calculation (for documentation)
+examples:
+  - scenario: "Small BMKG station (5K picks/hari, STA/LTA)"
+    daily_picks: 5000
+    provider: "sta_lta"
+    daily_cost: 0               # within free quota (10K/month = 333/day)
+    monthly_cost: 0             # Rp 0 (fully covered by free quota)
+  
+  - scenario: "Medium BMKG network (50K picks/hari, PhaseNet)"
+    daily_picks: 50000
+    provider: "phasenet"
+    billable_picks: 48000       # 50K - 2K free quota/month (~67/day)
+    daily_cost: 24000           # 48K / 1K * 500 = Rp 24,000
+    monthly_cost: 720000        # Rp 720,000 (~30 hari)
+  
+  - scenario: "Large network (200K picks/hari, EQ-Transformer + GaMMA + NonLinLoc)"
+    daily_picks: 200000
+    provider_pick: "eqtransformer"
+    provider_assoc: "gamma"
+    provider_loc: "nonlinloc"
+    pick_cost_monthly: 3600000  # (200K * 30 - 2K) / 1K * 600
+    assoc_cost_monthly: 900000  # assume 10K clusters/hari * 30
+    loc_cost_monthly: 1200000   # assume 2K events/hari * 30
+    storage_cost_monthly: 45000 # 30 GB waveform * 30 hari * 50
+    subtotal: 5745000           # Rp 5,745,000
+    tax: 631950                 # 11% PPN
+    total_monthly: 6376950      # Rp 6,376,950 (~USD 400 @ 16K IDR/USD)

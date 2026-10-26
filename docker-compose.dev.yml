@@ -1,0 +1,141 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: gempa-mongodb-dev
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: gempa
+      MONGO_INITDB_ROOT_PASSWORD: gempa_dev_pass
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - gempa-dev
+
+  redis:
+    image: redis:7-alpine
+    container_name: gempa-redis-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - gempa-dev
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: gempa-kafka-dev
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "29092:29092"
+    depends_on:
+      - zookeeper
+    networks:
+      - gempa-dev
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: gempa-zookeeper-dev
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - gempa-dev
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gempa-api-dev
+    environment:
+      MONGODB_URI: mongodb://gempa:gempa_dev_pass@mongodb:27017/gempa?authSource=admin
+      REDIS_URL: redis://redis:6379/0
+      KAFKA_BROKERS: kafka:9092
+      API_HOST: 0.0.0.0
+      API_PORT: 4002
+      ENVIRONMENT: development
+      LOG_LEVEL: debug
+    ports:
+      - "4002:4002"
+    depends_on:
+      - mongodb
+      - redis
+      - kafka
+    networks:
+      - gempa-dev
+    command: python -m api.main
+
+  metering:
+    build:
+      context: .
+      dockerfile: Dockerfile.metering
+    container_name: gempa-metering-dev
+    environment:
+      MONGODB_URI: mongodb://gempa:gempa_dev_pass@mongodb:27017/gempa?authSource=admin
+      REDIS_URL: redis://redis:6379/0
+      KAFKA_BROKERS: kafka:9092
+      ENVIRONMENT: development
+      LOG_LEVEL: debug
+    depends_on:
+      - mongodb
+      - redis
+      - kafka
+    networks:
+      - gempa-dev
+    restart: on-failure
+
+  billing:
+    build:
+      context: .
+      dockerfile: Dockerfile.billing
+    container_name: gempa-billing-dev
+    environment:
+      MONGODB_URI: mongodb://gempa:gempa_dev_pass@mongodb:27017/gempa?authSource=admin
+      REDIS_URL: redis://redis:6379/0
+      KAFKA_BROKERS: kafka:9092
+      SMTP_HOST: ${SMTP_HOST:-localhost}
+      SMTP_PORT: ${SMTP_PORT:-1025}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      ENVIRONMENT: development
+      LOG_LEVEL: debug
+    depends_on:
+      - mongodb
+      - redis
+      - kafka
+    networks:
+      - gempa-dev
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gempa-frontend-dev
+    environment:
+      VITE_API_BASE_URL: http://localhost:4002/api/v2
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    networks:
+      - gempa-dev
+    command: npm run dev
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  gempa-dev:
+    driver: bridge
