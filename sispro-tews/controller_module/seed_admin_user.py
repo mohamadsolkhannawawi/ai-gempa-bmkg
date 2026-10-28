@@ -16,21 +16,39 @@ DB_NAME = os.getenv("MONGO_DB_NAME", "sispro-tews")
 MAX_RETRIES = int(os.getenv("MONGO_CONNECT_RETRIES", 10))
 RETRY_DELAY = int(os.getenv("MONGO_CONNECT_RETRY_DELAY", 3))
 
-# Admin credentials from env (production must set these)
-ADMIN_USERNAME = (os.getenv("INITIAL_ADMIN_USERNAME") or "admin").strip('"\'')
-ADMIN_PASSWORD = (os.getenv("INITIAL_ADMIN_PASSWORD") or "Bmkg2026").strip('"\'')
-ADMIN_EMAIL = (os.getenv("INITIAL_ADMIN_EMAIL") or f"{ADMIN_USERNAME}@bmkg.go.id").strip('"\'')
-ADMIN_FULLNAME = (os.getenv("INITIAL_ADMIN_FULLNAME") or "Administrator BMKG").strip('"\'')
-ADMIN_REGION = (os.getenv("INITIAL_ADMIN_REGION") or "Indonesia").strip('"\'')
+def get_env_clean(key: str, default: str = None) -> str:
+    """Read env var and strip accidental surrounding quotes without hardcoding credentials"""
+    val = os.getenv(key, default)
+    if val is not None:
+        val = val.strip('"\'')
+    return val
+
+# Admin credentials from env (strictly loaded from environment variables, no hardcoded values)
+ADMIN_USERNAME = get_env_clean("INITIAL_ADMIN_USERNAME")
+ADMIN_PASSWORD = get_env_clean("INITIAL_ADMIN_PASSWORD")
+ADMIN_EMAIL = get_env_clean("INITIAL_ADMIN_EMAIL")
+ADMIN_FULLNAME = get_env_clean("INITIAL_ADMIN_FULLNAME")
+ADMIN_REGION = get_env_clean("INITIAL_ADMIN_REGION")
 
 def validate_env_vars():
-    """Validate required environment variables"""
+    """Validate required environment variables strictly from env"""
+    missing = []
     if not ADMIN_USERNAME:
-        print("✗ ERROR: INITIAL_ADMIN_USERNAME env var not set", file=sys.stderr)
-        sys.exit(1)
+        missing.append("INITIAL_ADMIN_USERNAME")
     if not ADMIN_PASSWORD:
-        print("✗ ERROR: INITIAL_ADMIN_PASSWORD env var not set", file=sys.stderr)
+        missing.append("INITIAL_ADMIN_PASSWORD")
+    if not ADMIN_EMAIL:
+        missing.append("INITIAL_ADMIN_EMAIL")
+    if not ADMIN_FULLNAME:
+        missing.append("INITIAL_ADMIN_FULLNAME")
+    if not ADMIN_REGION:
+        missing.append("INITIAL_ADMIN_REGION")
+
+    if missing:
+        print(f"✗ ERROR: Missing required environment variable(s): {', '.join(missing)}", file=sys.stderr)
+        print("  Please define them in your .env or container environment.", file=sys.stderr)
         sys.exit(1)
+
     if len(ADMIN_PASSWORD) < 8:
         print("✗ ERROR: INITIAL_ADMIN_PASSWORD must be at least 8 characters", file=sys.stderr)
         sys.exit(1)
