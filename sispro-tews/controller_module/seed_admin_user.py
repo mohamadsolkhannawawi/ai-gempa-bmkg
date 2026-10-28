@@ -8,6 +8,15 @@ import os
 import sys
 import time
 from passlib.hash import pbkdf2_sha256
+from dotenv import load_dotenv
+
+# Load from multiple potential locations (.env, /app/.env, ../.env)
+for _env_candidate in [".env", "/app/.env", "../.env", "/app/sispro-tews/.env"]:
+    if os.path.isfile(_env_candidate):
+        load_dotenv(_env_candidate)
+        break
+else:
+    load_dotenv()
 
 # MongoDB connection from env
 MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
