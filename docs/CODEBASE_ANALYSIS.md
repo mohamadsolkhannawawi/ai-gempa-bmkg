@@ -34,7 +34,133 @@ Sistem GEMPA AI-TEWS terdiri dari 4 komponen utama:
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+#### **PlantUML - Arsitektur Komponen Global**
+
+```plantuml
+@startuml GEMPA_AI_TEWS_Architecture
+!theme plain
+skinparam roundcorner 8
+skinparam shadowing false
+skinparam handwritten false
+skinparam defaultFontName "Segoe UI", Arial, sans-serif
+skinparam defaultFontSize 12
+
+skinparam package {
+    BackgroundColor #F8FAFC
+    BorderColor #64748B
+    FontColor #0F172A
+    FontStyle bold
+}
+
+skinparam node {
+    BackgroundColor #FFFFFF
+    BorderColor #475569
+}
+
+skinparam component {
+    BackgroundColor #FFFFFF
+    BorderColor #334155
+    FontColor #1E293B
+}
+
+skinparam database {
+    BackgroundColor #FEF3C7
+    BorderColor #D97706
+    FontColor #78350F
+}
+
+skinparam queue {
+    BackgroundColor #E0E7FF
+    BorderColor #4338CA
+    FontColor #312E81
+}
+
+title **Arsitektur Sistem GEMPA AI-TEWS**
+
+actor "Operator / User Web" as Client
+actor "External Source\n(BMKG / SeedLink)" as ExtSource
+
+package "Docker Network: sispro-tews_req" {
+
+    package "tews-ui-vue (Frontend)" as PkgFrontend {
+        component "Vue 3 SPA + Vite\n(D3, Leaflet, Pinia, Socket.IO)\n[Port Eksternal: 38006 -> Internal: 8004]" as UI_App
+    }
+
+    package "sispro-tews (Backend Seismic Data Processing)" as PkgSispro {
+        component "api_incoming_module\n(FastAPI, 32 workers)\n[:38007 -> :8007]" as Mod_Incoming
+        component "record_stream_module\n(Waveform Streamer)\n[:38001 -> :8001]" as Mod_RecordStream
+        component "fdsn_api_module & scheduler\n(FDSN-WS REST & Cron)\n[:38002 -> :8002]" as Mod_FDSN
+        component "controller_module\n(Main Orchestrator & WS Redis)\n[:38003 -> :8003]" as Mod_Controller
+        component "websocket_waveform\n(High-freq Waveform WS)\n[:38004 -> :8004]" as Mod_WS_Waveform
+        component "websocket_general\n(Station status & Event WS)\n[:38005 -> :8005]" as Mod_WS_General
+        component "archiving_module (7x replicas)\n(Persist seismic data to disk & DB)\n[20 GB RAM per instansi]" as Mod_Archiving
+        component "seedlink_module (5x replicas)\n(SeedLink Protocol Consumer)\n[5 GB RAM per instansi]" as Mod_SeedLink
+    }
+
+    package "AI-TEWS (AI_modules_simple_ai)" as PkgAI {
+        component "p-pick_consumer" as AI_Consumer
+        component "p-pick_nginx (LB)" as AI_Nginx
+        component "p-pick_service (5x replicas)\n(TensorFlow 2.10, Flask/Gunicorn)" as AI_PPick
+        component "association_module\n(Event-Phase Association)" as AI_Assoc
+        component "phase-arrival_module\n(Travel-time refinement)" as AI_PhaseArrival
+        component "locmag_module\n(Hypocenter & Magnitude)" as AI_LocMag
+    }
+
+    package "Data & Messaging Layer" as PkgData {
+        queue "Apache Kafka Broker\n[:9092]\nTopics: waveform, event, pick, association" as Kafka
+        database "Redis Cache & State\n[:6379]\n(Session, WS state, RDB snapshot)" as Redis
+        database "MongoDB Cluster\n[:27017]\n(events, stations, picks, associations, waveforms)" as MongoDB
+        folder "Seismic Archive\n(${archive_location})\n(miniSEED files)" as FileArchive
+    }
+}
+
+' External Relations
+ExtSource --> Mod_SeedLink : SeedLink Protocol
+ExtSource --> Mod_Incoming : HTTP POST Event/Picks
+Client --> UI_App : HTTP / Dashboard Access
+Client --> Mod_Controller : HTTP REST (:38003)
+Client --> Mod_FDSN : FDSN Queries (:38002)
+
+' Frontend to WS/Backend
+UI_App <--> Mod_WS_Waveform : WebSocket (:38004)
+UI_App <--> Mod_WS_General : WebSocket (:38005)
+UI_App <--> Mod_Controller : WebSocket Socket.IO / REST
+
+' Sispro internal & Messaging
+Mod_SeedLink --> Kafka : Stream miniSEED ("waveform")
+Mod_Incoming --> Kafka : Event payload ("event")
+Mod_Incoming --> MongoDB : Validate & Insert Event
+
+Mod_RecordStream ..> FileArchive : Read miniSEED
+Mod_FDSN --> MongoDB : Query catalog
+Mod_FDSN ..> FileArchive : Read raw waveform
+
+Mod_Archiving --> Kafka : Consume "waveform"
+Mod_Archiving --> MongoDB : Persist metadata & picks
+Mod_Archiving --> FileArchive : Write miniSEED files
+Mod_Archiving --> Redis : Update caching state
+
+Mod_Controller <--> Redis : State Sync & WS adapter
+Mod_Controller --> MongoDB : Query latest events & status
+Mod_Controller --> Mod_WS_General : Forward event notifications
+Mod_Controller --> Mod_WS_Waveform : Forward waveform triggers
+
+' AI Module Pipeline
+AI_Consumer --> Kafka : Listen "event" & "waveform"
+AI_Consumer --> AI_Nginx : HTTP Forward
+AI_Nginx --> AI_PPick : Load Balance
+AI_PPick --> Kafka : Publish "pick"
+Kafka --> AI_Assoc : Consume "pick"
+AI_Assoc --> Kafka : Publish "association"
+AI_Assoc --> AI_PhaseArrival : Arrival time calc
+AI_PhaseArrival --> AI_LocMag : Triangulation & Loc/Mag
+AI_LocMag --> MongoDB : Save final event hypocenter/mag
+
+@enduml
+```
+
 ### 1.2 Rincian Setiap Komponen
+
 
 #### **A. tews-ui-vue (Frontend Web Application)**
 
@@ -144,6 +270,84 @@ npm run build  # Output: dist/ folder
 - Memory limit: 5 GB per instance
 - Connects to remote SeedLink servers, streams waveform data
 - Docker socket mount: dynamic container orchestration
+
+#### **PlantUML - Detail Modul sispro-tews & controller_module**
+
+```plantuml
+@startuml Sispro_TEWS_Internal_Detail
+!theme plain
+skinparam roundcorner 6
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI", Arial, sans-serif
+
+package "Client & Web Tier" {
+    component [tews-ui-vue] as UI
+    component [Nginx Reverse Proxy] as ExtNginx
+}
+
+package "sispro-tews Internal Services" {
+
+    package "controller_module (Port 8003 / 38003)" #F1F5F9 {
+        component "FastAPI Controller App\n(controller_api_app.py)" as CtrlAPI
+        component "WebSocket Redis Manager\n(controller_web_socket_redis.py)" as CtrlWSRedis
+        component "Stand-alone WS Handler\n(controller_web_socket.py)" as CtrlWSAlt
+        note right of CtrlWSRedis
+            Orchestrator utama sistem:
+            - Sinkronisasi state via Redis
+            - Replikasi connection handler
+        end note
+    }
+
+    package "Websocket Modules" #F8FAFC {
+        component "websocket_general\n(Dockerfile_general, Port 8005)" as WS_Gen
+        component "websocket_waveform\n(Dockerfile_waveform, Port 8004)" as WS_Wave
+        component "Nginx Proxy\n(sispro-tews/nginx/nginx.conf)" as SisproNginx
+    }
+
+    package "Ingestion & Streamers" #F8FAFC {
+        component "api_incoming_module\n(FastAPI + 32 Workers, Port 8007)" as IncomingAPI
+        component "record_stream_module\n(Port 8001)" as RecordStream
+        component "fdsn_module (Scheduler)" as FDSN_Sched
+        component "fdsn_api_module (Port 8002)" as FDSN_API
+    }
+
+    package "Background Daemons (Scalable Replicas)" #F8FAFC {
+        component "seedlink_module\n(5 Replicas, 5GB RAM)\nMounts /var/run/docker.sock" as SeedLinkDaemon
+        component "archiving_module\n(7 Replicas, 20GB RAM)\nMounts /var/run/docker.sock" as ArchivingDaemon
+    }
+}
+
+database "Redis (:6379)" as Redis
+database "MongoDB (:27017)" as Mongo
+queue "Kafka (:9092)" as Kafka
+folder "${archive_location}\n(Disk Storage)" as Storage
+
+' Wiring
+UI --> ExtNginx
+ExtNginx --> CtrlAPI : REST Requests
+ExtNginx --> WS_Gen : General WS (:38005)
+ExtNginx --> SisproNginx : Waveform WS (:38004)
+SisproNginx --> WS_Wave : Route Waveform Traffic
+
+CtrlAPI --> Mongo : Query / Update
+CtrlWSRedis <--> Redis : Pub/Sub & State Cache
+CtrlWSRedis --> WS_Gen : Trigger Broadcast
+
+SeedLinkDaemon --> Kafka : Publish raw waveform
+IncomingAPI --> Kafka : Publish event
+IncomingAPI --> Mongo : Save raw payload
+
+ArchivingDaemon --> Kafka : Consume waveform
+ArchivingDaemon --> Mongo : Save picks & associations
+ArchivingDaemon --> Storage : Write miniSEED archives
+ArchivingDaemon --> Redis : Flush cache metadata
+
+RecordStream --> Storage : Stream archive waveforms
+FDSN_Sched --> Mongo : Sync station catalogs
+FDSN_API --> Mongo : Catalog Queries
+
+@enduml
+```
 
 #### **C. AI-TEWS (Artificial Intelligence Modules)**
 
@@ -304,6 +508,74 @@ gunicorn
    ├─ HTTP GET /fdsnws/event/1/query? (fdsn_api_module:38002)
    ├─ HTTP POST /api/event (api_incoming_module:38007)
    └─ WebSocket: /socket.io/ (controller + websocket modules)
+```
+
+#### **PlantUML - Sequence Diagram Alur Data Sistem**
+
+```plantuml
+@startuml GEMPA_AI_TEWS_Sequence
+!theme plain
+autonumber
+skinparam shadowing false
+skinparam defaultFontName "Segoe UI", Arial, sans-serif
+
+actor "Remote SeedLink / BMKG" as RemoteSource
+participant "seedlink_module" as SeedLink
+participant "api_incoming_module" as IncomingAPI
+queue "Kafka Broker" as Kafka
+box "AI Pipeline (AI_modules_simple_ai)" #F8FAFC
+    participant "p-pick_consumer" as AIConsumer
+    participant "p-pick_service (TF)" as AIService
+    participant "association_module" as AIAssoc
+    participant "locmag_module" as AILocMag
+end box
+participant "archiving_module" as Archiving
+database "MongoDB" as Mongo
+database "Redis" as Redis
+participant "controller_module" as Controller
+participant "websocket_*" as WebSockets
+actor "Vue 3 Frontend" as UI
+
+== 1. Data Ingestion ==
+RemoteSource -> SeedLink : Stream paket SeedLink (real-time)
+SeedLink -> Kafka : Produce miniSEED chunk ke topic "waveform"
+RemoteSource -> IncomingAPI : HTTP POST event eksternal
+IncomingAPI -> Mongo : Simpan raw incoming event
+IncomingAPI -> Kafka : Produce ke topic "event"
+
+== 2. AI Inference Pipeline ==
+Kafka -> AIConsumer : Consume topic "waveform"
+AIConsumer -> AIService : HTTP POST batch waveform data
+note over AIService : TensorFlow 2.10\nDeep Learning P-Pick Model
+AIService --> AIConsumer : Hasil inferensi (P-wave picks)
+AIConsumer -> Kafka : Publish hasil ke topic "pick"
+
+Kafka -> AIAssoc : Consume topic "pick"
+note over AIAssoc : Asosiasi fase gelombang seismik
+AIAssoc -> AILocMag : Kirim fase terasosiasi
+note over AILocMag : Kalkulasi Hiposenter & Magnitudo Gempa
+AILocMag -> Mongo : Insert deteksi gempa lengkap (events/picks)
+AILocMag -> Kafka : Publish "association" & "event_solved"
+
+== 3. Archiving & Persistence ==
+Kafka -> Archiving : Consume "waveform"
+Archiving -> Mongo : Update relasi event & picks
+Archiving -> Archiving : Tulis file seismik miniSEED ke disk archive
+Archiving -> Redis : Update session & latest cache offset
+
+== 4. Real-time Frontend Broadcast ==
+Controller -> Mongo : Poll event baru / Terima trigger Redis
+Controller -> Redis : Sinkronisasi status klaster & WebSocket
+Controller -> WebSockets : Forward payload gempa baru & data waveform
+WebSockets -> UI : Socket.IO Push (Event, Phase, Waveform Plot)
+note over UI : Update peta Leaflet, chart D3,\ndan notifikasi real-time
+
+== 5. Client Query ==
+UI -> Controller : GET /api/events?bbox=...
+Controller -> Mongo : Query geo-spatial events
+Mongo --> Controller : Return event records
+Controller --> UI : JSON Response
+@enduml
 ```
 
 ### 1.4 Komunikasi Inter-Service

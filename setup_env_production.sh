@@ -15,6 +15,9 @@ DEFAULT_KAFKA_EXTERNAL_PORT=29092
 DEFAULT_REDIS_PORT=6379
 DEFAULT_DATABASE_PORT=27017
 DEFAULT_ARCHIVE_LOCATION=/mnt/archive
+DEFAULT_ARCHIVE_RETENTION_DAYS=90
+DEFAULT_LOG_RETENTION_DAYS=14
+DEFAULT_DB_PICKS_RETENTION_DAYS=30
 DEFAULT_ARCHIVE_REPLICAS=3
 DEFAULT_SEEDLINK_REPLICAS=2
 DEFAULT_NGINX_PORT=80
@@ -39,6 +42,15 @@ DATABASE_PORT=${DATABASE_PORT:-$DEFAULT_DATABASE_PORT}
 
 read -p "Archive location [default: $DEFAULT_ARCHIVE_LOCATION]: " ARCHIVE_LOCATION
 ARCHIVE_LOCATION=${ARCHIVE_LOCATION:-$DEFAULT_ARCHIVE_LOCATION}
+
+read -p "Archive MiniSEED retention days (Ideal for 2TB: 90) [default: $DEFAULT_ARCHIVE_RETENTION_DAYS]: " ARCHIVE_RETENTION_DAYS
+ARCHIVE_RETENTION_DAYS=${ARCHIVE_RETENTION_DAYS:-$DEFAULT_ARCHIVE_RETENTION_DAYS}
+
+read -p "Log files retention days (Ideal: 14) [default: $DEFAULT_LOG_RETENTION_DAYS]: " LOG_RETENTION_DAYS
+LOG_RETENTION_DAYS=${LOG_RETENTION_DAYS:-$DEFAULT_LOG_RETENTION_DAYS}
+
+read -p "MongoDB raw picks retention days (Ideal: 30) [default: $DEFAULT_DB_PICKS_RETENTION_DAYS]: " DB_PICKS_RETENTION_DAYS
+DB_PICKS_RETENTION_DAYS=${DB_PICKS_RETENTION_DAYS:-$DEFAULT_DB_PICKS_RETENTION_DAYS}
 
 read -p "Archive replica count (reduce if low resource) [default: $DEFAULT_ARCHIVE_REPLICAS]: " ARCHIVE_REPLICAS
 ARCHIVE_REPLICAS=${ARCHIVE_REPLICAS:-$DEFAULT_ARCHIVE_REPLICAS}
@@ -113,9 +125,15 @@ KAFKA_PORT=$KAFKA_PORT
 kafka_host=kafka
 kafka_port=$KAFKA_PORT
 
-# Archive storage
+# Archive storage & Retention policy
 archive_location=$ARCHIVE_LOCATION
 archive_replica_count=$ARCHIVE_REPLICAS
+ARCHIVE_RETENTION_DAYS=$ARCHIVE_RETENTION_DAYS
+LOG_RETENTION_DAYS=$LOG_RETENTION_DAYS
+DB_PICKS_RETENTION_DAYS=$DB_PICKS_RETENTION_DAYS
+MAX_LOG_SIZE_MB=50
+ENABLE_DOCKER_PRUNE=true
+DISK_USAGE_ALERT_THRESHOLD=85
 
 # SeedLink
 seedlink_replica_count=$SEEDLINK_REPLICAS
@@ -186,8 +204,11 @@ echo "MongoDB:"
 echo "  - Host: mongodb"
 echo "  - Port: $DATABASE_PORT"
 echo ""
-echo "Archive Storage:"
+echo "Archive Storage & Retention:"
 echo "  - Location: $ARCHIVE_LOCATION"
+echo "  - Waveform retention: $ARCHIVE_RETENTION_DAYS days"
+echo "  - Application logs: $LOG_RETENTION_DAYS days"
+echo "  - DB Raw picks: $DB_PICKS_RETENTION_DAYS days"
 echo "  - Archiving replicas: $ARCHIVE_REPLICAS"
 echo "  - SeedLink replicas: $SEEDLINK_REPLICAS"
 echo ""
@@ -211,15 +232,18 @@ echo "   sudo mkdir -p $ARCHIVE_LOCATION"
 echo "   sudo chown -R bmkg:bmkg $ARCHIVE_LOCATION"
 echo "   sudo chmod 777 $ARCHIVE_LOCATION"
 echo ""
-echo "2. Copy .env files to server (or upload via git):"
+echo "2. Setup Automated Storage Retention Cron Job:"
+echo "   bash scripts/setup_cleanup_cron.sh --install"
+echo ""
+echo "3. Copy .env files to server (or upload via git):"
 echo "   scp sispro-tews/.env bmkg@$SERVER_IP:/opt/gempa-ai-tews/sispro-tews/"
 echo "   scp AI-TEWS/requirements/.env bmkg@$SERVER_IP:/opt/gempa-ai-tews/AI-TEWS/requirements/"
 echo "   scp AI-TEWS/AI_modules_simple_ai/.env bmkg@$SERVER_IP:/opt/gempa-ai-tews/AI-TEWS/AI_modules_simple_ai/"
 echo ""
-echo "3. Create Docker network on server:"
+echo "4. Create Docker network on server:"
 echo "   docker network create sispro-tews_req"
 echo ""
-echo "4. Deploy services (run on server):"
+echo "5. Deploy services (run on server):"
 echo "   cd /opt/gempa-ai-tews"
 echo "   docker-compose -f AI-TEWS/requirements/docker-compose.yml up -d"
 echo "   sleep 30"
@@ -227,7 +251,7 @@ echo "   docker-compose -f sispro-tews/docker-compose.yml up -d"
 echo "   docker-compose -f AI-TEWS/AI_modules_simple_ai/docker-compose.yml up -d"
 echo "   docker-compose -f tews-ui-vue/docker-compose.yml up -d"
 echo ""
-echo "5. Verify deployment:"
+echo "6. Verify deployment:"
 echo "   curl http://localhost:38003/health"
 echo "   docker-compose ps"
 echo ""

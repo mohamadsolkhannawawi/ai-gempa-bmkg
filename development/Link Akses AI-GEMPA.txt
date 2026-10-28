@@ -1,0 +1,3 @@
+Endpoint: http://152.118.31.54:38006/
+User: admin
+Pass: Bmkg2026

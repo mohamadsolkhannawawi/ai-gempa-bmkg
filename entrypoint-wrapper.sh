@@ -40,6 +40,19 @@ echo "[WRAPPER] Setting up Docker daemon..."
 
 # Setup Docker daemon if not running
 if ! pgrep -x "dockerd" > /dev/null; then
+    echo "[WRAPPER] Configuring Docker daemon logging limits..."
+    mkdir -p /etc/docker
+    if [ ! -f /etc/docker/daemon.json ]; then
+        cat > /etc/docker/daemon.json << 'DAEMON_EOF'
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "50m",
+    "max-file": "3"
+  }
+}
+DAEMON_EOF
+    fi
     echo "[WRAPPER] Starting Docker daemon..."
     dockerd > /var/log/dockerd.log 2>&1 &
     sleep 5
@@ -90,6 +103,11 @@ export archive_replica_count=${archive_replica_count:-3}
 export seedlink_replica_count=${seedlink_replica_count:-2}
 export p_pick_replicas=${p_pick_replicas:-2}
 
+# Set storage retention policy (Ideal for 2TB disk)
+export ARCHIVE_RETENTION_DAYS="${ARCHIVE_RETENTION_DAYS:-90}"
+export LOG_RETENTION_DAYS="${LOG_RETENTION_DAYS:-14}"
+export DB_PICKS_RETENTION_DAYS="${DB_PICKS_RETENTION_DAYS:-30}"
+
 # Copy .env files if not present
 if [ ! -f /app/sispro-tews/.env ]; then
     echo "[WRAPPER] Setting up sispro-tews .env..."
@@ -106,6 +124,9 @@ database_name="sispro-tews"
 archive_location="/mnt/archive"
 archive_replica_count="3"
 seedlink_replica_count="2"
+ARCHIVE_RETENTION_DAYS="90"
+LOG_RETENTION_DAYS="14"
+DB_PICKS_RETENTION_DAYS="30"
 EOF
     }
 fi

@@ -67,6 +67,12 @@ services:
         hard: 65535
     # Raise PID/thread limit so inner containers can spawn threads (matplotlib, pymongo, TF)
     pids_limit: -1
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+
 
 volumes:
   gempa-docker-data:
