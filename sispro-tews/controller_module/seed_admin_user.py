@@ -17,11 +17,11 @@ MAX_RETRIES = int(os.getenv("MONGO_CONNECT_RETRIES", 10))
 RETRY_DELAY = int(os.getenv("MONGO_CONNECT_RETRY_DELAY", 3))
 
 # Admin credentials from env (production must set these)
-ADMIN_USERNAME = os.getenv("INITIAL_ADMIN_USERNAME")
-ADMIN_PASSWORD = os.getenv("INITIAL_ADMIN_PASSWORD")
-ADMIN_EMAIL = os.getenv("INITIAL_ADMIN_EMAIL", f"{ADMIN_USERNAME}@bmkg.go.id")
-ADMIN_FULLNAME = os.getenv("INITIAL_ADMIN_FULLNAME", "Administrator BMKG")
-ADMIN_REGION = os.getenv("INITIAL_ADMIN_REGION", "Indonesia")
+ADMIN_USERNAME = (os.getenv("INITIAL_ADMIN_USERNAME") or "admin").strip('"\'')
+ADMIN_PASSWORD = (os.getenv("INITIAL_ADMIN_PASSWORD") or "Bmkg2026").strip('"\'')
+ADMIN_EMAIL = (os.getenv("INITIAL_ADMIN_EMAIL") or f"{ADMIN_USERNAME}@bmkg.go.id").strip('"\'')
+ADMIN_FULLNAME = (os.getenv("INITIAL_ADMIN_FULLNAME") or "Administrator BMKG").strip('"\'')
+ADMIN_REGION = (os.getenv("INITIAL_ADMIN_REGION") or "Indonesia").strip('"\'')
 
 def validate_env_vars():
     """Validate required environment variables"""
