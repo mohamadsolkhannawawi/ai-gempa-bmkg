@@ -23,7 +23,7 @@ async def app():
                                           reload=True, 
                                           loop="asyncio", 
                                           host="0.0.0.0", 
-                                          port = "8007"))
+                                          port=8007))
 
     api = asyncio.create_task(server.serve())
 
