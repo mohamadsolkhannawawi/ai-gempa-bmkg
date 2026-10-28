@@ -71,15 +71,18 @@ def seed_admin():
         hashed_password = pbkdf2_sha256.hash(ADMIN_PASSWORD)
         
         # Check if admin already exists
+        FORCE_RESET = os.getenv("FORCE_SEED_ADMIN", "false").lower() == "true"
         existing = user_collection.find_one({"username": ADMIN_USERNAME})
         if existing:
-            # Update password if user exists
-            result = user_collection.update_one(
-                {"username": ADMIN_USERNAME},
-                {"$set": {"password": hashed_password}}
-            )
-            print(f"[SEED] ✓ User '{ADMIN_USERNAME}' password updated.")
-            print(f"[SEED]   Updated: {result.modified_count} document(s)")
+            if FORCE_RESET:
+                result = user_collection.update_one(
+                    {"username": ADMIN_USERNAME},
+                    {"$set": {"password": hashed_password}}
+                )
+                print(f"[SEED] ✓ User '{ADMIN_USERNAME}' password forcibly updated via FORCE_SEED_ADMIN.")
+                print(f"[SEED]   Updated: {result.modified_count} document(s)")
+            else:
+                print(f"[SEED] ✓ User '{ADMIN_USERNAME}' already exists in database. Preserving existing user and password.")
             client.close()
             return True
         

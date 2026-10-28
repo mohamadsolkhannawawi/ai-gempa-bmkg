@@ -6,15 +6,17 @@ import pymongo
 from passlib.hash import pbkdf2_sha256
 import sys
 
+import os
+
 # MongoDB connection
-MONGO_HOST = "mongodb"
-MONGO_PORT = 27017
-DB_NAME = "sispro-tews"
+MONGO_HOST = os.getenv("MONGO_HOST", os.getenv("database_host", "mongodb"))
+MONGO_PORT = int(os.getenv("MONGO_PORT", os.getenv("database_port", 27017)))
+DB_NAME = os.getenv("MONGO_DB_NAME", os.getenv("database_name", "sispro-tews"))
 
 # Default admin credentials
-DEFAULT_USERNAME = "admin"
-DEFAULT_PASSWORD = "admin123"
-DEFAULT_REGION = "Indonesia"
+DEFAULT_USERNAME = os.getenv("INITIAL_ADMIN_USERNAME", "admin")
+DEFAULT_PASSWORD = os.getenv("INITIAL_ADMIN_PASSWORD", "Bmkg2026")
+DEFAULT_REGION = os.getenv("INITIAL_ADMIN_REGION", "Indonesia")
 
 def seed_admin():
     try:
@@ -26,7 +28,7 @@ def seed_admin():
         # Check if admin already exists
         existing = user_collection.find_one({"username": DEFAULT_USERNAME})
         if existing:
-            print(f"✓ User '{DEFAULT_USERNAME}' already exists. Skipping seed.")
+            print(f"✓ User '{DEFAULT_USERNAME}' already exists. Preserving existing user and password.")
             return
         
         # Hash password

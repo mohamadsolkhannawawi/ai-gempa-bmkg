@@ -153,9 +153,9 @@ echo "[WRAPPER] Starting infrastructure services (Kafka, MongoDB, Redis, Zookeep
 
 cd /app/AI-TEWS/requirements
 
-# Clean previous infrastructure containers
+# Clean previous infrastructure containers (preserve volumes)
 echo "[WRAPPER] Cleaning previous infrastructure containers..."
-docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+docker-compose -f docker-compose.yml down --remove-orphans 2>/dev/null || true
 
 # Build and start with sequential build
 echo "[WRAPPER] Building infrastructure services..."
@@ -187,9 +187,9 @@ export MONGO_DB_NAME="${MONGO_DB_NAME:-sispro-tews}"
 export MONGO_CONNECT_RETRIES="${MONGO_CONNECT_RETRIES:-10}"
 export MONGO_CONNECT_RETRY_DELAY="${MONGO_CONNECT_RETRY_DELAY:-3}"
 
-# Clean previous backend containers
+# Clean previous backend containers (preserve volumes)
 echo "[WRAPPER] Cleaning previous backend containers..."
-docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+docker-compose -f docker-compose.yml down --remove-orphans 2>/dev/null || true
 
 # Start services with sequential build (avoid parallel timeout)
 echo "[WRAPPER] Building backend services..."
@@ -209,9 +209,9 @@ echo "[WRAPPER] Starting AI modules..."
 
 cd /app/AI-TEWS/AI_modules_simple_ai
 
-# Clean previous AI containers
+# Clean previous AI containers (preserve volumes)
 echo "[WRAPPER] Cleaning previous AI containers..."
-docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+docker-compose -f docker-compose.yml down --remove-orphans 2>/dev/null || true
 
 # Build and start with sequential build
 echo "[WRAPPER] Building AI modules..."
@@ -230,9 +230,9 @@ echo "[WRAPPER] Starting frontend..."
 
 cd /app/tews-ui-vue
 
-# Clean previous frontend containers
+# Clean previous frontend containers (preserve volumes)
 echo "[WRAPPER] Cleaning previous frontend containers..."
-docker-compose -f docker-compose.yml down -v --remove-orphans 2>/dev/null || true
+docker-compose -f docker-compose.yml down --remove-orphans 2>/dev/null || true
 
 # Build and start with sequential build
 echo "[WRAPPER] Building frontend..."
