@@ -283,8 +283,35 @@ log "INFO" "[STEP 5/5] Checking MongoDB database retention (raw picks older than
 
 MONGO_CLEANUP_SUCCESS=false
 
-# Method A: Inside DinD wrapper -> inner requirements_mongodb_1
-if command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' | grep -q "^gempa-dind-wrapper$"; then
+# Method A: Direct host requirements_mongodb_1 container (standard setup)
+if command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' | grep -q "^requirements_mongodb_1$"; then
+  log "INFO" "Connecting to MongoDB via requirements_mongodb_1..."
+  JS_COMMAND="
+    var cutoff = new Date(Date.now() - (${DB_PICKS_RETENTION_DAYS} * 24 * 60 * 60 * 1000));
+    var resPicks = db.picks.deleteMany({ timestamp: { \$lt: cutoff } });
+    var resArrivals = db.arrival_picks.deleteMany({ timestamp: { \$lt: cutoff } });
+    print('Cleaned raw picks: ' + (resPicks.deletedCount || 0) + ', arrivals: ' + (resArrivals.deletedCount || 0));
+  "
+  
+  if [ "$DRY_RUN" = true ]; then
+    JS_COMMAND_DRY="
+      var cutoff = new Date(Date.now() - (${DB_PICKS_RETENTION_DAYS} * 24 * 60 * 60 * 1000));
+      var countPicks = db.picks.countDocuments({ timestamp: { \$lt: cutoff } });
+      print('[DRY-RUN] Expired raw picks to delete: ' + countPicks);
+    "
+    OUTPUT=$(docker exec requirements_mongodb_1 mongo sispro-tews --quiet --eval "$JS_COMMAND_DRY" 2>/dev/null || true)
+    log "INFO" "MongoDB result: $OUTPUT"
+  else
+    OUTPUT=$(docker exec requirements_mongodb_1 mongo sispro-tews --quiet --eval "$JS_COMMAND" 2>/dev/null || true)
+    if [ -n "$OUTPUT" ]; then
+      log "INFO" "MongoDB cleanup result: $OUTPUT"
+      MONGO_CLEANUP_SUCCESS=true
+    fi
+  fi
+fi
+
+# Method B: Inside DinD wrapper -> inner requirements_mongodb_1
+if [ "$MONGO_CLEANUP_SUCCESS" = false ] && command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' | grep -q "^gempa-dind-wrapper$"; then
   log "INFO" "Connecting to MongoDB via gempa-dind-wrapper..."
   JS_COMMAND="
     var cutoff = new Date(Date.now() - (${DB_PICKS_RETENTION_DAYS} * 24 * 60 * 60 * 1000));
@@ -312,12 +339,12 @@ if command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' | grep -
   fi
 fi
 
-# Method B: Direct mongosh/mongo CLI on host (port 32717 or 27017)
-if [ "$MONGO_CLEANUP_SUCCESS" = false ] && command -v mongo >/dev/null 2>&1 || command -v mongosh >/dev/null 2>&1; then
+# Method C: Direct mongosh/mongo CLI on host (port 32717 or 27017)
+if [ "$MONGO_CLEANUP_SUCCESS" = false ] && (command -v mongo >/dev/null 2>&1 || command -v mongosh >/dev/null 2>&1); then
   MONGO_CMD="mongosh"
   command -v mongosh >/dev/null 2>&1 || MONGO_CMD="mongo"
   
-  for port in 32717 27017; do
+  for port in 27017 32717; do
     if [ "$DRY_RUN" = false ]; then
       OUTPUT=$($MONGO_CMD "mongodb://localhost:${port}/sispro-tews" --quiet --eval "$JS_COMMAND" 2>/dev/null || true)
       if [ -n "$OUTPUT" ]; then
@@ -331,6 +358,24 @@ fi
 
 if [ "$MONGO_CLEANUP_SUCCESS" = false ] && [ "$DRY_RUN" = false ]; then
   log "INFO" "MongoDB container or CLI not reachable at this moment. Skipping database raw pick cleanup."
+fi
+
+# -----------------------------------------------------------------------------
+# Step 6: Automated MongoDB Daily Snapshot Backup & Rotation (7-day retention)
+# -----------------------------------------------------------------------------
+log "INFO" "[STEP 6/6] Running automated MongoDB snapshot backup & rotating old backups..."
+BACKUP_DATE="$(date +%Y%m%d)"
+BACKUP_DIR="/data/db/backup_${BACKUP_DATE}"
+
+if command -v docker >/dev/null 2>&1 && docker ps --format '{{.Names}}' | grep -q "^requirements_mongodb_1$"; then
+  if [ "$DRY_RUN" = true ]; then
+    log "INFO" "[DRY-RUN] Would create daily snapshot at $BACKUP_DIR and rotate backups older than 7 days."
+  else
+    docker exec requirements_mongodb_1 mongodump --db sispro-tews --out "$BACKUP_DIR" >/dev/null 2>&1 || true
+    log "INFO" "MongoDB snapshot backup completed at $BACKUP_DIR."
+    # Prune backups older than 7 days
+    docker exec requirements_mongodb_1 sh -c 'find /data/db/ -maxdepth 1 -name "backup_*" -mtime +7 -exec rm -rf {} +' 2>/dev/null || true
+  fi
 fi
 
 # -----------------------------------------------------------------------------
