@@ -13,10 +13,10 @@ from dotenv import load_dotenv
 # Load from multiple potential locations (.env, /app/.env, ../.env, /app/sispro-tews/.env)
 for _env_candidate in [".env", "/app/.env", "../.env", "/app/sispro-tews/.env"]:
     if os.path.isfile(_env_candidate):
-        load_dotenv(_env_candidate, override=True)
+        load_dotenv(_env_candidate, override=False)
         break
 else:
-    load_dotenv(override=True)
+    load_dotenv(override=False)
 
 # MongoDB connection from env
 MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
@@ -29,7 +29,7 @@ def get_env_clean(key: str) -> str:
     """Read env var and strip accidental surrounding quotes without hardcoding credentials"""
     val = os.getenv(key)
     if val is not None:
-        val = val.strip('"\'')
+        val = val.strip().strip('"\'').strip()
         if not val:
             val = None
     return val
@@ -113,6 +113,7 @@ def seed_admin():
                     }}
                 )
                 print(f"[SEED] ✓ User '{ADMIN_USERNAME}' credentials verified/updated via seed.")
+                print(f"[SEED]   Password length: {len(ADMIN_PASSWORD)} characters (confirmed)")
             else:
                 print(f"[SEED] ✓ User '{ADMIN_USERNAME}' already exists in database. Preserving existing password.")
             client.close()

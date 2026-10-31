@@ -57,6 +57,8 @@ services:
       - STATION_CSV=${STATION_CSV:-station_public20.csv}
     ports:
       - "38003:8003"
+    volumes:
+      - ./.env:/app/.env:ro
     tty: true
     restart: unless-stopped
     security_opt:
