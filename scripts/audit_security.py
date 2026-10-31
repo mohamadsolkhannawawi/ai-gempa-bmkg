@@ -83,65 +83,79 @@ def check_docker_ports():
 def check_mongodb_integrity():
     log_header("AUDIT 2: INTEGRITAS MONGODB & JEJAK RANSOMWARE")
     
-    cmd = (
-        "docker exec requirements_mongodb_1 mongo --quiet --eval '"
-        "var dbs = db.adminCommand(\"listDatabases\").databases.map(d => d.name);"
-        "print(JSON.stringify(dbs));"
-        "'"
+    # Method 1: Using PyMongo inside controller_module (most accurate to application path)
+    py_check_code = (
+        "import pymongo, json;"
+        "client = pymongo.MongoClient('mongodb://mongodb:27017/', serverSelectionTimeoutMS=4000);"
+        "dbs = client.list_database_names();"
+        "db = client['sispro-tews'];"
+        "u_count = db.user.count_documents({});"
+        "s_count = db.station.count_documents({});"
+        "admin_exists = db.user.find_one({'username': 'admin'}) is not None;"
+        "print(json.dumps({'databases': dbs, 'user_count': u_count, 'station_count': s_count, 'admin_exists': admin_exists}));"
     )
     
+    stats = None
     try:
-        res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        out = res.stdout.strip()
-        lines = [line for line in out.split("\n") if line.startswith("[") and line.endswith("]")]
-        if not lines:
-            print(f"  ⚠ Tidak dapat membaca daftar database dari requirements_mongodb_1: {out}")
-            return False
-        
-        databases = json.loads(lines[-1])
-        print(f"Daftar database di MongoDB: {', '.join(databases)}")
-        
-        # Check for ransom db
-        ransom_detected = []
-        for db_name in databases:
-            for pattern in RANSOM_PATTERNS:
-                if pattern in db_name.lower():
-                    ransom_detected.append(db_name)
-                    
-        if ransom_detected:
-            print(f"  [CRITICAL] Terdeteksi jejak database ransomware: {ransom_detected}!")
-            return False
-        else:
-            print("  ✓ Tidak terdeteksi adanya database tebusan/ransomware.")
-            
-        # Check essential collections in sispro-tews
-        colls_cmd = (
-            "docker exec requirements_mongodb_1 mongo --quiet --eval '"
-            "var d = db.getSiblingDB(\"sispro-tews\");"
-            "var res = {"
-            "  user_count: d.user.count(),"
-            "  station_count: d.station.count(),"
-            "  admin_exists: !!d.user.findOne({username: \"admin\"})"
-            "};"
-            "print(JSON.stringify(res));"
-            "'"
+        res = subprocess.run(
+            ["docker", "exec", "sispro-tews_controller_module_1", "python3", "-c", py_check_code],
+            capture_output=True, text=True
         )
-        res_colls = subprocess.run(colls_cmd, shell=True, capture_output=True, text=True)
-        colls_out = [l for l in res_colls.stdout.strip().split("\n") if l.startswith("{") and l.endswith("}")]
-        if colls_out:
-            stats = json.loads(colls_out[-1])
-            print(f"  ✓ Database 'sispro-tews' AKTIF:")
-            print(f"    - User superadmin 'admin' : {'ADA (Valid)' if stats.get('admin_exists') else 'TIDAK ADA'}")
-            print(f"    - Total Pengguna          : {stats.get('user_count')}")
-            print(f"    - Total Stasiun Seismik   : {stats.get('station_count')}")
-            
-            if not stats.get("admin_exists"):
-                print("  ⚠ User 'admin' belum terdaftar di database!")
-                return False
-        return True
-    except Exception as e:
-        print(f"  ⚠ Gagal mengaudit MongoDB: {e}")
+        if res.returncode == 0 and res.stdout.strip():
+            for line in res.stdout.strip().split("\n"):
+                if line.startswith("{") and line.endswith("}"):
+                    stats = json.loads(line)
+                    break
+    except Exception:
+        pass
+        
+    # Method 2: Fallback to direct mongo CLI inside requirements_mongodb_1
+    if not stats:
+        try:
+            mongo_cmd = [
+                "docker", "exec", "requirements_mongodb_1", "mongo", "sispro-tews", "--quiet", "--eval",
+                'var dbs = db.adminCommand("listDatabases").databases.map(function(d){return d.name;});'
+                'var u = db.user.count(); var s = db.station.count(); var a = !!db.user.findOne({username: "admin"});'
+                'print(JSON.stringify({databases: dbs, user_count: u, station_count: s, admin_exists: a}));'
+            ]
+            res_m = subprocess.run(mongo_cmd, capture_output=True, text=True)
+            for line in res_m.stdout.strip().split("\n"):
+                if line.startswith("{") and line.endswith("}"):
+                    stats = json.loads(line)
+                    break
+        except Exception as e:
+            print(f"  ⚠ Gagal mengaudit MongoDB via CLI: {e}")
+            return False
+
+    if not stats:
+        print(f"  ⚠ Tidak dapat membaca data dari MongoDB (pastikan kontainer mongodb dan controller aktif).")
         return False
+        
+    databases = stats.get("databases", [])
+    print(f"Daftar database di MongoDB: {', '.join(databases)}")
+    
+    # Check for ransom db
+    ransom_detected = []
+    for db_name in databases:
+        for pattern in RANSOM_PATTERNS:
+            if pattern in db_name.lower():
+                ransom_detected.append(db_name)
+                
+    if ransom_detected:
+        print(f"  [CRITICAL] Terdeteksi jejak database ransomware: {ransom_detected}!")
+        return False
+    else:
+        print("  ✓ Tidak terdeteksi adanya database tebusan/ransomware.")
+        
+    print(f"  ✓ Database 'sispro-tews' AKTIF:")
+    print(f"    - User superadmin 'admin' : {'ADA (Valid)' if stats.get('admin_exists') else 'TIDAK ADA'}")
+    print(f"    - Total Pengguna          : {stats.get('user_count')}")
+    print(f"    - Total Stasiun Seismik   : {stats.get('station_count')}")
+    
+    if not stats.get("admin_exists"):
+        print("  ⚠ User 'admin' belum terdaftar di database!")
+        return False
+    return True
 
 def check_retention_and_backups():
     log_header("AUDIT 3: STATUS BACKUP & CRON RETENSI STORAGE")
@@ -153,11 +167,12 @@ def check_retention_and_backups():
         else:
             print("  ⚠ Cron job cleanup belum terpasang di crontab!")
             
-        # Check backup directory
-        bak_cmd = "docker exec requirements_mongodb_1 ls -ld /data/db/backup_* 2>/dev/null"
-        bak_res = subprocess.run(bak_cmd, shell=True, capture_output=True, text=True)
+        # Check backup directory inside container using sh -c for glob expansion
+        bak_cmd = ["docker", "exec", "requirements_mongodb_1", "sh", "-c", "ls -d /data/db/backup_* 2>/dev/null"]
+        bak_res = subprocess.run(bak_cmd, capture_output=True, text=True)
         if "backup_" in bak_res.stdout:
-            print("  ✓ File snapshot/backup database ditemukan di storage MongoDB.")
+            backups = [b.strip() for b in bak_res.stdout.split() if "backup_" in b]
+            print(f"  ✓ Snapshot backup database ditemukan ({len(backups)} snapshot): {', '.join(backups[-3:])}")
         else:
             print("  ℹ Belum ada snapshot backup lokal di /data/db/backup_*. (Disarankan membuat backup berkala).")
     except Exception as e:
