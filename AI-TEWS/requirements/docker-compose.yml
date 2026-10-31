@@ -17,8 +17,8 @@ services:
   kafka:
     image: wurstmeister/kafka
     ports:
-      - ${kafka_port}:${kafka_port}
-      - ${kafka_external_port}:${kafka_external_port}
+      - 127.0.0.1:${kafka_port}:${kafka_port}
+      - 127.0.0.1:${kafka_external_port}:${kafka_external_port}
     environment:
       KAFKA_LISTENERS: INSIDE://0.0.0.0:${kafka_port},OUTSIDE://0.0.0.0:${kafka_external_port}
       KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:${kafka_port},OUTSIDE://${kafka_external_host}:${kafka_external_port}

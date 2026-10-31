@@ -21,10 +21,10 @@ services:
       - "8005:8005"
       - "8006:8006"     # geomecca frontend (existing)
       - "8007:8007"
-      - "32717:27017"   # mongodb (avoid K8s conflict)
-      - "36379:6379"    # redis (avoid K8s conflict)
-      - "39092:9092"    # kafka (avoid K8s conflict)
-      - "32181:2181"    # zookeeper (avoid K8s conflict)
+      - "127.0.0.1:32717:27017"   # mongodb (avoid K8s conflict, localhost only)
+      - "127.0.0.1:36379:6379"    # redis (avoid K8s conflict, localhost only)
+      - "127.0.0.1:39092:9092"    # kafka (avoid K8s conflict, localhost only)
+      - "127.0.0.1:32181:2181"    # zookeeper (avoid K8s conflict, localhost only)
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/archive:/mnt/archive
