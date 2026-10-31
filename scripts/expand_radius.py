@@ -40,6 +40,7 @@ from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 try:
     import seedlink_audit as A
 except ImportError:
@@ -317,6 +318,7 @@ def main():
     ap.add_argument("--outdir")
     ap.add_argument("--use-cache", action="store_true", help="pakai info_*.xml yang sudah ada di --cache-dir")
     ap.add_argument("--cache-dir")
+    ap.add_argument("--export-station-csv", action="store_true", help="Ekspor langsung ke station_public20.csv untuk SISPRO-TEWS")
     args = ap.parse_args()
 
     ts = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
@@ -445,6 +447,26 @@ def main():
     for c in selected:
         cfg[c["server"]].append({"net": c["net"], "sta": c["sta"], "select": c["selector"], "channels": c["channels"]})
     A.save("pipeline_config.json", json.dumps(cfg, indent=2))
+
+    if args.export_station_csv:
+        csv_destinations = [
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sispro-tews", "controller_module", "data", "station_public20.csv"),
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "sispro-tews", "seedlink_module", "data", "station_public20.csv")
+        ]
+        for dest in csv_destinations:
+            dest_dir = os.path.dirname(dest)
+            if os.path.exists(dest_dir):
+                with open(dest, "w", newline="", encoding="utf-8") as f:
+                    w = csv.writer(f)
+                    w.writerow(["_id", "name", "code", "network", "channel", "location", "longitude", "latitude", "elevation", "server_seedlink", "server_fdsn"])
+                    for idx, c in enumerate(selected, 1):
+                        sid = f"pub20_{idx:02d}"
+                        cname = c.get("country_name", "") or c.get("nearest", "")
+                        sname = f"{c['net']}.{c['sta']} ({cname}, dist={c['dist_deg']}°)"
+                        chans_str = str(c["channels"])
+                        w.writerow([sid, sname, c["sta"], c["net"], chans_str, "", c["lon"], c["lat"], 0, c["server"], c.get("fdsn", "IRIS")])
+                A.log(f"  ✓ Berhasil mengekspor format SISPRO-TEWS ke: {dest}")
+
     A.log(f"\nSELESAI. File: selected_stations.csv/json, pipeline_config.json, expand_steps.json di {A.OUT}")
     sys.exit(0 if reached else 2)
 
