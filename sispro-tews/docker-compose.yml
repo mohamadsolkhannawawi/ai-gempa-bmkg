@@ -48,14 +48,7 @@ services:
       context: ./controller_module
     env_file:
       - ./.env
-    # Override seed credentials from wrapper environment with safe defaults
     environment:
-      - INITIAL_ADMIN_USERNAME=${INITIAL_ADMIN_USERNAME:-admin}
-      - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD:-Bmkg2026}
-      - INITIAL_ADMIN_EMAIL=${INITIAL_ADMIN_EMAIL:-admin@bmkg.go.id}
-      - INITIAL_ADMIN_FULLNAME=${INITIAL_ADMIN_FULLNAME:-Administrator BMKG}
-      - INITIAL_ADMIN_REGION=${INITIAL_ADMIN_REGION:-Indonesia}
-      - FORCE_SEED_ADMIN=${FORCE_SEED_ADMIN:-true}
       - MONGO_HOST=${MONGO_HOST:-mongodb}
       - MONGO_PORT=${MONGO_PORT:-27017}
       - MONGO_DB_NAME=${MONGO_DB_NAME:-sispro-tews}

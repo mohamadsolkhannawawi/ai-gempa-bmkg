@@ -10,13 +10,13 @@ import time
 from passlib.hash import pbkdf2_sha256
 from dotenv import load_dotenv
 
-# Load from multiple potential locations (.env, /app/.env, ../.env)
+# Load from multiple potential locations (.env, /app/.env, ../.env, /app/sispro-tews/.env)
 for _env_candidate in [".env", "/app/.env", "../.env", "/app/sispro-tews/.env"]:
     if os.path.isfile(_env_candidate):
-        load_dotenv(_env_candidate)
+        load_dotenv(_env_candidate, override=True)
         break
 else:
-    load_dotenv()
+    load_dotenv(override=True)
 
 # MongoDB connection from env
 MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
@@ -25,35 +25,40 @@ DB_NAME = os.getenv("MONGO_DB_NAME", "sispro-tews")
 MAX_RETRIES = int(os.getenv("MONGO_CONNECT_RETRIES", 10))
 RETRY_DELAY = int(os.getenv("MONGO_CONNECT_RETRY_DELAY", 3))
 
-def get_env_clean(key: str, default: str = None) -> str:
-    """Read env var and strip accidental surrounding quotes; fallback to default if None or empty"""
+def get_env_clean(key: str) -> str:
+    """Read env var and strip accidental surrounding quotes without hardcoding credentials"""
     val = os.getenv(key)
-    if not val or not val.strip():
-        val = default
     if val is not None:
         val = val.strip('"\'')
+        if not val:
+            val = None
     return val
 
-# Admin credentials from env (with safe fallback defaults matching .env)
-ADMIN_USERNAME = get_env_clean("INITIAL_ADMIN_USERNAME", "admin")
-ADMIN_PASSWORD = get_env_clean("INITIAL_ADMIN_PASSWORD", "Bmkg2026")
-ADMIN_EMAIL = get_env_clean("INITIAL_ADMIN_EMAIL", "admin@bmkg.go.id")
-ADMIN_FULLNAME = get_env_clean("INITIAL_ADMIN_FULLNAME", "Administrator BMKG")
-ADMIN_REGION = get_env_clean("INITIAL_ADMIN_REGION", "Indonesia")
+# Admin credentials loaded strictly from environment variables (.env), never hardcoded
+ADMIN_USERNAME = get_env_clean("INITIAL_ADMIN_USERNAME")
+ADMIN_PASSWORD = get_env_clean("INITIAL_ADMIN_PASSWORD")
+ADMIN_EMAIL = get_env_clean("INITIAL_ADMIN_EMAIL")
+ADMIN_FULLNAME = get_env_clean("INITIAL_ADMIN_FULLNAME")
+ADMIN_REGION = get_env_clean("INITIAL_ADMIN_REGION")
 
 def validate_env_vars():
     """Validate required environment variables strictly from env"""
-    global ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_EMAIL, ADMIN_FULLNAME, ADMIN_REGION
+    missing = []
     if not ADMIN_USERNAME:
-        ADMIN_USERNAME = "admin"
+        missing.append("INITIAL_ADMIN_USERNAME")
     if not ADMIN_PASSWORD:
-        ADMIN_PASSWORD = "Bmkg2026"
+        missing.append("INITIAL_ADMIN_PASSWORD")
     if not ADMIN_EMAIL:
-        ADMIN_EMAIL = "admin@bmkg.go.id"
+        missing.append("INITIAL_ADMIN_EMAIL")
     if not ADMIN_FULLNAME:
-        ADMIN_FULLNAME = "Administrator BMKG"
+        missing.append("INITIAL_ADMIN_FULLNAME")
     if not ADMIN_REGION:
-        ADMIN_REGION = "Indonesia"
+        missing.append("INITIAL_ADMIN_REGION")
+
+    if missing:
+        print(f"✗ ERROR: Missing required environment variable(s): {', '.join(missing)}", file=sys.stderr)
+        print("  Please define them in your .env or container environment.", file=sys.stderr)
+        sys.exit(1)
 
     if len(ADMIN_PASSWORD) < 8:
         print("✗ ERROR: INITIAL_ADMIN_PASSWORD must be at least 8 characters", file=sys.stderr)
@@ -95,7 +100,7 @@ def seed_admin():
         hashed_password = pbkdf2_sha256.hash(ADMIN_PASSWORD)
         
         # Check if admin already exists
-        FORCE_RESET = os.getenv("FORCE_SEED_ADMIN", "true").lower() == "true"
+        FORCE_RESET = os.getenv("FORCE_SEED_ADMIN", "false").lower() == "true"
         existing = user_collection.find_one({"username": ADMIN_USERNAME})
         if existing:
             if FORCE_RESET:
