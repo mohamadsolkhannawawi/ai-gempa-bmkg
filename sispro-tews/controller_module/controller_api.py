@@ -26,6 +26,7 @@ import routes.config_routes
 import routes.origin_routes
 import routes.wadati_routes
 import routes.arrival_katalog_routes
+import routes.pipeline_routes
 
 import uvicorn
 import datetime
@@ -64,6 +65,7 @@ app.include_router(routes.config_routes.router)
 app.include_router(routes.origin_routes.router)
 app.include_router(routes.wadati_routes.router)
 app.include_router(routes.arrival_katalog_routes.router)
+app.include_router(routes.pipeline_routes.router)
 
 SECRET_KEY = "3e8a3f31aab886f8793176988f8298c9265f84b8388c9fef93635b08951f379b"
 ALGORITHM = "HS256"

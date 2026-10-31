@@ -8,5 +8,10 @@ export const CONFIG_MENU = [
     label: 'Station',
     routeName: 'config-station',
     url: '/config/station'
+  },
+  {
+    label: 'AI Pipeline',
+    routeName: 'config-pipeline',
+    url: '/config/pipeline'
   }
 ]

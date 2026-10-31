@@ -1,5 +1,6 @@
 import { OLMap } from '@src/components/ol-map'
 import { ConfigStationViewPage } from '@src/domain/config-view/station-view-page'
+import { PipelineViewPage } from '@src/domain/config-view/pipeline-view-page'
 import { UserViewPage } from '@src/domain/config-view/user-view-page'
 import { EQViewPage } from '@src/domain/eq-view/eq-view-page'
 import { OriginLocatorViewPage } from '@src/domain/origin-locator-view/origin-locator-view-page'
@@ -21,6 +22,7 @@ const routes = [
   { path: '/config', component: UserViewPage },
   { path: '/config/user', name: 'config-user', component: UserViewPage },
   { path: '/config/station', name: 'config-station', component: ConfigStationViewPage },
+  { path: '/config/pipeline', name: 'config-pipeline', component: PipelineViewPage },
   { path: '/ol-map', name: 'ol-map', component: OLMap }
 ]
 
