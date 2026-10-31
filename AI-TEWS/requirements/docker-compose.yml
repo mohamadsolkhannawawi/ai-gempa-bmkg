@@ -5,7 +5,7 @@ services:
   zookeeper:
     image: zookeeper:3.6.0
     ports:
-      - 2181:2181
+      - 127.0.0.1:2181:2181
     deploy:
       resources:
           limits:
@@ -41,7 +41,7 @@ services:
   redis:
     image: redis:7.2.5-alpine
     ports:
-      - ${redis_port}:6379
+      - 127.0.0.1:${redis_port}:6379
     command: redis-server --save "" --appendonly no --maxmemory 512mb --maxmemory-policy allkeys-lru --protected-mode no
     deploy:
       resources:
@@ -54,7 +54,7 @@ services:
   mongodb:
     image: mongo:4.4
     ports:
-      - ${database_port}:27017
+      - 127.0.0.1:${database_port}:27017
     volumes:
       - ${database_data_path}:/data/db/
     deploy:
