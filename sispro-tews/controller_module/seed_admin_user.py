@@ -11,12 +11,10 @@ from passlib.hash import pbkdf2_sha256
 from dotenv import load_dotenv
 
 # Load from multiple potential locations (.env, /app/.env, ../.env, /app/sispro-tews/.env)
-for _env_candidate in [".env", "/app/.env", "../.env", "/app/sispro-tews/.env"]:
+for _env_candidate in [".env", "/app/.env", "../.env", "/app/sispro-tews/.env", "sispro-tews/.env", "/app/controller_module/.env"]:
     if os.path.isfile(_env_candidate):
         load_dotenv(_env_candidate, override=False)
-        break
-else:
-    load_dotenv(override=False)
+load_dotenv(override=False)
 
 # MongoDB connection from env
 MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
@@ -103,19 +101,29 @@ def seed_admin():
         FORCE_RESET = os.getenv("FORCE_SEED_ADMIN", "false").lower() == "true"
         existing = user_collection.find_one({"username": ADMIN_USERNAME})
         if existing:
-            if FORCE_RESET:
-                result = user_collection.update_one(
+            current_hash = existing.get("password", "")
+            password_matches = False
+            try:
+                password_matches = pbkdf2_sha256.verify(ADMIN_PASSWORD, current_hash)
+            except Exception:
+                password_matches = False
+
+            if not password_matches or FORCE_RESET:
+                user_collection.update_one(
                     {"username": ADMIN_USERNAME},
                     {"$set": {
                         "password": hashed_password,
+                        "email": ADMIN_EMAIL,
+                        "full_name": ADMIN_FULLNAME,
+                        "region": ADMIN_REGION,
                         "role": "superadmin",
                         "is_active": True
                     }}
                 )
-                print(f"[SEED] ✓ User '{ADMIN_USERNAME}' credentials verified/updated via seed.")
-                print(f"[SEED]   Password length: {len(ADMIN_PASSWORD)} characters (confirmed)")
+                print(f"[SEED] ✓ User '{ADMIN_USERNAME}' credentials synchronized automatically with current .env.")
+                print(f"[SEED]   Password length: {len(ADMIN_PASSWORD)} characters (confirmed active)")
             else:
-                print(f"[SEED] ✓ User '{ADMIN_USERNAME}' already exists in database. Preserving existing password.")
+                print(f"[SEED] ✓ User '{ADMIN_USERNAME}' already exists and credentials match current .env.")
             client.close()
             return True
         
