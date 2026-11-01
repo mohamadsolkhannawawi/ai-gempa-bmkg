@@ -1,11 +1,16 @@
-# Environment files with credentials
+# Environment files with credentials (recursive across all subdirectories)
+**/.env
+**/.env.*
+**/.env copy
+**/.envs/*.env
+!**/.env.example
+!**/.env.*.example
 .env
 .env.local
 .env.*.local
 .env.seed
 .env.prod
 .env.production
-.envs/*.env
 
 # Docker
 docker-compose.override.yml
