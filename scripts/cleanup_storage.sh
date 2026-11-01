@@ -229,7 +229,7 @@ log "INFO" "Total expired application log files processed: $TOTAL_EXPIRED_LOGS."
 # -----------------------------------------------------------------------------
 log "INFO" "[STEP 3/5] Inspecting Docker container JSON logs..."
 
-if [ -d "/var/lib/docker/containers" ]; then
+if [ -w "/var/lib/docker/containers" ]; then
   OVERSIZED_CONTAINER_LOGS=0
   while IFS= read -r json_log; do
     if [ -f "$json_log" ]; then
@@ -245,30 +245,56 @@ if [ -d "/var/lib/docker/containers" ]; then
       fi
     fi
   done < <(find /var/lib/docker/containers/ -name "*-json.log" 2>/dev/null)
-  log "INFO" "Container logs checked. Truncated $OVERSIZED_CONTAINER_LOGS oversized file(s)."
+  log "INFO" "Container logs checked directly. Truncated $OVERSIZED_CONTAINER_LOGS oversized file(s)."
+elif command -v docker >/dev/null 2>&1; then
+  log "INFO" "Non-root execution detected: Running Docker root helper to inspect & truncate container logs > ${MAX_LOG_SIZE_MB}MB..."
+  if [ "$DRY_RUN" = true ]; then
+    TRUNC_OUTPUT=$(docker run --rm --privileged -v /var/lib/docker/containers:/containers mongo:4.4 bash -c "
+      find /containers/ -name '*-json.log' -size +${MAX_LOG_SIZE_MB}M -exec ls -lh {} + 2>/dev/null
+    " 2>/dev/null || true)
+    log "INFO" "[DRY-RUN] Would truncate container logs: $TRUNC_OUTPUT"
+  else
+    TRUNC_OUTPUT=$(docker run --rm --privileged -v /var/lib/docker/containers:/containers mongo:4.4 bash -c "
+      COUNT=0
+      for f in \$(find /containers/ -name '*-json.log' -size +${MAX_LOG_SIZE_MB}M 2>/dev/null); do
+        truncate -s 0 \"\$f\"
+        COUNT=\$((COUNT + 1))
+      done
+      echo \"Truncated \$COUNT oversized container log file(s).\"
+    " 2>/dev/null || true)
+    log "INFO" "Docker helper result: $TRUNC_OUTPUT"
+  fi
 else
-  log "INFO" "/var/lib/docker/containers not directly accessible or non-root execution. Skipping host container log truncation."
+  log "INFO" "/var/lib/docker/containers not directly accessible and docker not available. Skipping container log truncation."
 fi
 
 # -----------------------------------------------------------------------------
-# Step 4: Docker System Pruning (Dangling Images, Build Cache, Stopped Containers)
+# Step 4: Docker System & Volume Pruning
 # -----------------------------------------------------------------------------
-log "INFO" "[STEP 4/5] Running Docker system prune..."
+log "INFO" "[STEP 4/5] Running Docker system and volume prune..."
 
 if [ "$ENABLE_DOCKER_PRUNE" = true ] && command -v docker >/dev/null 2>&1; then
   if [ "$DRY_RUN" = true ]; then
-    log "INFO" "[DRY-RUN] Would run 'docker system prune -f --filter until=$DOCKER_PRUNE_UNTIL'"
+    log "INFO" "[DRY-RUN] Would run 'docker system prune -f --filter until=$DOCKER_PRUNE_UNTIL' and 'docker volume prune -f'"
   else
     log "INFO" "Pruning host Docker dangling images, build cache, and stopped containers older than $DOCKER_PRUNE_UNTIL..."
     docker system prune -f --filter "until=$DOCKER_PRUNE_UNTIL" 2>&1 | while read -r line; do
       if [ -n "$line" ]; then log "INFO" "  [docker-prune] $line"; fi
     done || true
 
+    log "INFO" "Pruning host Docker unused/dangling volumes..."
+    docker volume prune -f 2>&1 | while read -r line; do
+      if [ -n "$line" ]; then log "INFO" "  [docker-volume-prune] $line"; fi
+    done || true
+
     # Also trigger prune inside DinD wrapper if container is running
     if docker ps --format '{{.Names}}' | grep -q "^gempa-dind-wrapper$"; then
-      log "INFO" "Pruning inner DinD wrapper Docker system..."
+      log "INFO" "Pruning inner DinD wrapper Docker system & volumes..."
       docker exec gempa-dind-wrapper docker system prune -f --filter "until=$DOCKER_PRUNE_UNTIL" 2>/dev/null | while read -r line; do
         if [ -n "$line" ]; then log "INFO" "  [dind-prune] $line"; fi
+      done || true
+      docker exec gempa-dind-wrapper docker volume prune -f 2>/dev/null | while read -r line; do
+        if [ -n "$line" ]; then log "INFO" "  [dind-volume-prune] $line"; fi
       done || true
     fi
   fi

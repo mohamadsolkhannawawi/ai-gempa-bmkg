@@ -26,6 +26,11 @@ services:
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
     networks:
       - sispro-tews_req
 
@@ -39,6 +44,11 @@ services:
       - ${nginx_port}:80
     depends_on:
       - p-pick_service
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
     networks:
       - sispro-tews_req
     
@@ -59,6 +69,11 @@ services:
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
     networks:
       - sispro-tews_req
     
@@ -75,6 +90,11 @@ services:
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
     networks:
       - sispro-tews_req
     
@@ -91,6 +111,11 @@ services:
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
     networks:
       - sispro-tews_req
     
@@ -107,6 +132,11 @@ services:
       - apparmor=unconfined
     ulimits:
       nproc: 65535
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
     networks:
       - sispro-tews_req
 
