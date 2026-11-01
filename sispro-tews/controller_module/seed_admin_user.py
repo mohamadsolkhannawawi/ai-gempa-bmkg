@@ -10,16 +10,29 @@ import time
 from passlib.hash import pbkdf2_sha256
 from dotenv import load_dotenv
 
-# Load from multiple potential locations (.env, /app/.env, ../.env, /app/sispro-tews/.env)
-for _env_candidate in [".env", "/app/.env", "../.env", "/app/sispro-tews/.env", "sispro-tews/.env", "/app/controller_module/.env"]:
+# Load from multiple potential locations (.env, .env.seed, /app/.env, etc.)
+for _env_candidate in [
+    ".env",
+    ".env.seed",
+    "/app/.env",
+    "/app/.env.seed",
+    "../.env",
+    "../.env.seed",
+    "../../.env",
+    "../../.env.seed",
+    "/app/sispro-tews/.env",
+    "sispro-tews/.env",
+    "/app/controller_module/.env",
+    "controller_module/.env",
+]:
     if os.path.isfile(_env_candidate):
         load_dotenv(_env_candidate, override=False)
 load_dotenv(override=False)
 
-# MongoDB connection from env
-MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
-MONGO_PORT = int(os.getenv("MONGO_PORT", 27017))
-DB_NAME = os.getenv("MONGO_DB_NAME", "sispro-tews")
+# MongoDB connection from env (supports both MONGO_* and database_* conventions)
+MONGO_HOST = os.getenv("MONGO_HOST") or os.getenv("database_host") or "mongodb"
+MONGO_PORT = int(os.getenv("MONGO_PORT") or os.getenv("database_port") or 27017)
+DB_NAME = os.getenv("MONGO_DB_NAME") or os.getenv("database_name") or "sispro-tews"
 MAX_RETRIES = int(os.getenv("MONGO_CONNECT_RETRIES", 10))
 RETRY_DELAY = int(os.getenv("MONGO_CONNECT_RETRY_DELAY", 3))
 
